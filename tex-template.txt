@@ -1,0 +1,22 @@
+%Dependencies%
+\documentclass[12pt, letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\DeclareMathOperator\cis{cis}
+
+%Setup$
+\title{LADR 2A Exercises}
+\author{Lucas Zheng}
+\date{}
+\pagestyle{fancy}
+\fancypagestyle{plain}{}
+\fancyhf{} 
+\rfoot{Page \thepage}
+\begin{document}
+\maketitle
+
+%Content%
+
+
+\end{document}

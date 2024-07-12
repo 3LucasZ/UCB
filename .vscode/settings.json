@@ -1,0 +1,11 @@
+{
+    "latex-workshop.latex.outDir": "%DIR%",
+    "files.exclude": {
+        "**/*.aux": true,
+        "**/*.log": true,
+        "**/*.gz": true,
+        "**/*.fls": true,
+        "**/*.toc":true,
+        "**/*.fdb_latexmk": true,
+    }
+}

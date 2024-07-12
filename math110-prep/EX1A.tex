@@ -1,0 +1,94 @@
+%Dependencies%
+\documentclass[12pt, letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\DeclareMathOperator\cis{cis}
+
+%Setup$
+\title{LADR 1A Exercises}
+\author{Lucas Zheng}
+\date{}
+\pagestyle{fancy}
+\fancypagestyle{plain}{}
+\fancyhf{} 
+\rfoot{Page \thepage}
+\begin{document}
+\maketitle
+
+%Content%
+\textbf{1Q.} 
+Suppose $a$ and $b$ are real numbers, not both 0. Find real numbers $c$ and
+$d$ such that
+$${\frac{1}{a+bi}}=c+di.$$
+
+\textbf{1A.} 
+Multiply the numerator and denominator of the fraction by the conjugate of the denominator
+$$\frac{1}{a+bi} = \frac{a-bi}{a^2+b^2}.$$
+Expand the fraction
+$$\frac{a-bi}{a^2+b^2} = \frac{a}{a^2+b^2} - \frac{b}{a^2+b^2}i.$$
+We see a form arise similar to that of ${c+di}$. Let
+$$c = \frac{a-bi}{a^2+b^2}$$
+$$d = -\frac{b}{a^2+b^2}$$
+and we're done.
+
+\textbf{2Q.} 
+Show that
+$$\frac{-1+\sqrt{3}i}{2}$$
+is a cube root of 1 (meaning that its cube equals 1).
+
+\textbf{2A.} 
+Use euler form to represent the expression as
+$$\cis(\frac{2}{3}\pi).$$
+Apply DeMoivre's theorem to cube the expression
+$$\cis(\frac{2}{3}\pi)^3 = \cis(3\cdot\frac{2}{3}\pi) = \cos(\pi) + \sin(\pi)i = 1.$$
+Hence, it is indeed a cube root of 1.
+
+\textbf{3Q.} 
+Find two distinct square roots of $i$.
+
+\textbf{3A.} 
+Suppose there exists $a,b\in\mathbb{R}$ where $(a+bi)^2 = i$. Expand the expression into
+$$(a^2-b^2)+(2ab)i = i.$$
+We split this into 2 equalities
+$$a^2-b^2=0$$
+$$2ab = 1.$$
+There are 2 cases that satisfy the first equation: $a = b$ and $a = -b$.
+\\Case 1: $a=b$
+\\Then
+$$2a^2 = 1$$
+$$a = \pm\sqrt{\frac{1}{2}}.$$
+We yield 2 solutions in this case.
+\\Case 2: $a=-b$
+\\Then
+$$-2a^2 = 1$$
+$$a = \pm\sqrt{-\frac{1}{2}}.$$
+We yield 0 solutions in this case, since the condition we set in the beginning is that $a\in\mathbb{R}$.
+Hence, there are 2 and only 2 distinct roots of i
+$$\pm\sqrt{\frac{1}{2}}(1+i).$$
+
+\textbf{4Q.}
+Show that $\alpha + \beta = \beta + \alpha$ for all $\alpha,\beta\in\mathbb{C}$.
+
+\textbf{4A.}
+Let $\alpha = a + bi$ and $\beta = c + di$ for $a,b,c,d\in\mathbb{R}$. Then
+$$\alpha + \beta = a + bi + c + di = c + di + a + bi = \beta + \alpha.$$
+
+\textbf{5Q.} Show that $(\alpha+\beta)+\gamma=\alpha+(\beta+\gamma)$ for all $\alpha,\beta,\gamma\in\mathbb{C}$.
+
+\textbf{5A.} Trivial.
+
+\textbf{6Q.} Show that $(\alpha\beta)\gamma=\alpha(\beta\gamma)$ for all $\alpha,\beta,\gamma\in\mathbb{C}$.
+
+\textbf{6A.} Trivial.
+
+\textbf{7Q.} Show that for every $\alpha\in\mathbb{C}$, there exists a unique $\beta\in\mathbb{C}$ such that $\alpha+\beta$ = 0.
+
+\textbf{7A.} Let $\alpha=a_1+a_2i$ for some $a_1,a_2\in\mathbb{R}$ and let $\beta = -a_1-a_2i$. Then
+$$\alpha+\beta=(a_1-a_1)+(b_1-b_1)i=0,$$
+proving existence. 
+\\Let $\gamma\in\mathbb{C}$ where $\alpha+\gamma=0$. Then
+$$\gamma = \gamma + (\alpha + \beta) = (\gamma + \alpha) +\beta = 0 + \beta = \beta,$$
+proving uniqueness.
+
+\end{document}
