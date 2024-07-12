@@ -9,8 +9,8 @@
 \DeclareMathOperator\cis{cis}
 \DeclareMathOperator{\Span}{span}
 \newcommand{\Z}{\mathbb{Z}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\R}
+\newcommand{\C}{\C}
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\bigO}{\mathcal{O}}
 \newcommand{\Real}{\mathcal{Re}}
@@ -31,4 +31,22 @@
   }%
   {} 
 \newenvironment{problem}[1]{\begin{prob*}{#1}{}}{\end{prob*}}
+\newtcbtheorem{imp}% environment name
+              {}% Title text
+  {enhanced, % tcolorbox styles
+  attach boxed title to top left={xshift = 4mm, yshift=-2mm},
+  colback=blue!5, colframe=black, colbacktitle=blue!3, coltitle=black,
+  boxed title style={size=small,colframe=gray},
+  fonttitle=\bfseries,
+  separator sign none
+  }%
+  {} 
+\newenvironment{important}[1]{\begin{imp*}{#1}{}}{\end{imp*}}
 
+%Header%
+\author{Lucas Zheng}
+\date{}
+\pagestyle{fancy}
+\fancypagestyle{plain}{}
+\fancyhf{} 
+\rfoot{\thepage}

@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1720824407.60491 "/Users/lucaszheng/Documents/GitHub/UCB/math110-prep/LADR1.tex" "LADR1.pdf" "LADR1" 1720824408.63074 0
-  "/Users/lucaszheng/Documents/GitHub/UCB/math110-prep/LADR1.tex" 1720824407.39683 3041 db9a049a783c4988f54b9775b42c2f8d ""
+["pdflatex"] 1720825491.26252 "/Users/lucaszheng/Documents/GitHub/UCB/math110-prep/LADR1.tex" "LADR1.pdf" "LADR1" 1720825492.31009 0
+  "/Users/lucaszheng/Documents/GitHub/UCB/math110-prep/LADR1.tex" 1720825491.03979 3764 29b86a765d647a357da849c89b57a5de ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -24,6 +24,7 @@
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1248133631 32080 340ef9bf63678554ee606688e7b5339d ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1248133631 30251 6afa5cb1d0204815a708a080681d4674 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1248133631 36741 fa121aac0049305630cf160b86157ee4 ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1248133631 35469 70d41d2b9ea31d5d813066df7c99281c ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1248133631 32722 d7379af29a190c3f453aba36302ff5a9 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb" 1248133631 32362 179c33bbf43f19adbb3825bb4e36e57a ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1248133631 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
@@ -139,9 +140,9 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1712292984.40819 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1712292925 8221420 930a5dce2cc89e483f8170ca0ac6ffb0 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "LADR1.aux" 1720824408.561 32 ab05033ccbb38b00a31b200ccedf8001 "pdflatex"
-  "LADR1.tex" 1720824407.39683 3041 db9a049a783c4988f54b9775b42c2f8d ""
-  "math110-prep.sty" 1720824402.50837 932 6a912e013f3d5b505874242ca4afd83d ""
+  "LADR1.aux" 1720825492.23833 32 c81c40425fbb5e93b90fba65da0b5e61 "pdflatex"
+  "LADR1.tex" 1720825491.03979 3764 29b86a765d647a357da849c89b57a5de ""
+  "math110-prep.sty" 1720825460.91067 1438 1a31fcb48d822170aefc88d80f47eea2 ""
   (generated)
   "LADR1.aux"
   "LADR1.log"
