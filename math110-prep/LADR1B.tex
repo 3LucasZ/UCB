@@ -1,13 +1,44 @@
-\documentclass[12 pt]{article} %sets the font to 12 pt and says this is an article (as opposed to book or other documents)
-\usepackage{amssymb, amsmath}
-\pagestyle{myheadings} % tells LaTeX to allow you to enter information in the heading
-\markright{Lucas Zheng \hfill \today \hfill} 
-\newcommand{\eqn}[0]{\begin{array}{rcl}}%begin an aligned equation - allows for aligning = or inequalities.  Always use with $$ $$
-\newcommand{\eqnend}[0]{\end{array} }  	%end the aligned equation
-\newcommand{\qed}[0]{$\square$}        	% make an unfilled square the default for ending a proof
+%Setup%
+\documentclass[12pt, letterpaper]{article}
+\usepackage{math110-prep}
+\title{LADR 1B}
+\begin{document}
+\maketitle
 
-\begin{document}												% end of preamble and beginning of text that will be printed
-        																% makes the word Proposition and the proposition number bold face  
+%Content%
+\section*{Definition of Vector Space}
+\begin{imp}{1.18 Definition of addition, scalar multiplication on V}
+\ldots
+\end{imp}
+
+\begin{imp}{1.19 Definition of a vector space}
+A vector space is a set V along with an addition on V and a scalar multiplication on V such that:
+commutativity, associativity, additive inverse, multiplicative identity, distributive properties
+all hold.
+\end{imp}
+    
+\begin{imp}{1.20 Definition of vector, point}
+Vectors or points refer to elements of a vector space.
+\end{imp}
+    
+Scalar multiplication in $V$ depends on $\mathbb{F}$. When we need to be precise, we
+say that $V$ is a vector space over $\mathbb{F}$. Usually it is obvious from context
+or irrelevant though.
+    
+\begin{imp}{1.21 Definition of real, complex vector spaces}
+\ldots
+\end{imp}
+    
+\begin{imp}{1.23 Notation $\mathbb{F}^S$}
+\begin{itemize}
+    \item $\mathbb{F}^S$ is the set of functions from set $S$ to $\mathbb{F}$.
+    \item For $f,g,f+g\in\mathbb{F}^S$,
+    $$(f+g)(x) = f(x) + g(x)$$
+    \item For $\lambda\in\mathbb{F}$ and $f,\lambda f\in\mathbb{F}^S$,
+    $$(\lambda f)(x)=\lambda f(x)$$
+\end{itemize}
+\end{imp}
+
 \textbf{Q1.}							% the Proposition number from the book (this one is fictitious)
 Prove that $-(-v)=v$ for every $v\in V$																				% the Proof starts with a new paragraph
 
@@ -57,5 +88,6 @@ $$(\infty+(-\infty))+3=0+3=3$$
 $$\infty+((-\infty)+3)=\infty+(-\infty)=0$$
 Since these 2 expressions are not equal to each other, we have shown that the rule of associativity
 is broken in the set given. Therefore, it is not a vector space over $\R$. $\square$
+
 
 \end{document}

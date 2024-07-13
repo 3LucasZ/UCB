@@ -32,6 +32,18 @@
   {} 
 \newenvironment{problem}[1]{\begin{prob*}{#1}{}}{\end{prob*}}
 
+\newtcbtheorem{impz}% environment name
+              {}% Title text
+  {enhanced, % tcolorbox styles
+  attach boxed title to top left={xshift = 4mm, yshift=-2mm},
+  colback=red!5, colframe=black, colbacktitle=red!3, coltitle=black,
+  boxed title style={size=small,colframe=gray},
+  fonttitle=\bfseries,
+  separator sign none
+  }%
+  {} 
+\newenvironment{imp}[1]{\begin{impz*}{#1}{}}{\end{impz*}}
+
 %Heading%
 \author{Lucas Zheng}
 \date{}
