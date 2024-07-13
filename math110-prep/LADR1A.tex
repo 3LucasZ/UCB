@@ -1,31 +1,20 @@
-%Dependencies%
+%Setup%
 \documentclass[12pt, letterpaper]{article}
-
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{fancyhdr}
-\DeclareMathOperator\cis{cis}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
-
-%Setup$
-\title{LADR 1A Exercises}
-\author{Lucas Zheng}
-\date{}
-\pagestyle{fancy}
-\fancypagestyle{plain}{}
-\fancyhf{} 
-\rfoot{Page \thepage}
+\usepackage{math110-prep}
+\title{LADR 1A}
 \begin{document}
 \maketitle
 
 %Content%
-\textbf{1Q.} 
+\section*{1.A: $\R^n$ and $\C^n$}
+
+\begin{problem}{1}
 Suppose $a$ and $b$ are real numbers, not both 0. Find real numbers $c$ and
 $d$ such that
 $${\frac{1}{a+bi}}=c+di.$$
+\end{problem}
 
-\textbf{1A.} 
+\begin{proof}
 Multiply the numerator and denominator of the fraction by the conjugate of the denominator
 $$\frac{1}{a+bi} = \frac{a-bi}{a^2+b^2}.$$
 Expand the fraction
@@ -34,6 +23,7 @@ We see a form arise similar to that of ${c+di}$. Let
 $$c = \frac{a-bi}{a^2+b^2}$$
 $$d = -\frac{b}{a^2+b^2}$$
 and we're done.
+\end{proof}
 
 \textbf{2Q.} 
 Show that
