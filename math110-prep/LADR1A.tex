@@ -25,22 +25,25 @@ $$d = -\frac{b}{a^2+b^2}$$
 and we're done.
 \end{proof}
 
-\textbf{2Q.} 
+\begin{problem}{2}
 Show that
 $$\frac{-1+\sqrt{3}i}{2}$$
 is a cube root of 1 (meaning that its cube equals 1).
+\end{problem}
 
-\textbf{2A.} 
+\begin{proof}
 Use euler form to represent the expression as
 $$\cis(\frac{2}{3}\pi).$$
 Apply DeMoivre's theorem to cube the expression
 $$\cis(\frac{2}{3}\pi)^3 = \cis(3\cdot\frac{2}{3}\pi) = \cos(\pi) + \sin(\pi)i = 1.$$
 Hence, it is indeed a cube root of 1.
+\end{proof}
 
-\textbf{3Q.} 
+\begin{problem}{3}
 Find two distinct square roots of $i$.
+\end{problem}
 
-\textbf{3A.} 
+\begin{proof}
 Suppose there exists $a,b\in\R$ where $(a+bi)^2 = i$. Expand the expression into
 $$(a^2-b^2)+(2ab)i = i.$$
 We split this into 2 equalities
@@ -59,29 +62,44 @@ $$a = \pm\sqrt{-\frac{1}{2}}.$$
 We yield 0 solutions in this case, since the condition we set in the beginning is that $a\in\R$.
 Hence, there are 2 and only 2 distinct roots of i
 $$\pm\sqrt{\frac{1}{2}}(1+i).$$
+\end{proof}
 
-\textbf{4Q.}
+\begin{problem}{4}
 Show that $\alpha + \beta = \beta + \alpha$ for all $\alpha,\beta\in\C$.
+\end{problem}
 
-\textbf{4A.}
+\begin{proof}
 Let $\alpha = a + bi$ and $\beta = c + di$ for $a,b,c,d\in\R$. Then
 $$\alpha + \beta = a + bi + c + di = c + di + a + bi = \beta + \alpha.$$
+\end{proof}
 
-\textbf{5Q.} Show that $(\alpha+\beta)+\gamma=\alpha+(\beta+\gamma)$ for all $\alpha,\beta,\gamma\in\C$.
+\begin{problem}{5}
+Show that $(\alpha+\beta)+\gamma=\alpha+(\beta+\gamma)$ for all $\alpha,\beta,\gamma\in\C$.
+\end{problem}{5}
 
-\textbf{5A.} Trivial.
+\begin{proof}
+Trivial.
+\end{proof}
 
-\textbf{6Q.} Show that $(\alpha\beta)\gamma=\alpha(\beta\gamma)$ for all $\alpha,\beta,\gamma\in\C$.
+\begin{problem}{6}
+Show that $(\alpha\beta)\gamma=\alpha(\beta\gamma)$ for all $\alpha,\beta,\gamma\in\C$.
+\end{problem}
 
-\textbf{6A.} Trivial.
+\begin{proof}
+Trivial.
+\end{proof}
 
-\textbf{7Q.} Show that for every $\alpha\in\C$, there exists a unique $\beta\in\C$ such that $\alpha+\beta$ = 0.
+\begin{problem}{7}
+Show that for every $\alpha\in\C$, there exists a unique $\beta\in\C$ such that $\alpha+\beta$ = 0.
+\end{problem}
 
-\textbf{7A.} Let $\alpha=a_1+a_2i$ for some $a_1,a_2\in\R$ and let $\beta = -a_1-a_2i$. Then
+\begin{proof}
+Let $\alpha=a_1+a_2i$ for some $a_1,a_2\in\R$ and let $\beta = -a_1-a_2i$. Then
 $$\alpha+\beta=(a_1-a_1)+(b_1-b_1)i=0,$$
 proving existence. 
 \\Let $\gamma\in\C$ where $\alpha+\gamma=0$. Then
 $$\gamma = \gamma + (\alpha + \beta) = (\gamma + \alpha) +\beta = 0 + \beta = \beta,$$
 proving uniqueness.
+\end{proof}
 
 \end{document}

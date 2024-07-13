@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1720838686.42634 "/Users/lucaszheng/Documents/GitHub/UCB/math110-prep/LADR1A.tex" "LADR1A.pdf" "LADR1A" 1720838687.25876 0
-  "/Users/lucaszheng/Documents/GitHub/UCB/math110-prep/LADR1A.tex" 1720838686.21203 2651 5d77fae0d4b8504043afee9decb908ee ""
+["pdflatex"] 1720838978.33155 "/Users/lucaszheng/Documents/GitHub/UCB/math110-prep/LADR1A.tex" "LADR1A.pdf" "LADR1A" 1720838979.35284 0
+  "/Users/lucaszheng/Documents/GitHub/UCB/math110-prep/LADR1A.tex" 1720838978.12417 2848 15cb7b720ff881a1aad99f7806723456 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -139,8 +139,8 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1712292984.40819 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1712292925 8221420 930a5dce2cc89e483f8170ca0ac6ffb0 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "LADR1A.aux" 1720838687.19158 32 ab05033ccbb38b00a31b200ccedf8001 "pdflatex"
-  "LADR1A.tex" 1720838686.21203 2651 5d77fae0d4b8504043afee9decb908ee ""
+  "LADR1A.aux" 1720838979.28475 32 ab05033ccbb38b00a31b200ccedf8001 "pdflatex"
+  "LADR1A.tex" 1720838978.12417 2848 15cb7b720ff881a1aad99f7806723456 ""
   "math110-prep.sty" 1720838477.67787 1046 166a3c8302b8fe397a4cb79b29d3c926 ""
   (generated)
   "LADR1A.aux"
