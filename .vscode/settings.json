@@ -1,5 +1,5 @@
 {
-  "latex-workshop.latex.outDir": "%DIR%/build"
+  "latex-workshop.latex.outDir": "%DIR%"
   // "files.exclude": {
   //   "**/*.aux": true,
   //   "**/*.log": true,
