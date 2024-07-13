@@ -31,7 +31,10 @@ or irrelevant though.
     
 \begin{imp}{1.23 Notation $\mathbb{F}^S$}
 \begin{itemize}
-    \item $\mathbb{F}^S$ is the set of functions from set $S$ to $\mathbb{F}$.
+    \item $\mathbb{F}^S$ is the set of functions w/ domain set $S$ and range set $\mathbb{F}$.
+    \item (Fake explanation) Such a function has $|S|$ possible inputs and $|F|$ possible outputs.
+    There are then $|F|^{|S|}$ functions that obey this rule which motivates the notation.
+    \item \href{https://math.stackexchange.com/questions/4358397/why-fs-represents-set-of-functions-from-s-to-f}{More info here}
     \item For $f,g,f+g\in\mathbb{F}^S$,
     $$(f+g)(x) = f(x) + g(x)$$
     \item For $\lambda\in\mathbb{F}$ and $f,\lambda f\in\mathbb{F}^S$,
@@ -39,31 +42,36 @@ or irrelevant though.
 \end{itemize}
 \end{imp}
 
-\textbf{Q1.}							% the Proposition number from the book (this one is fictitious)
+\begin{problem}{1}						% the Proposition number from the book (this one is fictitious)
 Prove that $-(-v)=v$ for every $v\in V$																				% the Proof starts with a new paragraph
+\end{problem}
 
-\textbf{Proof.}              						% makes the word Proof bold face
+\begin{proof}       						% makes the word Proof bold face
 We want to show that $v$ is the additive inverse of $(-v)$. We have 
 $$(-v)+v=(-1)v+1v=(-1+1)v=0v=0,$$
-as desired. $\square$
+as desired.
+\end{proof}
 
-\textbf{Q3.}
+\begin{problem}{3}
 Suppose $v,w\in V$. Explain why there exists a unique $x\in V$ such that $v+3x=w$.
+\end{problem}
 
-\textbf{Proof.}
+\begin{proof}
 Let $x=\frac{1}{3}(w-v)$. This
 $$v+3x=v+(w-v)=w,$$
 proving existence.
 Let $y\in V$ where $v+3y=w$. Then
 $$v+3y=v+3x\iff 3y=3x\iff y=x,$$
-proving uniqueness. $\square$
+proving uniqueness.
+\end{proof}
 
-\textbf{Q5.}
+\begin{problem}{5}
 Show that the additive inverse condition on vector spaces (1.19) 
 can be replaced with the condition that
 $$0v=0 \text{ for all } v\in V.$$
+\end{problem}
 
-\textbf{Proof.}
+\begin{proof}
 We show that the 2 statements are equivalent.\\
 First, we prove the old condition implies the new condition.
 Assume that every $v\in V$ has an additive inverse.
@@ -75,19 +83,21 @@ Second, we prove the new condition implies the old condition.
 Assume that $0v=0$ for all $v\in V$.
 We have
 $$v+(-1)v=(1+(-1))v=0v=0.$$
-Hence, every element has an additive inverse, as desired. $\square$
+Hence, every element has an additive inverse, as desired.
+\end{proof}
 
-\textbf{Q6.}
+\begin{problem}{6}
 Is $\R\cup\{\infty\}\cup\{-\infty\}$ a vector space over $\R$?
+\end{problem}
 
-\textbf{Proof.}
+\begin{proof}
 For a set to be a vector space, it must follow 6 conditions:
 commutativity, associativity, additive identity, additive inverse, multiplicative identity, and distributive properties.
 We will try to find a counter-example to break one of these rules.
 $$(\infty+(-\infty))+3=0+3=3$$
 $$\infty+((-\infty)+3)=\infty+(-\infty)=0$$
 Since these 2 expressions are not equal to each other, we have shown that the rule of associativity
-is broken in the set given. Therefore, it is not a vector space over $\R$. $\square$
-
+is broken in the set given. Therefore, it is not a vector space over $\R$.
+\end{proof}
 
 \end{document}

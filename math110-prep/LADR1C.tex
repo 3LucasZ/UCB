@@ -1,0 +1,99 @@
+%Setup%
+\documentclass[12pt, letterpaper]{article}
+\usepackage{math110-prep}
+\title{LADR 1C}
+\begin{document}
+\maketitle
+
+%Content%
+\section*{Subspaces}
+
+\begin{imp}{1.32 Definition subspace}
+A subset $U$ of $V$ is called a subspace of $V$ if $U$ is a vector space.
+\end{imp}
+
+\begin{imp}{1.34 Conditions of subspace}
+\begin{itemize}
+    \item additive identity: 
+    $0\in U$
+    \item closed under addition: 
+    $u,w\in U \implies u+w\in U$
+    \item closed under scalar multiplication:
+    $a\in F\land u\in U \implies au\in U$
+\end{itemize}
+\end{imp}
+
+\begin{imp}{1.35 Examples}
+Solved them on paper separately.
+\end{imp}
+
+\begin{imp}{1.36 Definition sum of subsets}
+$$U_1+U_2=\{u_1+u_2:u_1\in U_1,u_2\in U_2\}$$
+\end{imp}
+
+\begin{imp}{1.40 Definition direct sum}
+The sum $U_1 + ... + U_m$ is a direct sum if each element in 
+the sum can be written in only one way as a sum 
+$u_1 + ... u_m$ where $u_j \in U_j$.
+\end{imp}
+
+\begin{imp}{1.44 Condition for a direct sum}
+IFF there is only 1 way to create 0: each $u_j = 0$.
+\begin{proof} (Me)
+\\Let there be multiple ways to make 0.
+$$x=U_1(x) + ... + U_m(x)=U_1(x+0) + ... + U_m(x+0)$$
+Then there are multiple ways to make $x$.
+\\Conversely, let there be multiple ways to make x.
+$$U_1(x)+...+U_m(x)=U_1(y)+...+U_m(y)$$
+$$U_1(x-y)+...+U_m(x-y)=0$$
+Therefore, multiple ways to make x IFF multiple ways to make 0.
+Finally, 1 way to make $x$ IFF 1 way to make 0.
+\end{proof}
+\begin{proof} (Book)
+$$v = u_1 + ... + u_m = v_1 + ... + v_m$$
+$$0 = (u_1 - v_1) + ... + (u_m - v_m)$$
+If there is only 1 way to make 0, $u_j = v_j$ is a solution and the only solution.
+\end{proof}
+\end{imp}
+
+\begin{imp}{1.45 Direct sum of 2 subspaces}
+IFF $U \cap W = \{0\}$
+\begin{proof} (Simple)
+If more elements in the intersection, then multiple ways to make 0.
+If multiple ways to make 0, then need at least one other element in the intersection.
+\end{proof}
+\end{imp}
+
+\begin{problem}{1}
+(a) $\{(x_1,x_2,x_3)\in\F^3:x_1+2x_2+3x_3=0\}$
+\begin{proof}
+$(0,0,0)$ exists.
+$(x_1,x_2,x_3) + (y_1,y_2,y_3) \implies (x_1+y_1)+2(x_2+y_2)+3(x_3+y_3)$ exists.
+$c(x_1,x_2,x_3) \implies (cx_1)+2(cx_2)+3(cx_3)$ exists.
+\end{proof}
+(b) $\{(x_1,x_2,x_3)\in\F^3:x_1+2x_2+3x_3=4\}$
+\begin{proof}
+We can easily see this is not closed under addition.
+\end{proof}
+(c) similar to (b)\\
+(d) similar to (a)
+\end{problem}
+
+\begin{problem}{3}
+Show that the set of differential real-valued functions on $(-4,4)$
+where $f'(-1)=3f(2)$ is a subspace of $\R^{(-4,4)}$.
+\end{problem}
+\begin{proof}
+$$f(x) = 0 \implies f'(-1) = 0 = 3f(2)$$
+$$(f+g)'(-1)=f'(-1)+g'(-1)=3f(2)+3g(2)=3(f+g)(2)$$
+$$c(f'(-1))=c(3f(2))\implies (cf')(-1)=3(cf)(2)$$
+\end{proof}
+
+\begin{problem}{5}
+Is $\R^2$ a subspace of $\C^2$?
+\end{problem}
+\begin{proof}
+Not closed under multiplication: $\forall x\in \R: ix\notin\R$
+\end{proof}
+
+\end{document}

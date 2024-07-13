@@ -6,6 +6,8 @@
     "**/*.gz": true,
     "**/*.fls": true,
     "**/*.toc": true,
-    "**/*.fdb_latexmk": true
-  }
+    "**/*.fdb_latexmk": true,
+    "**/*.out": true
+  },
+  "editor.tabSize": 2
 }
