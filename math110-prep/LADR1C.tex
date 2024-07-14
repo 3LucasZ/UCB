@@ -15,7 +15,8 @@ A subset $U$ of $V$ is called a subspace of $V$ if $U$ is a vector space.
 \begin{imp}{1.34 Conditions of subspace}
 \begin{itemize}
     \item additive identity: 
-    $0\in U$
+    $0\in U$ (Note: this is simply the easiest way to check $U$ has at least 1 element in it.
+    Closure under scalar multiplication already implies a 0 element exists given a non-empty space.)
     \item closed under addition: 
     $u,w\in U \implies u+w\in U$
     \item closed under scalar multiplication:
@@ -66,18 +67,18 @@ If multiple ways to make 0, then need at least one other element in the intersec
 
 \begin{problem}{1}
 (a) $\{(x_1,x_2,x_3)\in\F^3:x_1+2x_2+3x_3=0\}$
-\begin{proof}
+(b) $\{(x_1,x_2,x_3)\in\F^3:x_1+2x_2+3x_3=4\}$
+(c) similar to (b)\\
+(d) similar to (a)
+\end{problem}
+\begin{proof} (a)
 $(0,0,0)$ exists.
 $(x_1,x_2,x_3) + (y_1,y_2,y_3) \implies (x_1+y_1)+2(x_2+y_2)+3(x_3+y_3)$ exists.
 $c(x_1,x_2,x_3) \implies (cx_1)+2(cx_2)+3(cx_3)$ exists.
 \end{proof}
-(b) $\{(x_1,x_2,x_3)\in\F^3:x_1+2x_2+3x_3=4\}$
-\begin{proof}
+\begin{proof} (b)
 We can easily see this is not closed under addition.
 \end{proof}
-(c) similar to (b)\\
-(d) similar to (a)
-\end{problem}
 
 \begin{problem}{3}
 Show that the set of differential real-valued functions on $(-4,4)$
@@ -95,5 +96,114 @@ Is $\R^2$ a subspace of $\C^2$?
 \begin{proof}
 Not closed under multiplication: $\forall x\in \R: ix\notin\R$
 \end{proof}
+
+\begin{problem}{7}
+Give an example of a subset $U$ of $\R^2$ 
+where $U$ is closed under addition and additive inverses.
+\end{problem}
+\begin{proof}
+Since it's closed under addition, it's closed under integer scalar multiplication.
+However, we need it to be not closed under float scalar multiplication to not be a subspace.
+The subset $U=\Z^2$ fits the conditions nicely. 
+\end{proof}
+
+\begin{problem}{8}
+Closed under scalar multiplication, but not a subset?
+\end{problem}
+\begin{proof}
+$$\{(x,0):x\in\R\}\cup\{(0,y):y\in\R\}$$
+\end{proof}
+
+\begin{problem}{9}
+Set of periodic functions $\R\to\R$ subspace of $\R^\R$?
+\end{problem}
+\begin{proof}
+Let $f(x)$ be a function with period 2: $\sin(2\pi/2)$ and $g(x)$ be a function with period $\sqrt{2}$: $\sin(2\pi/\sqrt{2}$).
+In order for $(f+g)(x)$ to be periodic as well, there must be infinite $x$ where
+$f(x)$ and $g(x)$ are at their maximas. There must be a pair of integers $a,b$ where
+$a\cdot2=b\cdot\sqrt{2}$. This is impossible, and thus by contradiction, the set is not closed under addition and thus not a subspace.
+\end{proof}
+
+\begin{problem}{10}
+Prove $U_1\cap U_2$ is a subspace of $V$.
+\end{problem}
+\begin{proof}
+First, we prove non-empty intersection.
+$$0\in U_1\land0\in U_2\implies0\in U_1\cap U_2$$
+Next, we prove closed under addition. Assume $x,y\in U_1\cap U_2\land x+y\notin U_1\cap U_2$. 
+However, by definition of subspace, $x+y\in U_1\land x+y\in U_2$. 
+Thus contradiction; truly, $x+y\in U_1\cap U_2$.
+Similarly, we can prove closed under multiplication.
+\end{proof}
+
+\begin{problem}{11}
+Prove that the intersection of every collection of subspaces of $V$ is a subspace of $V$.
+\end{problem}
+\begin{proof}
+Let $\mathfrak{C}$ denote some collection of subspaces of $V$. Let
+$$U = \bigcap_{W\in \mathfrak{C}}W.$$
+Solution should be very similar to problem 10.
+\end{proof}
+
+\begin{problem}{12}
+Prove $U_1\cup U_2$ is a subspace IFF one is contained in the other.
+\end{problem}
+\begin{proof}
+WLOG, if one subspace contains the other, let the superset be $U_1$ and $U_1\cup U_2=U_1$.
+\\Forward direction is trivial: $U_1$ is a subspace.
+\\Conversely, we prove $U_1\cup U_2$ is closed under addition IFF $U_1\supset U_2$. Let
+$$x\in U_1\land x\notin U_2 \land y\in U_2\land y\notin U_1$$
+$$\implies x+y\notin U_1 \land x+y\notin U_2$$
+$$\implies x+y\notin U_1\cap U_2.$$
+By contraposition: $x+y\in U_1\cup U_2\implies U_1\supset U_2$. Thus, we have proved IFF.
+\end{proof}
+
+\begin{problem}{13}
+Prove $U_1\cup U_2\cup U_3$ is a subspace IFF one contains the other 2.
+\end{problem}
+\begin{proof}
+Similar to (12)
+\end{proof}
+
+\begin{problem}{15}
+What is $U+U$?
+\end{problem}
+\begin{proof}
+By definition,
+$$U+U=\{u_1+u_2:u_1\in U,u_2\in U\}$$
+Since $U$ is closed under addition,
+$$\implies u_1+u_2\in U \implies U+U=U$$
+\end{proof}
+
+\begin{problem}{16}
+Is addition on subspaces of V commutative?
+\end{problem}
+\begin{proof}
+Trivial: yes
+\end{proof}
+
+\begin{problem}{17}
+Associative?
+\end{problem}
+\begin{proof}
+Trivial: yes
+\end{proof}
+
+\begin{problem}{25}
+Let $U_e$ denote the set of real-valued even functions
+and let $U_o$ denote the set of real-valued odd functions.
+Prove $U_e\oplus U_o=\R^\R$.
+\end{problem}
+\begin{proof}
+Let 
+$$h\in\R^\R,f(x)=\frac{h(x)+h(-x)}{2},g(x)=\frac{h(x)-h(-x)}{2}.$$
+$f(-x)=f(x)$, and is thus an even function.
+$g(-x)=-g(x)$, and is thus an odd function.
+$f(x)+g(x)=h(x)$, and thus every function $h\in\R^\R$ can be represented as the sum of a even and odd function.
+\end{proof}
+Below are some points that led me to the solution.
+Even and odd functions are free functions for $x\geq0$ but have a fixed behavior for $x<0$.
+Is it possible to prove that all functions $\R^\R$ can be represented as the sum of an even and odd function?
+This would be the same thing as saying, for $x\geq0$, $h(x)=f(x)+g(x)$ and $h(-x)=f(x)-g(x)$.
 
 \end{document}
