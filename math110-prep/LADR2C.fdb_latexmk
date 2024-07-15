@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1720996549.80686 "/Users/lucaszheng/Documents/GitHub/UCB/math110-prep/LADR2C.tex" "LADR2C.pdf" "LADR2C" 1720996550.92109 0
-  "/Users/lucaszheng/Documents/GitHub/UCB/math110-prep/LADR2C.tex" 1720996549.57667 1067 784011c820dfbf517b73c6aaa886271f ""
+["pdflatex"] 1721083667.02462 "/Users/lucaszheng/Documents/GitHub/UCB/math110-prep/LADR2C.tex" "LADR2C.pdf" "LADR2C" 1721083668.24593 0
+  "/Users/lucaszheng/Documents/GitHub/UCB/math110-prep/LADR2C.tex" 1721083666.81542 2435 002e21b7fa74a8785b21880ade6a9a16 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -23,11 +23,14 @@
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmti12.tfm" 1136768653 1484 ed72f8f5cf654cda15ecc8e32bfcbee5 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1248133631 32080 340ef9bf63678554ee606688e7b5339d ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1248133631 36741 fa121aac0049305630cf160b86157ee4 ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1248133631 35469 70d41d2b9ea31d5d813066df7c99281c ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1248133631 32722 d7379af29a190c3f453aba36302ff5a9 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb" 1248133631 32362 179c33bbf43f19adbb3825bb4e36e57a ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1248133631 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1248133631 32626 4f5c1b83753b1dd3a97d1b399a005b4b ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb" 1248133631 36118 fad905eba93cff5bce1e185fe980a177 ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1248133631 34694 ad62b13721ee8eda1dcc8993c8bd7041 ""
   "/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1461363279 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/local/texlive/2024/texmf-dist/tex/generic/atbegshi/atbegshi.sty" 1575674566 24708 5584a51a7101caf7e6bbf1fc27d8f7b1 ""
   "/usr/local/texlive/2024/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty" 1576625341 40635 c40361e206be584d448876bba8a64a3b ""
@@ -161,9 +164,9 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1712292984.40819 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1712292925 8221420 930a5dce2cc89e483f8170ca0ac6ffb0 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "LADR2C.aux" 1720996550.84604 162 55205a9e8a8eca30d36afb389b0617bf "pdflatex"
-  "LADR2C.out" 1720996550.4602 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "LADR2C.tex" 1720996549.57667 1067 784011c820dfbf517b73c6aaa886271f ""
+  "LADR2C.aux" 1721083668.16443 162 87159b23cce7c2b923b11c85495bbd6d "pdflatex"
+  "LADR2C.out" 1721083667.67584 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "LADR2C.tex" 1721083666.81542 2435 002e21b7fa74a8785b21880ade6a9a16 ""
   "math110-prep.sty" 1720929100.50448 1506 eaef8d50a8de51a37ef50b653e6545e7 ""
   (generated)
   "LADR2C.aux"

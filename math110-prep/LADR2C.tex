@@ -46,4 +46,46 @@ to create a basis for $U_2$. Finally, $\dim(U_1+U_2)=(m+j)+(m+k)-m$.
 \end{proof}
 \end{imp}
 
+\begin{problem}
+{9}
+Suppose $v_1\dots v_m$ is linearly independent in $V$ and $w\in V$.
+Prove $\dim\Span(v_1+w\dots v_m+w)\geq m-1$.
+\end{problem}
+\begin{proof}
+The given span is equivalent to the span of any linear combination of its spanning list.
+Thus, the given span is equivalent to $\Span(v_1-v_2,v_2-v_3,\dots,v_m+w)$.
+Since $v_1,\dots,v_m$ is linearly independent and 
+$v_1-v_2,v_2-v_3,\dots,v_{m-1}-v_m$ is a linear combination of $v_1,\dots,v_m$,
+it is also linearly independent. 
+Thus, $\dim\Span(v_1-v_2,v_2-v_3,\dots,v_{m-1}-v_m) = m-1$,
+and $\dim\Span(v_1-v_2,v_2-v_3,\dots,v_m+w) \geq m-1$.
+\end{proof}
+
+\begin{problem}
+{11}
+Suppose that $U$ and $W$ are subspaces of $\R^8$ 
+such that $\dim U=3$, $\dim W=5$ and $U+W=\R^8$.
+Prove that $\R^8=U\oplus W$.
+\end{problem}
+\begin{proof}
+We've proven earlier that 
+$$\dim(U+W)=\dim U+\dim W-\dim(U\cap W).$$
+$$8=3+5-\dim(U\cap W).$$
+Since $\dim(U\cap W)=0$, we have it that the intersection is $\{0\}$.
+We've also proven earlier that 
+$$U\cap W=\{0\}\implies U+W=U\oplus W.$$
+\end{proof}
+
+\begin{problem}
+{17}
+Prove or disprove:
+$$\dim(U_1+U_2+U_3) = dim(U_1)+dim(U_2)+dim(U_3)$$
+$$-\dim(U_1\cap U_2)-\dim(U_2\cap U_3)-\dim(U_3\cap U_1)$$
+$$+\dim(U_1\cap U_2\cap U_3)$$
+\end{problem}
+\begin{proof}
+Counterexample:
+$U_1=\Span\{(1,0)\},U_2=\Span\{(1,1)\},U_3=\Span\{(0,1)\}$.
+$$2\neq1+1+1-1-1-0+0.$$
+\end{proof}
 \end{document}
