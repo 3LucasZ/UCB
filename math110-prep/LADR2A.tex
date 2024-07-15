@@ -1,0 +1,93 @@
+%Setup%
+\documentclass[12pt, letterpaper]{article}
+\usepackage{math110-prep}
+\title{LADR 2A}
+\begin{document}
+\maketitle
+
+%Content%
+\section*{$\R^n$ and $\C^n$}
+
+\begin{imp}{2.3 Definition: linear combination}
+A linear combination of a list of vectors in $V$ is a vector:
+$$a_1v_1+\dots+a_mv_m,$$
+where the scalars $\in\F$.
+\end{imp}
+
+\begin{imp}{2.5 Definition: span}
+$$\Span(v_1,\dots,v_m)=\{\text{all possible linear combinations}\}$$
+$$\Span()=\{0\}$$
+\end{imp}
+
+\begin{imp}{2.7 Span is the smallest containing subspace}
+\begin{proof}
+$\Span(v_1,\dots,v_m)\subset$ any subspace of V containing $v_1,\dots,v_m$ and span itself is a subspace of $V$. 
+Therefore the smallest.
+\end{proof}
+\end{imp}
+
+\begin{imp}{2.8 Definition: spans}
+If $\Span(v_1,\dots,v_m)=V$, we say that $v_1,\dots,v_m$ spans $V$.
+\end{imp}
+\begin{imp}{2.10 Definition: finite-dimensional vector space}
+A vector space is finite-dimensional if some list of vectors in it spans the space.
+Every list has finite length (by definition).
+\end{imp}
+
+\begin{imp}{2.11 Definition polynomial $\poly(\F)$}
+A function $p:\F\to\F$ is called a polynomial with coefficients $\F$ 
+if there exists $a_0,\dots,a_m\in\F$ such that
+$$p(z)=a_0+...+a_mz^m$$
+for all $z\in\F$.
+\\$\poly(\F)$ is the set of all polys w/ coefficients in $\F$.
+\end{imp}
+
+\begin{imp}{2.12 Definition degree of a polynomial}
+Exists scalars $a_0,\dots,a_m\in\F$ w/ $a_m\neq0$ so:
+$$p(z)=a_0+\dots+a_mz^m.$$
+The poly = 0 has degree $-\infty$.
+\end{imp}
+
+\begin{imp}{2.13 Definition: $\poly_m(\F)$}
+All polynomials w/ degree $\leq m$.
+\end{imp}
+
+\begin{imp}{infinite-dimensional vector space}
+Not finite-dimensional.
+\end{imp}
+
+\begin{imp}{2.17 Definition: linear independent}
+$v_1,\dots,v_m$ is linearly independent IFF each vector in
+$\Span(v_1,\dots,v_m)$ has only 1 representation as a linear combination of
+$v_1,\dots,v_m$. The most convenient condition that enables this is that there is only 1 
+(the trivial solution) to make 0.
+\end{imp}
+
+\begin{imp}{2.19 Definition: linear dependent}
+Not linearly independent.
+\end{imp}
+
+\begin{imp}{2.21 Definition: Linear Dependent Lemma}
+Given a linear dependent list of vectors, you can remove a vector
+without changing the span of the list.
+\end{imp}
+
+\begin{imp}{2.23 len(linearly independent list) $\leq$ len(spanning list)}
+Trivial
+\end{imp}
+
+\begin{problem}{17}
+Suppose $p_j(2)=0$ for each $j$. Prove $p_0\dots p_m$ is not linearly independent
+in $\poly_m(F)$.
+\end{problem}
+\begin{proof}
+Safely assume no 0 polynomials, or else it would be linearly dependent.
+Factor out $(x-2)$ from all the polynomials into
+$q_0\dots q_m$ in $\poly_{m-1}(F)$. Easy to see that this 
+list of polynomials are not linearly independent in the new space.
+\\(Better) Define polynomial $q\equiv1$. Then, $q\in\Span(p_0\dots p_m)$,
+$$q(2)=a_0p_0(2)+\dots+a_mp_m(2).$$
+Contradiction, 1 can't equal 0. Therefore $p_0...p_m$ can't be linearly independent.
+\end{proof}
+
+\end{document}

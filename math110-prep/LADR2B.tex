@@ -1,0 +1,42 @@
+%Setup%
+\documentclass[12pt, letterpaper]{article}
+\usepackage{math110-prep}
+\title{LADR 2B}
+\begin{document}
+\maketitle
+
+%Content%
+\section*{Bases}
+
+\begin{imp}{2.27 Definition: basis}
+A basis of V is a list of vectors of V both linearly independent and spans V.
+The standard basis is $(1,0,\dots,0),...,(0,\dots,0,1)$.
+\end{imp}
+
+\begin{problem}{1}
+Find all vector spaces that have exactly 1 basis.
+\end{problem}
+\begin{proof}
+Only the trivial vector space: \{0\}.
+If the vector space has a non-zero basis, all scalar multiples (except 0) of the non-zero basis is also a basis.
+\end{proof}
+
+\begin{problem}{5}
+Prove or disprove: there exists a basis $p_0,p_1,p_2,p_3$ of $\poly_3(F)$
+such that none of the polynomials $p_0,p_1,p_2,p_3$ has degree 2.
+\end{problem}
+\begin{proof}
+Consider $[1,0,0,0],[0,1,0,0],[0,0,1,1],[0,0,0,1]$.
+Constants $a_1,a_2,a_3,a_4$ are unique for any linear combination.
+\end{proof}
+
+\begin{problem}{7}
+Prove or disprove: If $v_1,v_2,v_3,v_4$ is a basis of $V$ and $U$ is a subspace
+of $V$ such that $v_1,v_2\in U$ and $v3,v4\notin U$, then $v_1,v_2$ is a basis of $U$.
+\end{problem}
+\begin{proof}
+Disprove: $U=\Span([1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1])$.
+$V=\Span([1,0,0,0],[0,1,0,0],[0,0,1,1])$.
+\end{proof}
+
+\end{document}

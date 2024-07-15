@@ -1,0 +1,49 @@
+%Setup%
+\documentclass[12pt, letterpaper]{article}
+\usepackage{math110-prep}
+\title{LADR 2C}
+\begin{document}
+\maketitle
+
+%Content%
+\section*{Dimension}
+
+\begin{imp}
+{2.35 Basis length doesn't depend on basis}  
+\begin{proof}
+Let $B_1,B_2$ be bases for $V$. 
+Then, $len(B_1)\geq len(B_2) \land len(B_2)\geq len(B_1)\implies len(B_1)=len(B_2)$.
+\end{proof}
+\end{imp}
+
+\begin{imp}
+{2.36 Definition: dimension (dim V)}
+Length of any basis of V.
+\end{imp}
+
+\begin{imp}
+{2.38 Dimension of a subspace $\leq$ the space}
+\begin{proof}
+Trivial.
+\end{proof}
+\end{imp}
+
+\begin{imp}
+{2.39 Linearly independent list of right length is basis}
+\end{imp}
+
+\begin{imp}
+{2.42 Spanning list of right length is basis}
+\end{imp}
+
+\begin{imp}
+{2.43 Dimension of a sum}
+$\dim(U_1+U_2)=\dim U_1+\dim U_2-\dim(U_1\cap U_2)$
+\begin{proof}
+Intersection is a subspace w/ dimension m. We can extend it by $j$ vectors 
+to create a basis for $U_1$. Similarly, we can extend it by $k$ vectors
+to create a basis for $U_2$. Finally, $\dim(U_1+U_2)=(m+j)+(m+k)-m$.
+\end{proof}
+\end{imp}
+
+\end{document}
