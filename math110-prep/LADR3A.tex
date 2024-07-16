@@ -1,12 +1,86 @@
 %Setup%
 \documentclass[12pt, letterpaper]{article}
 \usepackage{math110-prep}
-\title{LADR 1A}
+\title{LADR 3A}
 \begin{document}
 \maketitle
 
 %Content%
-\section*{$\R^n$ and $\C^n$}
+\section*{The Vector Space of Linear Maps}
 
+\begin{imp}
+{3.2 Definition: linear map}
+Aka linear transformation, a linear map from $V$ to $W$ is a function $T:V\to W$ 
+which follows:
+\begin{itemize}
+  \item additivity: $(\forall u,v\in V); T(u+v)=Tu+Tv$
+  \item homogeneity: $(\forall \lambda\in F, v\in V); T(\lambda v)=\lambda(Tv)$
+\end{itemize}
+Special: 
+\begin{itemize}
+  \item zero: $0v=0$. The LHS 0 is a function. The LHS 0 is the additive identity of $W$.
+  \item identity: $Iv=v$. Identity map is the function that maps each element to itself.
+\end{itemize}
+\end{imp}
+Notation: the set of all linear maps from V to W is denoted as
+$\Hom(V,W)$.
+
+\begin{imp}
+{3.6 Definition: addition, scalar multiplication on $\Hom(V,W)$}
+$$(S+T)(v)=Sv+Tv \text{ and } (\lambda T)(v)=\lambda(Tv)$$
+\end{imp}
+$\Hom(V,W)$ is a vector space!
+
+\begin{imp}
+{3.8 Definition: Product of Linear Maps}
+If $T\in\Hom(U,V),S\in\Hom(V,W),u\in U$, then
+$$ST\in\Hom(U,W);(ST)(u) = S(Tu)$$
+\end{imp}
+
+\begin{imp}
+{3.9 Algebraic properties of products of linear maps}
+\begin{itemize}
+  \item associativity $(T_1T_2)T_3=T_1(T_2T_3)$
+  \item identity $TI=IT=T$
+  \item distributive $(S_1+S_2)T=S_1T+S_2T\text{ and }S(T_1+T_2)=ST_1+ST_2$
+\end{itemize}
+\end{imp}
+Not commutative!
+
+\begin{problem}
+{9}
+Give an example of a function $\phi:\C\to\C$ that has
+additivity but not homogeneity.
+\end{problem}
+\begin{proof}
+Let $\phi(a+bi)=a-bi$ (flip over x axis). It is easy to see that this is additive.
+Let $\lambda=\cis(\pi/3)$ (60 degree CCW rotation).
+\\Flip + 60 degree rotation is not equal to 60 degree rotation + flip.
+\end{proof}
+
+\begin{problem}
+{10}
+Let $U$ be a subspace of $V$.
+$Tv = 
+\begin{cases} 
+  Sv & v\in U \\
+  0 & v\in V, v\notin U
+\end{cases}$.
+Prove $T$ is not a linear map on $V$.
+\end{problem}
+\begin{proof}
+Let $u\in U$ and $v\in V,v\notin U$. Then 
+$$T(u)+T(v)=S(u)$$
+$$\neq T(u+v)=S(u+v).$$
+Since additivity does not hold, T is not a linear map.
+\end{proof}
+
+\begin{problem}
+{14} Prove there exists $S,T\in\Hom(V,V)$ where $ST\neq TS$.
+\end{problem}
+\begin{proof}
+We can come up with a similar solution to problem 9.
+A rotation function and flip function are not commutative.
+\end{proof}
 
 \end{document}
