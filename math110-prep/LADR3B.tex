@@ -14,8 +14,182 @@ For $T\in\Hom(V,W),\Null T=\{v\in V:Tv=0\}$
 \end{imp}
 
 \begin{imp}
-{3.15 Definition: injective}
-A function $T:V\to W$ is injective if $Tu=
+{3.15 Definition: injective (aka one to one)}
+A function $T:V\to W$ is injective if 
+$$Tu=Tv\implies u=v$$
+It may be easier to think of the contrapositive. 
+In english: $T$ is injective
+if it maps distinct inputs to distinct outputs.
 \end{imp}
+
+\begin{imp}
+{3.16 Injectivity is equivalent to null space = \{0\}}
+($\rightarrow$)
+Since injective, $T(x)=0$ is only true for one $x$ value.
+$T(x)=T(0)+T(x)\implies T(0)=0$. That $x$ must be 0.
+Therefore, injective$\implies \Null T=\{0\}$.
+\\($\leftarrow$)
+$T(u)=T(v)\implies T(u-v)=0$.
+Since $\Null T=\{0\}$, $u-v=0\implies u=v$.
+\end{imp}
+
+\begin{imp}
+{3.17 Definition: range}
+For $T:V\to W$, $\Range T$ is subset of $W$
+w/ form $Tv$.
+$$\Range T=\{Tv:v\in V\}$$
+\end{imp}
+
+\begin{imp}
+{3.19 Range is a subspace}
+$$T(0)=0\implies 0\in \Range T$$
+$$T(v_1+v_2) = Tv_1+Tv_2 = w_1+w_2$$
+$$T(\lambda v)=\lambda Tv=\lambda w$$
+\end{imp}
+
+\begin{imp}
+{3.20 Definition: surjective (aka onto)}
+A function $T:V\to W$ is called surjective 
+if its range equals $W$.
+\end{imp}
+
+\begin{imp}
+{3.22 Fundamental Theorem of Linear Maps}
+$$\dim V=\dim\Null T+\dim\Range T$$
+\begin{proof}
+Let $u_1,\dots,u_m$ is a basis of $\Null T$.
+Extend this to a basis of $V$: 
+$$u_1,\dots,u_m,v_1,\dots,v_n.$$
+Then, $\dim V=m+n$. Now, we need to show $\Range T=n$ and finite dimensional.
+Let $$v\in V, v=a_1u_1+\dots+a_mu_m+b_1v_1+\dots+b_nv_n.$$ 
+$$Tv=b_1Tv_1+\dots+b_nTv_n.$$
+Indeed, $\Range T=n$ and finite dimensional.
+\end{proof}
+\end{imp}
+
+\begin{imp}
+{3.23 A map to a smaller dimensional space is not injective}
+$\dim V>\dim W\implies T:V\to W$ is not injective.
+\begin{proof}
+$$\dim V>\dim W\implies \dim V-\dim W\geq 1$$
+$$\dim V-\dim\Range T\geq1\implies \dim\Null T\geq 1$$
+Then, $\Null T\neq\{0\}$, and thus $T$ is not injective.
+\end{proof}
+\end{imp}
+
+\begin{imp}
+{3.24 A map to a larger dimensional space is not surjective}
+$\dim V<\dim W\implies T:V\to W$ is not surjective.
+\begin{proof}
+$$\dim V-\dim W<0$$
+$$\dim V=\dim\Null T+\dim\Range T\implies\dim V-\dim\Range T\geq0$$
+$$\dim\Range T\leq\dim V<\dim W\implies\dim\Range T<\dim W$$
+Since the dimensions of $\Range T$ and $W$ are different, they are not the same vector space.
+Therefore, $T$ is not surjective.
+\end{proof}
+\end{imp}
+
+\begin{imp}
+{3.25 Linear system of equations}
+$n$ variables, $m$ equations:
+$$\sum_{k=1}^nA_{1,k}x_k = c_1$$
+$$\vdots$$
+$$\sum_{k=1}^nA_{m,k}x_k = c_m$$
+$T(x_1,\dots,x_n)=(
+\sum_{k=1}^nA_{1,k}x_k,
+\dots,
+\sum_{k=1}^nA_{m,k}x_k)=(c_1,\dots,c_m)\implies
+T:\F^n\to\F^m$
+
+\end{imp}
+
+\begin{imp}
+{3.26 Definition: Homogeneous system of linear equations}
+System of linear equations where constant on RHS
+of each equation is zero.
+\\Property (similar to 3.23): If more variables than
+equations, their are multiple solutions that lead to 0 (not injective).
+\end{imp}
+
+\begin{imp}
+{3.29 Definition: Inhomogeneous}
+ Not homogeneous, vector of constants is non-zero.
+\\Property (similar to 3.24): If less variables than
+equations, there are constants with no corresponding solutions (not surjective).
+\end{imp}
+
+\begin{problem}
+{1} Give an example of a linear map $T$ such that 
+$\dim\Null T=3$ and $\dim\Range T=2$.
+\end{problem}
+\begin{proof}
+$$T(e_1,e_2,e_3,e_4,e_5)=(e_1,e_2,0,0,0)$$
+\end{proof}
+
+\begin{problem}
+{2} Suppose $V$ is a vector space and $S,T\in\Hom(V,V)$ are such that
+$$\Range S\subset\Null T.$$
+Prove that $(ST)^2=0$.
+\end{problem}
+\begin{proof}
+Since $\Range S$ is a subset of $\Null T$, 
+$T(S(v))=0$ for all $v\in V$. Then the composed 
+linear map $TS=0$. Then,
+$$(ST)^2=S(TS)T=S(0)T=0$$.
+\end{proof}
+
+\begin{problem}
+{5} Give an example of a linear map $T:\R^4\to\R^4$ such that
+$$\Range T=\Null T.$$
+\end{problem}
+\begin{proof}
+Notice that the given condition implies: $$\forall v\in\R^4,T(T(v))=0$$
+and that nothing outside of $x=T(v)$ for $T(x)$ yields 0.
+What about a linear map that shifts the vector to the left by 2?
+$$T(x_1,x_2,x_3,x_4)=x_3,x_4,0,0$$
+$$\Null T=\Range T=\R^2\times\{0\}^2$$
+\end{proof}
+
+\begin{problem}
+{6} Prove that there does not exist a linear map $T:\R^5\to\R^5$ such that
+$$\Range T=\Null T.$$
+\end{problem}
+\begin{proof}
+By Fundamental Theorem of Linear Maps,
+$$\dim T=\dim\Range T+\dim\Null T.$$
+Since both the range and null space are the same it follows that
+$$\dim\Range T= \dim\Null T.$$
+Then, $\dim\Range T= \frac{\dim T}{2} = 2.5$, which is impossible.
+\end{proof}
+
+\begin{problem}
+{7}Show that 
+$\{T\in\Hom(V,W):T \text{ is not injective}\}$ is not a subspace.
+\end{problem}
+\begin{proof}
+Let $S,T$ be not injective linear maps.
+$$S(v_1)\neq0,S(v_2)=0,T(v_1)=0,T(v_2)\neq0$$
+$$(S+T)(v_1)=S(v_1)+T(v_1)=S(v_1)\neq0$$
+\end{proof}
+
+\begin{problem}
+{8}Show that 
+$\{T\in\Hom(V,W):T \text{ is not surjective}\}$ is not a subspace.
+\end{problem}
+\begin{proof}
+$$S(v_1,v_2)=(v_1,0),T(v_1,v_2)=(0,v_2)\implies(S+T)(v_1,v_2)=(v_1,v_2)$$
+\end{proof}
+
+\begin{problem}
+{31} Give an example of two linear maps 
+$T_1,T_2:\R^5\to\R^2$ that have the same null space but are not scalar multiples of each other.
+\end{problem}
+\begin{proof}
+$$T_1(v_1,v_2,v_3,v_4,v_5)=(v_1,v_2,0,0,0)$$
+$$T_2(v_1,v_2,v_3,v_4,v_5)=(v_2,v_1,0,0,0)$$
+$$e_1\neq\lambda e_2$$
+\end{proof}
+
+
 
 \end{document}
