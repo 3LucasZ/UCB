@@ -1,0 +1,97 @@
+%Setup%
+\documentclass[12pt, letterpaper]{article}
+\usepackage{math110-prep}
+\title{LADR 3C}
+\begin{document}
+\maketitle
+
+%Content%
+\section*{Matrices}
+
+\begin{imp}
+{3.30 Definition: matrix, $A_{j,k}$}
+An $m$-by-$n$ matrix $A$ is a rectangular array of elements of $F$
+$$A=\begin{pmatrix}
+A_{1,1} & \dots & A_{1,n}\\
+\vdots & { } & \vdots\\
+A_{m,1} & \dots & A_{m,n}
+\end{pmatrix}$$
+$A_{j,k}=A[j][k]$ like a software 2D array.
+\end{imp}
+
+\begin{imp}
+{3.32 Definition: matrix of a linear map, $\mat(T)$}
+Suppose $T\in\Hom(V,W)$ and 
+$v_1,\dots,v_n$ is a basis of $V$ and 
+$w_1,\dots,w_m$ is a basis of $W$.
+$A=\mat(T)$ where $Tv_k=A_{1,k}w_1+\dots+A_{m,k}w_m$. 
+$$\mat(T)=
+\begin{matrix}
+w_1\\\vdots\\w_m
+\end{matrix}
+\stackrel{
+\begin{matrix}
+  v_1 & \dots & v_k & \dots & v_m
+\end{matrix}
+}{
+\begin{pmatrix}
+{A_{1,1}} & {\dots} & A_{1,k} & {\dots} & {A_{1,n}}\\
+{\vdots} & { } & \vdots & { } & {\vdots}\\
+{A_{m,1}} & {\dots} & A_{m,k} & {\dots} & {A_{m,n}}
+\end{pmatrix}
+}$$
+\end{imp}
+Unless explicitly stated, assume the bases used are the standard ones.
+You can imagine elements of $\F^m$ as columns of $m$ numbers.
+Then, $k^{th}$ column of $\mat(T)$ is $T$ applied to the $k^{th}$ standard basis vector.
+
+\begin{imp}
+{3.35 Definition: matrix addition}
+Matrix of sum of linear maps. A, C must be same size. 
+$(A+C)_{j,k}=A_{j,k}+C_{j,k}$
+\end{imp}
+
+\begin{imp}
+{3.37 Definition: scalar multiplication of a matrix}
+Matrix of a scalar times a linear map. 
+$(\lambda A)_{j,k}=\lambda A_{j,k}$
+\end{imp}
+
+\begin{imp}
+{3.39 Notation: $\F^{m,n}$}
+Set of all m by n matrices with entries in $\F$.
+\end{imp}
+
+\begin{imp}
+{3.40 $\F^{m,n}$ is a vector space}
+Closed under addition and multiplication (3.35, 3.37). 
+It is clearly a non-empty set, the 0 element is the matrix with all 0 entries.
+\\Property: $\dim\F^{m,n}=mn$
+\end{imp}
+
+\begin{imp}
+{3.41 Definition: matrix multiplication}
+We want an operator so that the equality holds: $$\mat(ST)=\mat(S)\mat(T).$$
+Let $A$ be m by n, $C$ be n by p. Then, $AC$ is m by p.
+$$(AC)_{j,k}=\sum_{r=1}^nA_{j,r}C_{r,k}$$
+Another way:
+$$(AC)_{j,k}=A_{j,\cdot}C_{\cdot,k}$$
+\end{imp}
+
+\begin{imp}
+{3.44 Notation: $A_{j,\cdot},A_{\cdot,k}$}
+$A_{j,\cdot}$ is 1 by n matrix for row j of $A$.\\
+$A_{\cdot,k}$ is m by 1 matrix for col k of $A$.
+\end{imp}
+
+\begin{imp}
+{3.49 Column of matrix product equals matrix times column}
+$$(AC)_{\cdot,k}=AC_{\cdot,k}$$
+\end{imp}
+
+\begin{imp}
+{3.52 Linear combination of columns}
+$$Ac=c_1A_{\cdot,1}+\dots+c_nA_{\cdot,n}$$
+\end{imp}
+
+\end{document}
