@@ -1,2 +1,19 @@
-
+##### CS61A
+# Weird files
+*.pyc
+*.ok*
+CS61A/*/tests/
+CS61A/*/ok
+CS61A/*/construct_check.py
+CS61A/*/change_abstraction.py
+# Hog
+CS61A/pro_hog/*
+!CS61A/pro_hog/hog.py
+# Cats
+CS61A/pro_cats/*
+!CS61A/pro_cats/cats.py
+# Ants
+CS61A/pro_ants/*
+!CS61A/pro_ants/ants.py
+##### General
 .DS_Store

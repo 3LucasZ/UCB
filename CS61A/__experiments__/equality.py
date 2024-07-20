@@ -1,0 +1,10 @@
+print(1 is 2)
+print(1 == 2)
+print(1 is 1)
+print(1 is 2)
+
+print(5 == None)
+print('cat' == 2)
+print('cat' is 3)
+print([1,2,3] is [1,2,3])
+print([1,2,3] == [1,2,3])
