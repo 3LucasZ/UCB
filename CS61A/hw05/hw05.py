@@ -24,8 +24,8 @@ random = make_test_random()
 class Player:
     """
     >>> random = make_test_random()
-    >>> p1 = Player('Hill')
-    >>> p2 = Player('Don')
+    >>> p1 = Player('Hill', random)
+    >>> p2 = Player('Don', random)
     >>> p1.popularity
     100
     >>> p1.debate(p2)  # random() should return 0.0
@@ -60,15 +60,16 @@ class Player:
     >>> p2.popularity
     0
     """
-    def __init__(self, name):
+    def __init__(self, name, random_func):
         self.name = name
         self.votes = 0
         self.popularity = 100
+        self.random_func = random_func
 
     def debate(self, other):
         "*** YOUR CODE HERE ***"
         pwin = max(0.1, self.popularity / (self.popularity + other.popularity))
-        if random() <= pwin:
+        if self.random_func() <= pwin:
             self.popularity += 50
         else:
             self.popularity -= 50
@@ -88,7 +89,8 @@ class Player:
 ### Phase 2: The Game Class
 class Game:
     """
-    >>> p1, p2 = Player('Hill'), Player('Don')
+    >>> random = make_test_random()
+    >>> p1, p2 = Player('Hill',random), Player('Don', random)
     >>> g = Game(p1, p2)
     >>> winner = g.play()
     >>> p1 is winner
@@ -134,7 +136,7 @@ class Game:
 class AggressivePlayer(Player):
     """
     >>> random = make_test_random()
-    >>> p1, p2 = AggressivePlayer('Don'), Player('Hill')
+    >>> p1, p2 = AggressivePlayer('Don', random), Player('Hill', random)
     >>> g = Game(p1, p2)
     >>> winner = g.play()
     >>> p1 is winner
@@ -159,7 +161,7 @@ class AggressivePlayer(Player):
 class CautiousPlayer(Player):
     """
     >>> random = make_test_random()
-    >>> p1, p2 = CautiousPlayer('Hill'), AggressivePlayer('Don')
+    >>> p1, p2 = CautiousPlayer('Hill', random), AggressivePlayer('Don', random)
     >>> p1.popularity = 0
     >>> p1.choose(p2) == p1.debate
     True
