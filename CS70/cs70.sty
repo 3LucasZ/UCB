@@ -1,0 +1,60 @@
+%Dependencies%
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage[colorlinks=true, urlcolor=blue, linkcolor=red]{hyperref}
+
+%Macros%
+\DeclareMathOperator{\cis}{cis}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Null}{null}
+\DeclareMathOperator{\Range}{range}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\bigO}{\mathcal{O}}
+\newcommand{\Real}{\mathcal{Re}}
+\newcommand{\poly}{\mathcal{P}}
+\newcommand{\mat}{\mathcal{M}}
+\newcommand{\Hom}{\mathcal{L}}
+
+%Custom Environment%
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems, breakable, skins}
+\newtcbtheorem{prob}% environment name
+              {Problem}% Title text
+  {enhanced, % tcolorbox styles
+  attach boxed title to top left={xshift = 4mm, yshift=-2mm},
+  colback=blue!5, colframe=black, colbacktitle=blue!3, coltitle=black,
+  boxed title style={size=small,colframe=gray},
+  fonttitle=\bfseries,
+  separator sign none
+  }%
+  {} 
+\newenvironment{problem}[1]{\begin{prob*}{#1}{}}{\end{prob*}}
+
+\newtcbtheorem{impz}% environment name
+              {}% Title text
+  {enhanced, % tcolorbox styles
+  attach boxed title to top left={xshift = 4mm, yshift=-2mm},
+  colback=red!5, colframe=black, colbacktitle=red!3, coltitle=black,
+  boxed title style={size=small,colframe=gray},
+  fonttitle=\bfseries,
+  separator sign none
+  }%
+  {} 
+\newenvironment{imp}[1]{\begin{impz*}{#1}{}}{\end{impz*}}
+
+%Heading%
+\author{Lucas Zheng}
+\date{}
+\pagestyle{fancy}
+\fancypagestyle{plain}{}
+\fancyhf{} 
+\rfoot{\thepage}
+
+%Styling%
+\setlength{\parindent}{0pt}
