@@ -1,12 +1,11 @@
 %Setup%
 \documentclass[12pt, letterpaper]{article}
-\usepackage{math110-prep}
-\title{LADR 1A}
+\usepackage{cs70}
+\title{CS70 Note 0: Mathematical Foundations}
 \begin{document}
 \maketitle
 
 %Content%
-\section*{$\R^n$ and $\C^n$}
-
+\section{Sets}
 
 \end{document}

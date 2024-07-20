@@ -1,0 +1,40 @@
+%Setup%
+\documentclass[12pt, letterpaper]{article}
+\usepackage{cs70}
+\title{CS70 Note 0: Mathematical Foundations}
+\begin{document}
+\maketitle
+
+%Content%
+\section{Propositions}
+A statement that's either true or false is called a \textbf{proposition}.
+\\Ex: $\sqrt{3}$ is rational, $1+1=5$, CS70 is cool
+\\\textbf{Propositional variables} $P,Q,R$ represent arbitrary propositions.
+\\\textbf{Connectives} like and($P\land Q$), or($P\lor Q$), not($\lnot P$) 
+join propositions together to form more complex ones.
+\\Ex: $\sqrt{3}$ is rational $\land$ $1+1=5$
+\\\textbf{Propositional formulas} are created by combining propositional variables
+with connectives.
+\\Ex: $P\land Q\lor \lnot R$
+
+\section{Propositional Logic}
+\textbf{Tautology} is a propositional formula that is always true
+regardless of the truth values of the variables.
+\\\textbf{Contradiction} always false regardless of the truth values
+of the variables (tautologically false).
+\\\textbf{Truth table} is an algorithm to verify if a propositional
+formula is a tautology.
+$$\begin{array}{|c|c >{\columncolor{green!15}}c c|}
+  P & P & \land & \lnot P\\
+  \hline
+  T & T & F & F\\
+  F & T & T & T\\
+\end{array}$$
+\textbf{Implication} $P\implies Q$ means "if $P$, then $Q$". 
+Only false if $P$ is T and $Q$ is F. Equivalent to
+$\lnot P\lor Q$.
+\\2 propositional formulas are \textbf{tautologically equivalent} if they 
+have the same truth table, written as $P\equiv Q$
+
+
+\end{document}
