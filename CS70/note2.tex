@@ -1,0 +1,51 @@
+%Setup%
+\documentclass[12pt, letterpaper]{article}
+\usepackage{cs70}
+\title{CS70 Note 2: Proofs}
+\begin{document}
+\maketitle
+
+%Content%
+\section{Proof Basics}
+A proof is a finite sequence of steps called logical deductions which establishes the truth of a statement.
+There are certain statements called axioms/postulates that we accept without proof.
+We apply the rules of logic to formulate complex truths.
+\\\textbf{Direct proof} 
+assume $P$ \dots therefore $Q$.
+\\Ex: $x$ divisible by 9 IFF the sum of its digits are also divisible by 9.
+\\\textbf{Proof by contraposition}
+assume $\lnot Q$ \dots therefore $\lnot P$
+\\Ex: Pigeonhole principle
+\\\textbf{Proof by contradiction}
+assume $\lnot P$ \dots $R$ \dots $\lnot R$ therefore $P$
+\\Ex: "There are infinitely many primes"
+\\\textbf{Proof by cases} we don't know which of a set of possible cases
+is true, but we know at least one case is true. Prove the result in both cases
+then the general statement holds.
+\\Ex: there exists irrational $x,y$ so $x^y$ is rational.
+\begin{proof}
+Demonstrate a single $x,y$ pair works is sufficient. 
+Let $x=\sqrt2$ and $y=\sqrt2$. Divide the proof into 2 cases, one case must be true.
+\begin{itemize}
+  \item $\sqrt2^{\sqrt2}$ is rational
+  \\Immediately yields our claim, rational.
+  \item $\sqrt2^{\sqrt2}$ is irrational
+  \\Try a different irrational x, $x=\sqrt2^{\sqrt2}$.
+  $$(\sqrt2^{\sqrt2})^{\sqrt2}=\sqrt2^2=2$$
+  which is rational.
+\end{itemize}
+\end{proof}
+To me, this is oddly beautiful. We don't know what the actual $(x,y)$ pair
+satisfied the claim.
+\\\textbf{Non-constructive proof} is when we prove object $X$ exists without 
+revealing what $X$ is. 
+
+\section{Proof Errors}
+1. Do not assume the claim you aim to prove.
+\\Ex: $-2=2\implies (-2)^2=(2)^2 \implies 4=4$ which is true. Therefore $-2 = 2$.
+\\2. Don't forget the case where your variables are 0.
+\\Ex: accidentally dividing by 0
+\\3. Be careful when mixing negatives with inequalities.
+\\Ex: you need to flip the inequality if multiply by a negative.
+
+\end{document}

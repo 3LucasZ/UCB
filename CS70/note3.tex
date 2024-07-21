@@ -1,0 +1,30 @@
+%Setup%
+\documentclass[12pt, letterpaper]{article}
+\usepackage{cs70}
+\title{CS70 Note 3: Induction}
+\begin{document}
+\maketitle
+
+%Content%
+\section{Induction}
+Powerful tool to prove a statement holds for all natural numbers.
+\\Prove $\forall n\in\N,\sum_{i=0}^ni=\frac{n(n+1)}{2}$
+\begin{proof} We do induction on $n$.
+\\Base case (n=0): can easily see LHS = RHS = 0 and it works.
+\\Induction hypothesis: assume we have proved the statement works for an arbitrary
+$n=k\geq0$.
+\\Inductive step: prove the statement for $n=k+1$.
+$$\sum_{i=0}^{k+1}=\sum_{i=0}^ki+(k+1)=\frac{k(k+1)}{2}+(k+1)=\frac{(k+1)(k+2)}{2}$$
+\end{proof}
+
+\section{Strengthening the Induction Hypothesis}
+Ex: "Sum of the first $n$ odd numbers is a perfect square"
+vs
+"sum of the first $n$ odd numbers is $n^2$"
+\\The introduction of more constraints/structure was necessary
+to create the proof.
+
+\section{Simple vs Strong Induction}
+Simple: assume $P(k)$ is true.
+\\Strong: assume $P(0),P(1),\dots,P(k)$ are all true.
+\end{document}
