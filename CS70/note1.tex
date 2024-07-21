@@ -10,9 +10,13 @@
 A statement that's either true or false is called a \textbf{proposition}.
 \\Ex: $\sqrt{3}$ is rational, $1+1=5$, CS70 is cool
 \\\textbf{Propositional variables} $P,Q,R$ represent arbitrary propositions.
-\\\textbf{Connectives} like and($P\land Q$), or($P\lor Q$), not($\lnot P$) 
-join propositions together to form more complex ones.
-\\Ex: $\sqrt{3}$ is rational $\land$ $1+1=5$
+\\\textbf{Connectives} oin propositions together to form more complex ones.
+\begin{itemize}
+  \item \textbf{And} $P\land Q$
+  \item \textbf{Or} $P\lor Q$
+  \item \textbf{Not} $\lnot P$
+\end{itemize}
+Ex: $\sqrt{3}$ is rational $\land$ $1+1=5$
 \\\textbf{Propositional formulas} are created by combining propositional variables
 with connectives.
 \\Ex: $P\land Q\lor \lnot R$
@@ -35,6 +39,54 @@ Only false if $P$ is T and $Q$ is F. Equivalent to
 $\lnot P\lor Q$.
 \\2 propositional formulas are \textbf{tautologically equivalent} if they 
 have the same truth table, written as $P\equiv Q$
+\\\textbf{Material equivalence} $P\iff Q$ means
+"P if and only if Q". Only true if $P$ and $Q$ are the same.
+\\Tautological equivalence allows us to transform 
+difficult propositional formulas into equivalent easier ones.
+\\\textbf{Contrapositive} 
+$\lnot Q\implies\lnot P$ (tautologically equivalent to $P\implies Q$)
+\\\textbf{Converse}
+$Q\implies P$
+\\\textbf{De Morgan's Laws}
+$\lnot(P\land Q)\equiv\lnot P\lor\lnot Q$ and 
+$\lnot(P\lor Q)\equiv\lnot P\land\lnot Q$
 
-
+\section{First Order Logic}
+\textbf{Predicate} is a function which takes as input
+some element from a domain and outputs a proposition.
+\\Ex: The predicate statement $x^2+3x=0$ truth depends on the value of x.
+\\\textbf{First-order sentence} is a proposition which uses quantifiers.
+\\\textbf{Quantifier} quantifies the variable predicate statements use, to turn them into valid propositions.
+\begin{itemize}
+  \item \textbf{Existence} $\exists xP(x)\sim\bigwedge_{i=1}^{\infty}P(a_i)$
+  \item \textbf{Universal} $\forall xP(x)\sim\bigvee_{i=1}^{\infty}P(a_i)$ 
+\end{itemize}
+\textbf{First-order formulas} are created by combining 
+predicate variables and quantifiers. All variables must be bound by a single quantifier to be valid.
+\\Predicate variables can represent any predicate, so determining
+its truth value is hard. We have to consider all possible predicates (models).
+\\\textbf{Model} there are infinitely many per predicate, consists of
+\begin{itemize}
+  \item \textbf{Domain} a non-empty set of objects and rules that govern them.
+  \item An interpretation for all predicates in the first-order formulas.
+\end{itemize}
+\textbf{Logically true} if every model makes $P$ true.
+\\\textbf{Logical implication} $P\implies Q$ if any model that makes $P$ true makes $Q$ true.
+\\\textbf{Logical equivalence} $P\iff Q$ if every model that makes one true makes the other true.
+\\\textbf{Quantifier rules} allow manipulation.
+\begin{itemize}
+  \item Universal Instantiation (UI): $\forall xP(x)\implies P(c)$.
+  \item Existential Generalization (EG): $P(b)\implies\exists xP(x)$.
+  \item Universal Generalization (UG): $P(c)$ for $c$ arbitrary $\implies$ $\forall xP(x)$.
+  \item Existential Instantiation (EI): $\exists xP(x)\implies P(b)$ for some new $b$.
+\end{itemize}
+\textbf{Restrict quantifiers} to a certain set of models.
+\\Ex: $\exists x(x\in\R\land x^2+3x=0)$.
+We short hand this as: $(\exists x\in\R)(x^2+3x=0)$.
+\\\textbf{Negate quantifiers} with De Morgan's law.
+$$\lnot\forall xP(x)\iff\exists x\lnot P(x) \text{ and } \lnot\exists xP(x)\iff\forall x\lnot P(x)$$
+\\\textbf{Numerical quantification} to
+get a number between "exists" and "for all".
+\\Ex: "At least 2 objects satisfying P"
+$$\exists x\exists y(x\neq y\land P(x)\land P(y))$$
 \end{document}

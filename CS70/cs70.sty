@@ -2,10 +2,10 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
-\usepackage{fancyhdr}
 \usepackage{tcolorbox}
 \usepackage[colorlinks=true, urlcolor=blue, linkcolor=red]{hyperref}
 \usepackage[table]{xcolor}
+
 
 %Macros%
 \DeclareMathOperator{\cis}{cis}
@@ -52,6 +52,7 @@
 \newenvironment{imp}[1]{\begin{impz*}{#1}{}}{\end{impz*}}
 
 %Heading%
+\usepackage{fancyhdr}
 \author{Lucas Zheng}
 \date{}
 \pagestyle{fancy}
@@ -59,5 +60,14 @@
 \fancyhf{} 
 \rfoot{\thepage}
 
-%Styling%
+%Remove indent on paragraphs%
 \setlength{\parindent}{0pt}
+
+%Remove space between bullet points
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=0pt}
+
+%Fix double quotes%
+\usepackage [english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
