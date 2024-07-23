@@ -9,5 +9,8 @@
     "**/*.fdb_latexmk": true,
     "**/*.out": true
   },
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "code-runner.executorMap": {
+    "scheme": "python3 $workspaceRoot/CS61A/scheme.py $workspaceRoot/CS61A/__experiments__/scheme/$fileName"
+  }
 }
