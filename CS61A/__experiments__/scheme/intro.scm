@@ -1,0 +1,8 @@
+(define x 0)
+(display x)
+(display '\nok)
+(define x (+ x x))
+(display x)
+; (define (f n k)
+;   (if (= n 0) k (f (- n 1) (* n k)))
+; )
