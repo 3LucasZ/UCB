@@ -6,6 +6,10 @@ CS61A/*/tests/
 CS61A/*/ok
 CS61A/*/construct_check.py
 CS61A/*/change_abstraction.py
+# Labs
+CS61A/lab*/*
+!CS61A/lab*/lab*.py
+!CS61A/lab*/lab*.scm
 # Hog
 CS61A/pro_hog/*
 !CS61A/pro_hog/hog.py
