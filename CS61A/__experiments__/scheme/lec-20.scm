@@ -31,3 +31,11 @@
 )
 
 (even-subsets '(1 3 2 5) '())
+
+
+(define (larger-values x lst)
+  (filter (
+		lambda (num) (> num x)
+	) lst)
+)
+(larger-values 3 '(1 2 3 4 5 1 2 3 4 5))

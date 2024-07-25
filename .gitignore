@@ -6,6 +6,10 @@ CS61A/*/tests/
 CS61A/*/ok
 CS61A/*/construct_check.py
 CS61A/*/change_abstraction.py
+# Homeworks
+CS61A/hw*/*
+!CS61A/hw*/hw*.py
+!CS61A/hw*/hw*.scm
 # Labs
 CS61A/lab*/*
 !CS61A/lab*/lab*.py
