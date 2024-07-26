@@ -23,5 +23,11 @@ CS61A/pro_cats/*
 # Ants
 CS61A/pro_ants/*
 !CS61A/pro_ants/ants.py
+# Scheme
+CS61A/pro_scheme/*
+!CS61A/pro_scheme/scheme_forms.py
+!CS61A/pro_scheme/scheme_eval_apply.py
+!CS61A/pro_scheme/scheme_classes.py
+!CS61A/pro_scheme/questions.scm
 ##### General
 .DS_Store
