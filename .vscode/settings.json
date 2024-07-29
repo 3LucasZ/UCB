@@ -11,6 +11,6 @@
   },
   "editor.tabSize": 2,
   "code-runner.executorMap": {
-    "scheme": "python3 $workspaceRoot/CS61A/scheme.py $workspaceRoot/CS61A/__experiments__/scheme/$fileName"
+    "scheme": "cd $workspaceRoot/CS61A/pro_scheme && python3 scheme.py $workspaceRoot/CS61A/__experiments__/scheme/$fileName"
   }
 }
