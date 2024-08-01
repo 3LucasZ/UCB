@@ -10,10 +10,12 @@ CS61A/*/change_abstraction.py
 CS61A/hw*/*
 !CS61A/hw*/hw*.py
 !CS61A/hw*/hw*.scm
+!CS61A/hw*/hw*.sql
 # Labs
 CS61A/lab*/*
 !CS61A/lab*/lab*.py
 !CS61A/lab*/lab*.scm
+!CS61A/lab*/lab*.sql
 # Hog
 CS61A/pro_hog/*
 !CS61A/pro_hog/hog.py
