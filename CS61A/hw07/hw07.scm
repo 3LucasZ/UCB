@@ -1,7 +1,10 @@
 (define (add-leaf t x)
-  (if __________________
-      __________________
-      (begin (define mapped-branches
-                     (map __________________ __________________))
-             (tree __________________
-                   (append __________________ __________________)))))
+  (if (is-leaf t)
+    (tree (label t) nil)
+    (tree (label t)
+      (append (map (lambda (b) (add-leaf b x)) (branches t))
+              (list (tree x nil))
+      )
+    )
+  )
+)
