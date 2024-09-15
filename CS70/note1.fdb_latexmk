@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1721525731.98811 "/Users/lucaszheng/Documents/GitHub/UCB/CS70/note1.tex" "note1.pdf" "note1" 1721525733.01256 0
-  "/Users/lucaszheng/Documents/GitHub/UCB/CS70/note1.tex" 1721525732.29911 4233 e938698763711da6dbbe158428ae6cda ""
+["pdflatex"] 1725653160.79972 "/Users/lucaszheng/Desktop/UCB/CS70/note1.tex" "note1.pdf" "note1" 1725653161.41748 0
+  "/Users/lucaszheng/Desktop/UCB/CS70/note1.tex" 1725653160.62352 4242 d83f74efb31a6f24db5eb3f112746d3e ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1136768653 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
@@ -174,13 +174,13 @@
   "/usr/local/texlive/2024/texmf-dist/tex/latex/url/url.sty" 1388531844 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/xcolor/xcolor.sty" 1700082560 55487 80a65caedd3722f4c20a14a69e785d8f ""
   "/usr/local/texlive/2024/texmf-dist/web2c/texmf.cnf" 1708706663 41649 5d6ae549fbbcb850a863f69aa41f3d10 ""
-  "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1712292984.40819 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
-  "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1712292925 8221420 930a5dce2cc89e483f8170ca0ac6ffb0 ""
+  "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1720319796.52079 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
+  "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1720319702 8221438 03589ab0deb938b30f50b25907ff0603 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "cs70.sty" 1721525729.71531 1973 c7146ab4a9f8ce6286a00dc33b5a9351 ""
-  "note1.aux" 1721525732.9239 581 a3049bb5c7803fca964f7e8ddf098d06 "pdflatex"
-  "note1.out" 1721525732.92485 378 712726f45294369086abbf74a587c617 "pdflatex"
-  "note1.tex" 1721525732.29911 4233 e938698763711da6dbbe158428ae6cda ""
+  "cs70.sty" 1725094566.5146 1973 c7146ab4a9f8ce6286a00dc33b5a9351 ""
+  "note1.aux" 1725653161.35907 581 a3049bb5c7803fca964f7e8ddf098d06 "pdflatex"
+  "note1.out" 1725653161.35971 378 712726f45294369086abbf74a587c617 "pdflatex"
+  "note1.tex" 1725653160.62352 4242 d83f74efb31a6f24db5eb3f112746d3e ""
   (generated)
   "note1.aux"
   "note1.log"

@@ -10,6 +10,8 @@
     "**/*.out": true
   },
   "editor.tabSize": 2,
+  "editor.lineNumbers": "relative", 
+  "editor.cursorSurroundingLines": 1,
   "code-runner.executorMap": {
     "scheme": "cd $workspaceRoot/CS61A/pro_scheme && python3 scheme.py $workspaceRoot/CS61A/__experiments__/scheme/$fileName"
   }

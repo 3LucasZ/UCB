@@ -1,8 +1,8 @@
-PWD /Users/lucaszheng/Documents/GitHub/UCB/CS70
+PWD /Users/lucaszheng/Desktop/UCB/CS70
 INPUT /usr/local/texlive/2024/texmf.cnf
 INPUT /usr/local/texlive/2024/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/lucaszheng/Documents/GitHub/UCB/CS70/note1.tex
+INPUT /Users/lucaszheng/Desktop/UCB/CS70/note1.tex
 OUTPUT note1.log
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/base/article.cls

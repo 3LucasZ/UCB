@@ -1,7 +1,7 @@
 %Setup%
 \documentclass[12pt, letterpaper]{article}
 \usepackage{cs70}
-\title{CS70 Note 0: Mathematical Foundations}
+\title{CS70 Note 1: Mathematical Foundations}
 \begin{document}
 \maketitle
 
@@ -75,10 +75,10 @@ its truth value is hard. We have to consider all possible predicates (models).
 \\\textbf{Logical equivalence} $P\iff Q$ if every model that makes one true makes the other true.
 \\\textbf{Quantifier rules} allow manipulation.
 \begin{itemize}
-  \item Universal Instantiation (UI): $\forall xP(x)\implies P(c)$.
+  \item Universal Instantiation (UI): $\forall xP(x)\implies P(c)$ over any $c$.
   \item Existential Generalization (EG): $P(b)\implies\exists xP(x)$.
   \item Universal Generalization (UG): $P(c)$ for $c$ arbitrary $\implies$ $\forall xP(x)$.
-  \item Existential Instantiation (EI): $\exists xP(x)\implies P(b)$ for some new $b$.
+  \item Existential Instantiation (EI): $\exists xP(x)\implies P(b)$ for some $b$.
 \end{itemize}
 \textbf{Restrict quantifiers} to a certain set of models.
 \\Ex: $\exists x(x\in\R\land x^2+3x=0)$.

@@ -1,0 +1,367 @@
+\documentclass[11pt]{article}
+\usepackage{header}
+\def\title{HW 01}
+
+\begin{document}
+\maketitle
+\fontsize{12}{15}\selectfont
+
+\begin{center}
+    Due: Saturday, 9/6, 4:00 PM \\
+    Grace period until Saturday, 9/6, 6:00 PM \\
+\end{center}
+
+\section*{Sundry}
+Before you start writing your final homework submission, state briefly how you worked on it.  Who else did you work with?  List names and email addresses.  (In case of homework party, you can just describe the group.)
+
+\begin{solution}
+  I worked with Lawrence Rhee (lawrencejrhee@berkeley.edu). 
+  We discussed our approaches to each problem and asked each other questions.  
+\end{solution}
+
+\vspace{15pt}
+
+\Question{Solving a System of Equations Review}
+
+Alice wants to buy apples, beets, and carrots. An apple, a beet, and a carrot cost 16 dollars, two apples and three beets cost 23 dollars, and one apple, two beets, and three carrots cost 35 dollars. What are the prices for an apple, for a beet, and for a carrot, respectively? Set up a system of equations and show your work.
+
+\begin{solution}
+  Let $a$, $b$, and $c$ be the price of one apple, beet, and carrot respectively.
+  We can set up the linear system of equations:
+  $$\begin{cases}
+    a + b + c = 16\\
+    2a + 3b = 23\\
+    a + 2b + 3c = 35
+  \end{cases}$$
+  We can convert this linear system of equations into a matrix, and find the
+  individual values of $a$, $b$, and $c$ via Gaussian elimination.
+  $$\begin{bmatrix}
+    1 & 1 & 1 & 16\\
+    2 & 3 & 0 & 23\\
+    1 & 2 & 3 & 35
+  \end{bmatrix}$$
+  $$\sim\begin{bmatrix}
+    1 & 1 & 1 & 16\\
+    0 & 1 & -2 & -9\\
+    0 & 1 & 2 & 19
+  \end{bmatrix}$$
+  $$\sim\begin{bmatrix}
+    1 & 0 & 3 & 25\\
+    0 & 1 & -2 & -9\\
+    0 & 0 & 1 & 7
+  \end{bmatrix}$$
+  $$\sim\begin{bmatrix}
+    1 & 0 & 0 & 4\\
+    0 & 1 & 0 & 5\\
+    0 & 0 & 1 & 7
+  \end{bmatrix}$$
+  Therefore, an apple costs 4 dollars, beet costs 5 dollars, and carrot costs 7 dollars.
+\end{solution}
+
+\newpage \Question{Calculus Review}
+
+In the probability section of this course, you will be expected to compute derivatives, integrals, and double integrals. This question contains a couple examples of the kinds of calculus you will encounter.
+
+\begin{Parts}
+    \Part Compute the following integral:
+        \[
+            \int_0^{\infty} \sin(t)e^{-t} \dd{t}.
+        \]
+    
+    \Part Compute the values of $x \in (-2, 2)$ that correspond to local maxima and minima of the function
+    \[f(x) = \int_{0}^{x^2} t\cos(\sqrt{t}) \dd{t}.\]
+    Classify which $x$ correspond to local maxima and which to local minima.
+
+    \Part Compute the double integral
+    \[\iint_{R} 2x + y \dd{A},\]
+    where $R$ is the region bounded by the lines $x = 1$, $y = 0$, and $y = x$.
+\end{Parts}
+
+\begin{solution}
+\begin{Parts}
+\Part Let 
+$$X = \int \sin(t)e^{-t} \dd{t}.$$
+We use integration by parts to solve this complex integral. 
+The integration by parts formula is
+$$\int udv=uv-\int vdu.$$
+Let $u=e^{-t}$, then $du=-e^{-t}dt$.
+Let $dv=\sin(t)dt$, then $v=-\cos(t)$.
+Then,
+$$X=-e^{-t}\cos(t)-\int e^{-t}\cos(t)dt.$$
+Again, we use integration by parts to solve the next integral.\\
+Let $u=e^{-t}$, then $du=-e^{-t}$.
+Let $dv=\cos(t)dt$, then $v=\sin(t)$. This integral is equal to:
+$$e^{-t}\sin(t)+\int\sin(t)e^{-t}dt.$$
+Notice that this new integral is equal to $X$.
+Then
+$$X=-e^{-t}\cos(t)-(e^{-t}\sin(t)+X)$$
+$$X=\frac{-e^{-t}\cos(t)-e^{-t}\sin(t)}{2}$$
+$X$ is the integral we are trying to compute, but without bounds. Now, with bounds we get
+$$\left.\frac{-e^{-t}\cos(t)-e^{-t}\sin(t)}{2}\right|_0^\infty$$
+$$= 0-(-\frac{1}{2})(1)$$
+$$=\boxed{\frac{1}{2}}.$$
+\Part Critical points of $f$ is at $x$ where $f'(x)=0$.
+Let $u=x^2$. Then
+$$f'(x)=u\cos(\sqrt{u})2x$$
+$$=(2x)(x^2)\cos(x)=2x^3\cos(x)$$
+Within the interval $(-2,2)$, $\cos(x)=0$ when $x$ is $-\pi/2, \pi/2$.
+Therefore the derivative equates to 0 when $x=-\pi/2,0,\pi/2$.
+\\Now, we check the sign of the derivative around these points.
+The derivative is 
+positive for $-2<x<-\pi/2$,
+negative for $-\pi/2<x<0$,
+positive for $0<x<\pi/2$,
+negative for $\pi/2<x<2$.
+Therfore $x=0$ is a local minima and $x=-\pi/2,\pi/2$ are local maxima.
+\Part 
+Given 
+$$\iint_R2x+ydA$$
+We can visualize the region we are integrating over 
+as moving $x$ from 0 to 1 and $y$ from 0 to $x$ at each step. The integral can then be rewritten as
+$$\int_0^1\int_0^x2x+ydydx$$
+$$=\int_{0}^{1}\frac{5}{2}x^{2}dx$$
+$$=\boxed{\frac{5}{6}}.$$
+
+
+
+
+\end{Parts}
+\end{solution}
+
+\newpage \Question{Logical Equivalence?}
+
+\notelinks{\href{https://www.eecs70.org/assets/pdf/notes/n1.pdf}{Note 1}}
+Decide whether each of the following logical equivalences is correct and justify your answer. 
+
+\begin{Parts}
+    \Part $\forall x \; \left( P(x) \land Q(x) \right) \;\overset{?}{\equiv}\; \forall x \; P(x) \land \forall x \; Q(x)$
+    
+    \Part $\forall x \; \left( P(x) \lor Q(x) \right) \;\overset{?}{\equiv}\; \forall x \; P(x) \lor \forall x \; Q(x)$
+    
+    \Part $\exists x \; \left( P(x) \lor Q(x) \right) \;\overset{?}{\equiv}\; \exists x \; P(x) \lor \exists x \; Q(x)$
+    
+    \Part $\exists x \; \left( P(x) \land Q(x) \right) \;\overset{?}{\equiv}\; \exists x \; P(x) \land \exists x \; Q(x)$
+    
+\end{Parts}
+
+\begin{solution}
+  \begin{Parts}
+  \Part The 2 statements are logically equivalent.
+  \\Motivation: the left side can be informally thought of as 
+  $$(P(x_1)\land Q(x_1))\land(P(x_2)\land Q(x_2))\land\dots\land(P(x_\infty)\land Q(x_\infty))$$
+  The right side can be thought of as
+  $$(P(x_1)\land P(x_2)\land\dots\land P(x_\infty))
+  \land(Q(x_1)\land Q(x_2)\land\dots\land Q(x_\infty))$$
+  These 2 statements are logically equivalent since the $\land$ operator is commutative and associative.
+  \\More formally, let's prove the implication and then the converse.
+  Assume 
+  $$\forall x(P(x)\land Q(x)).$$
+  Then for any arbitrary $c$, $P(c)\land Q(c)$. 
+  Then for any arbitrary $c,d$, $P(c)\land P(d)$.
+  Thus, the right hand side is true.
+  \\Now assume 
+  $$\forall xP(x)\land\forall xQ(x).$$
+  Then for any arbitrary $c,d$, $P(c)\land Q(d)$.
+  Let $c=d$ since $d$ is arbitrary.
+  Then for any arbitrary $c$, $P(c)\land Q(c)$.
+  Thus, the left hand side is true.
+  \Part The 2 statements are not logically equivalent.
+  Consider predicates 
+  $$P(x): x = 0, Q(x): x = 1$$
+  over the universe $\{0,1\}$.
+  Then the LHS statement is equivalent to 
+  $$(P(0)\lor Q(0))\land (P(1)\lor Q(1))$$
+  $$=(T\lor F)\land(F\lor T)=T$$
+  And the RHS statement is equivalent to
+  $$(P(0)\land P(1))\lor (Q(0)\land Q(1))$$
+  $$=(T\land F)\lor(T\land F)=F.$$ 
+  Thus, this counterexample proves they are not logically equivalent.
+  \Part The 2 statements are logically equivalent.
+  First, we prove the implication. Assume
+  $$\exists x(P(x)\lor Q(x)).$$
+  Then there exists $b$ where either $P(b)$ or $Q(b)$.
+  \\Case 1: suppose $P(b)$ is true. Then the RHS is satisfied since $\exists xP(x)$.
+  \\Case 2: suppose $Q(b)$ is true. Then the RHS is satisfied since $\exists xQ(x)$. 
+  \\Thus the implication holds.
+  Now, assume
+  $$\exists xP(x)\lor\exists xQ(x).$$
+  Then either $\exists xP(x)$ or $\exists xQ(x)$.
+  \\Case 1: suppose $b$ exists where $P(b)$ is true.
+  This implies $P(b)\lor Q(b)$. Thus the LHS is satisfied.
+  \\Case 2: suppose $b$ exists where $Q(b)$ is true.
+  This implies $P(b)\lor Q(b)$. Thus the LHS is satisfied.
+  \\Thus the converse also holds and the statements are logically equivalent.
+  \Part The 2 statements are not logically equivalent. Consider the same model we used in part (b).
+  Then the LHS statement is equivalent to
+  $$(P(0)\land Q(0))\lor(P(1)\land Q(1))$$
+  $$=(T\land F)\lor(F\land T)=F$$
+  And the RHS statement is equivalent to
+  $$(P(0)\lor P(1))\land(Q(0)\lor Q(1))$$
+  $$=(T\lor F)\land(F\lor T)=T.$$
+  Thus, this counterexamples proves they are not logically equivalent.
+\end{Parts}
+\end{solution}
+
+\newpage \Question{Equivalences with Quantifiers}
+
+\notelinks{\href{https://www.eecs70.org/assets/pdf/notes/n1.pdf}{Note 1}}
+Evaluate whether the expressions on the left and right sides are equivalent in each part, and briefly justify your answers.
+
+\begin{Parts}
+    \Part $\forall x \exists y \left(P(x) \implies Q(x,y)\right) \;\overset{?}{\equiv}\; \forall x \left(P(x) \implies \exists y~Q(x,y)\right)$
+
+    \Part $\forall x \left((\exists y~Q(x,y)) \implies P(x)\right) \;\overset{?}{\equiv}\; \forall x \exists y \left(Q(x,y) \implies P(x)\right)$
+
+    \Part $\lnot \exists x \forall y \left(P(x,y) \implies \lnot Q(x,y)\right) \;\overset{?}{\equiv}\; \forall x \left( (\exists y~P(x,y)) \land (\exists y~Q(x,y)) \right)$
+\end{Parts}
+
+\begin{solution}
+\begin{Parts}
+\Part 
+The 2 expressions given are equivalent.
+\\First, let's replace the implications in the question.
+$$\forall x \exists y (\lnot P(x)\lor Q(x,y)) 
+\;\overset{?}{\equiv}\; 
+\forall x (\lnot P(x)\lor \exists yQ(x,y))$$
+For any arbitrary $c$ we pick, there are 2 cases.
+\\Case 1: $P(c)$ is true. Then the LHS is equivalent to
+$$\exists y(Q(c,y))$$ and the RHS is equivalent to
+$$\exists y(Q(c,y))$$ which are equivalent statements.
+\\Case 2: $P(c)$ is false. Then both the LHS and RHS are true
+and therefore equivalent statements.
+Thus, the 2 expressions given are equivalent.
+
+\Part
+The 2 expressions given are not equivalent.
+\\The motivation is that in the LHS each $x$ can have a different $y$ that satisfies
+and on the RHS each $x$ must have the same $y$ that satisfies.
+\\More formally, consider the universe $\{0,1\}$ with predicates
+$$P(x):false, Q(x,y):x=y.$$ 
+Then $Q(x,y)\implies P(x)$ is only true for $x=0,y=0$ and $x=1,y=1$.
+For this model, the LHS is true: for all $x$, there exists $y$ that satisfies $Q(x,y)\implies P(x)$.
+However, the RHS is not true: there is no $y$ that satisfies $Q(x,y)\implies P(x)$ for both $x=0$ and $x=1$.
+Since the LHS and RHS are not equivalent for this model, we have foudn a sufficient counterexample that proves the 2 expressions are not equivalent.
+
+\Part
+The 2 expressions given are not equivalent.
+\\Let's rewrite the LHS as
+$$\lnot\exists x\forall y(P(x,y)\implies\lnot Q(x,y))$$
+$$=\lnot\exists x\forall y(\lnot P(x,y)\land \lnot Q(x,y))$$
+$$=\forall x\exists y(\lnot(\lnot P(x,y)\land \lnot Q(x,y)))\text{ using DeMorgan's law}$$
+$$=\forall x\exists y(P(x,y)\lor Q(x,y))\text{ using DeMorgan's law}$$
+Now, let $x$ be some arbitrary element $c$ 
+and let $$P'(y)=P(c,y)\text{ and }Q'(y)=Q(c,y).$$
+The LHS becomes $$\exists y(P'(y)\land Q'(y)).$$
+and the RHS becomes $$\exists yP'(y)\land\exists yQ'(y).$$
+We've shown in question 3(d) that these 2 statements are not equivalent.
+Therefore the 2 statements as a whole are not equivalent.
+\end{Parts}
+\end{solution}
+
+\newpage \Question{Prove or Disprove}
+
+\notelinks{\href{https://www.eecs70.org/assets/pdf/notes/n2.pdf}{Note 2}}
+For each of the following, either prove the statement, or disprove by finding a counterexample.
+\begin{Parts}
+	\Part $(\forall n \in \mathbb{N})$ if $n$ is odd then $n^2 + 4n$ is odd.
+
+	\Part $(\forall a, b \in \mathbb{R})$ if $a + b \le 15$ then $a \le 11$ or $b \le 4$.
+
+	\Part $(\forall r \in \mathbb{R})$ if $r^2$ is irrational, then $r$ is irrational.
+
+	\Part $(\forall n \in \mathbb{Z}^+)$ $5n^3 > n!$. (Note: $\mathbb{Z}^+$ is the set of positive integers)
+
+  \Part The product of a non-zero rational number and an irrational number is irrational.
+
+	\Part If $A \subseteq B$, then $\mc{P}(A) \subseteq \mc{P}(B)$.
+        (Recall that $A' \in \mc{P}(A)$ if and only if $A' \subseteq A$.)
+\end{Parts}
+
+\begin{solution}
+\begin{Parts}
+\Part The statement is true. \begin{proof}
+Let $n=2k-1$ for positive integer $k$.
+Then $$n^2+4n$$
+$$=4k^2+12k+5$$
+$$=2(2k^2+6k+2)+1.$$
+Therefore, $n^2+4n$ is indeed odd.
+\end{proof}
+
+\Part The statement is true. \begin{proof} (Contrapositive)
+Let $a>11$ and $b>4$.
+Then $a+b>15$.
+\end{proof}
+
+\Part The statement is true. \begin{proof} (Contrapositive)
+Let $r$ be rational and $r = \frac{a}{b}$ for integers $a$, $b$ where $b$ is non-zero.
+Then
+$$r^2 = \frac{a^2}{b^2}.$$
+We can see that $a^2$ and $b^2$ are integers and $b^2$ is non-zero.
+Therefore $r^2$ is rational.
+\end{proof}
+
+\Part The statement is false. \begin{proof} (Counterexample)
+Consider $n=10$. Then
+$$5n^3=5000$$
+which is less than
+$$10=3628800.$$
+\end{proof} 
+
+\Part The statement is true. \begin{proof} (Contradiction)
+Suppose $x\cdot y=z$ where $x$ is non-zero rational, $y$ is irrational, $z$ is non-zero rational.
+Let $x=\frac{a}{b}$ for non-zero integers $a,b$.
+Let $z=\frac{c}{d}$ for non-zero integers $c,d$.
+Then $$\frac{a}{b}\cdot y=\frac{c}{d}$$
+$$y=\frac{bc}{ad}.$$
+Since $y$ is the division of 2 non-zero integers, it is rational.
+However, this contradicts with our earlier statement that $y$ is irrational.
+\end{proof}
+
+\Part The statement is true. \begin{proof} (Contrapositive)
+Suppose $\mc{P}(A)\not\subseteq\mc{P}(B)$.
+% Then $\exists a\in \mc{P}(A)$ where $a\not\in \mc{P}(B)$.
+Then there exists a subset of $A$ that is not a subset of $B$.
+Then there exists an element in $A$ that is not an element in $B$.
+Then $A\not\subseteq B$.
+
+\end{proof}
+\end{Parts}
+\end{solution}
+
+\newpage \Question{Twin Primes}
+
+\notelinks*{\href{https://www.eecs70.org/assets/pdf/notes/n2.pdf}{Note 2}}
+\begin{Parts}
+	\item Let $p > 3$ be a prime. Prove that $p$ is of the form $3k + 1$ or $3k-1$ for some integer $k$.
+
+	\item \textit{Twin primes} are pairs of prime numbers $p$ and $q$ that have a difference of 2. Use part (a) to prove that 5 is the only prime number that takes part in two different twin prime pairs.
+\end{Parts}
+\begin{solution}
+\begin{Parts}
+
+\Part \begin{proof}
+We can succinctly rewrite the statement that $p$ is of the form $3k+1$ or $3k-1$
+as $$p\equiv1,2\bmod3$$ which is the same as
+$$p\not\equiv0\bmod3.$$
+(Contrapositive) Suppose $p\equiv0\bmod3$. Then, $p$ is divisible by 3. 
+Since $p > 3$, $p\neq3$. Thus $p$ must be composite and not prime.  
+\end{proof}
+
+\Part \begin{proof}
+(Contradiction) Using brute force we know that there are no primes below 5 that is in 2 different twin prime pairs. 
+Now suppose there is a prime $p>5$ that is in 2 different twin prime pairs.
+Then $p-2$, $p$, and $p+2$ are all prime.
+From (a) we know that all primes are of the form $3k+1$ or $3k-1$ for some integer $k$.
+We proceed by casework.
+\\Case 1: suppose $p$ is of the form $3k-1$. 
+Then $p-2$ = $3k-3$. $p-2$ is not prime since it's divisible by 3 and greater than 3.
+Contradiction.
+\\Case 2: suppose $p$ is of the form $3k+1$.
+Then $p+2$ = $3k+3$. $p+2$ is not prime since it's divisible by 3 and greater than 3.
+Contradiction.
+\end{proof}
+
+\end{Parts}
+\end{solution}
+
+\end{document}
