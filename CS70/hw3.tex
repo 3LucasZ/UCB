@@ -1,0 +1,377 @@
+\documentclass[11pt]{article}
+\usepackage{header}
+\def\title{HW 03}
+
+\begin{document}
+\maketitle
+\fontsize{12}{15}\selectfont
+
+\begin{center}
+    Due: Saturday, 9/21, 4:00 PM \\
+    Grace period until Saturday, 9/21, 6:00 PM \\
+\end{center}
+
+\section*{Sundry}
+Before you start writing your final homework submission, state briefly how you worked on it.  Who else did you work with?  List names and email addresses.  (In case of homework party, you can just describe the group.)
+
+\begin{solution}
+  I worked with Lawrence Rhee (lawrencejrhee@berkeley.edu). 
+  We discussed our approaches to each problem and asked each other questions.  
+\end{solution}
+
+\vspace{15pt}
+
+\Question{Short Tree Proofs}
+
+\notelinks{\href{https://www.eecs70.org/assets/pdf/notes/n5.pdf}{Note 5}}
+Let $G = (V, E)$ be an undirected graph with $|V| \geq 1$.
+
+\begin{Parts}
+
+\Part Prove that every connected component in an acyclic graph is a tree.
+
+\Part Suppose $G$ has $k$ connected components. Prove that if $G$ is acyclic, then $|E| = |V| - k$.
+
+\Part Prove that a graph with $|V|$ edges contains a cycle. 
+
+\end{Parts}
+
+\begin{solution}
+\begin{Parts}
+\Part \begin{proof} 
+ Since G is acyclic, each of the connected components are also acyclic.
+ Then, every connected component is a connected, acyclic graph.
+ Thus each connected component is a tree.
+\end{proof}
+
+\Part \begin{proof} 
+The graph G = $(V,E)$ is the "union" of its connected components, which is the set of graphs
+$$G_1=(V_1,E_1),\dots,G_k=(V_k,E_k)$$
+where $$V=V_1\cup\dots\cup V_k\text{ and }E=E_1\cup\dots\cup E_k$$
+since there are $k$ connected components. 
+From (a) we know that each connected component in $G$ is a tree.
+In a tree, $|E|=|V|-1$.
+Then,
+$$|E_1|+\dots+|E_k|=|V_1|+\dots+|V_k|-k$$
+Thus, $|E|=|V|-k$ as desired.
+\end{proof}
+
+\Part 
+\begin{proof} 
+Again, the graph G = $(V,E)$ is the "union" of its connected components, which is the set of graphs
+$$G_1=(V_1,E_1),\dots,G_k=(V_k,E_k)$$
+where $$V=V_1\cup\dots\cup V_k\text{ and }E=E_1\cup\dots\cup E_k$$
+Lemma: There exists a connected component $G_i$ where $|V_i|\leq|E_i|$.
+\\Consider the case that for each connected component, $|V_i|>|E_i|$. 
+Then, $\sum|V_i|>\sum|E_i|$. 
+Then, $|V|>|E|$, which is a contradiction.
+Thus, There exists a connected component $G_i$ where $|V_i|\leq|E_i|$.
+\\Then, $|V_i|\neq|E_i|+1$ within that connected component. 
+Thus, $G_i$ is a connected component that is not a tree.
+Thus, $G_i$ must contain a cycle. Thus, $G$ itself contains a cycle.
+\end{proof}
+\end{Parts}
+\end{solution} \newpage
+
+\Question{Proofs in Graphs} 
+
+\notelinks*{\href{https://www.eecs70.org/assets/pdf/notes/n5.pdf}{Note 5}}
+\begin{Parts}
+
+\Part On the axis from San Francisco traffic habits to Los Angeles traffic habits, Old California is more towards San Francisco: that is, civilized. In Old California, all roads were one way streets. Suppose Old California had 
+$n$ cities ($n \geq 2$) such that for every pair of cities $X$ and $Y$,
+either $X$ had a road to $Y$ or $Y$ had a road to $X$.
+
+Prove that there existed a city which was reachable from every other city by traveling through at most 2 roads. 
+
+[\textit{Hint:} Induction]
+
+\Part Consider a connected graph $G$ with $n$ vertices which has exactly $2m$ vertices of
+odd degree, where $m > 0$. Prove that there are $m$ walks that \emph{together} 
+cover all the edges of $G$ (i.e., each edge of $G$ occurs in exactly one of the $m$ walks, 
+and each of the walks should not contain any particular edge more than once).
+
+[\emph{Hint:} In lecture, we have shown that a connected undirected graph has an Eulerian tour if and only if every vertex has even degree. This fact may be useful in the proof.]
+
+\Part Prove that any graph $G$ is bipartite if and only if it has no tours of odd length.
+
+[\emph{Hint:} In one of the directions, consider the lengths of paths starting from a given vertex.]
+\end{Parts}
+
+\begin{solution}\begin{Parts}
+\Part \begin{proof}
+(Base) If we have $n=2$ cities, then 1 city will be reachable by the other in 1 move no matter the configuration of the roads.
+Thus, there is a city reachable from every other traveling through at most 2 roads for $n=2$. 
+\\(Hypothesis) Suppose for $n=k$ cities, for all configuration of edges there is a city reachable from every other by traveling through at most 2 roads.
+\\(Step) Suppose we have $n=k+1$ cities.
+Let's remove a city $v$ and its corresponding roads going in and out of it.
+We are left with a graph with $k$ cities.
+By our hypothesis, there is some city in this resulting graph that is reachable from every other city by traveling through at most 2 roads.
+\\Let's call that special city $u$.
+\\Let's call the set of cities that reaches $u$ in exactly 1 road is $V_i$.
+\\Let's call the set of cities that reaches $u$ in exactly 2 roads is $V_o$.
+\\Each vertex in $V_o$ has at least 1 edge going into some vertex in $V_i$. 
+If this was not true, it would be impossible for the cities in $V_o$ to reach $u$ in 2 roads.
+\\Now, when we add $v$ and its corresponding edges back into the graph, we have 3 cases.
+\\(Case 1) There is a road that goes from $v$ to $u$.
+Then, $v$ can reach $u$ in 1 road and $u$ is reachable by every city by at most 2 roads. 
+For the next cases, we will assume a road goes from $u$ to $v$.
+\\(Case 2) There exists a road that goes from $v$ to some city in $V_i$.
+Then, $v$ can reach $u$ in 2 roads and $u$ is reachable by every city by at most 2 roads. 
+\\(Case 3) There are no roads that go from $v$ to a city in $V_i$.
+Then, $u$ and every city in $V_i$ has a road to $v$,
+and every city in $V_o$ has a road to a city in $V_i$ which has a road to $v$.
+Thus, $v$ is reachable by every city by at most 2 roads. 
+In all 3 cases, we have shown for $n=k+1$ cities, there is some city (either $u$ or $v$) where every other city can reach it in at most 2 roads.
+\end{proof}
+
+\Part \begin{proof}
+Let's call our original graph $G$.
+Let's arbitrarily pair up each vertex of odd degree with another vertex of odd degree as follows:
+$$(u_1,u_2),\dots,(u_{2m-1},u_{2m}).$$
+We can do so since there is an even number of vertices of odd degree.
+For each pair, create a new edge between the 2 vertices. 
+Let's call our new graph with added edges $G'$.
+Now, every vertex has even degree in $G'$. 
+\\Since a connected undirected graph has an Eulerian tour IFF every vertex has even degree, $G'$ has a Eulerian tour.
+Let the Eulerian tour of $G'$ be the walk:
+$(v_1,\dots,v_k,v_1)$.
+\\Let's disconnect the edges
+$$(u_1,u_2),\dots,(u_{2m-1},u_{2m})$$
+we created from this walk.
+The result is a list of walks:
+$$(v_1,\dots,u_i),\dots,(u_j,\dots,v_1)$$
+Each disconnected edge creates a new walk.
+Since we are disconnecting $m$ edges, we create $m$ new walks.
+Now, we have a total of $m+1$ walks.
+However, we can concatenate the first walk onto the last walk of the list, since the last walk ends with $v_1$ and the first walk starts with $v_1$.
+Now, we have a total of $m$ walks.
+These $m$ walks together cover all the edges of $G$.
+\end{proof}
+
+\Part \begin{proof}
+(=>) Suppose $G$ is bipartite. Let's call the 2 subsets of vertices $V_1$, $V_2$,
+where there are no edges between vertices within the subsets $V_1,V_2$.
+By definition, a tour starts and ends on the same node. 
+Thus, for every tour in $G$, it must start and end in the same subset.
+You start and end in the same subset IFF you traverse an even number of edges.
+This is because, on each traversed edge, the subset you are on must change (no edges within the subsets).
+Thus, there are no tours of odd length in $G$.
+\\(<=) Suppose there are no tours of odd length in $G$.
+\\Let's create 2 subsets of the vertices of $G$: $V_1,V_2$. Both start out as empty.
+Let $C$ be any connected component within $G$.
+Then there are no tours of odd length in $C$.
+Let's pick any node $u$ from $C$.
+\\Lemma: no node $v$ in $C$ can reach $u$ in both odd and even moves.
+\\Suppose there is a node $v$ in $C$ such that $u$ can reach $v$ in both an odd and even number of edges.
+Then we can create the tour: $u->v$ via the odd path and then $v->u$ via the even path.
+Then, we have an odd tour, contradiction.
+Thus, there is no node $v$ in $C$ that can reach $u$ in both odd and even moves.
+\\Let's add $u$ and all the nodes that reach it in an even number of moves to the subset $V_2$.
+If there are existing nodes in $V_2$, there will be no connections into them since they are separate components.
+There will be no connections within the added nodes either, since they all reach $u$ in only an even number of moves.
+\\Let's add all the other nodes to $V_1$. 
+Similarly, there are no connections into the existing nodes of $V_1$
+and no connections within the added nodes.
+\\After going through all the connected components, we have $V=V_1\cup V_2$ where there are no edges between 2 nodes in the same subset.
+Thus, $G$ is bipartite.
+\end{proof}\end{Parts}\end{solution}\newpage
+
+\Question{Touring Hypercube} 
+
+\notelinks{\href{https://www.eecs70.org/assets/pdf/notes/n5.pdf}{Note 5}}
+In the lecture, you have seen that if $G$ is a hypercube of dimension $n$, then
+\begin{itemize}
+    \item The vertices of $G$ are the binary strings of length $n$.
+    \item $u$ and $v$ are connected by an edge if they differ in exactly one bit location.
+\end{itemize}
+
+A \emph{Hamiltonian tour} of a graph is a sequence of vertices
+$v_0, v_1, \ldots, v_k$ such that:
+\begin{itemize}
+    \item Each vertex appears exactly once in the sequence.
+    \item Each pair of consecutive vertices is connected by an edge.
+    \item $v_0$ and $v_k$ are connected by an edge.
+\end{itemize}
+
+\begin{Parts}
+
+    \Part Show that a hypercube has an Eulerian tour if and only if $n$ is even.
+    
+
+    \Part Show that every hypercube has a Hamiltonian tour. 
+
+\end{Parts}
+
+\begin{solution}
+\begin{Parts}
+\Part \begin{proof}(=>) Suppose a hybercube has an Eulerian tour.
+In a eulerian tour, each vertex has even degree.
+A hypercube of dim $n$ has $n$ degree per vertex.
+Thus, $n$ must be even.
+
+(<=) Suppose a hypercube has even dimension $n$.
+A hypercube of dim $n$ has $n$ degree per vertex.
+Then each vertex has even degree.
+Thus, the hypercube has an Eulerian tour.
+\end{proof}
+
+\Part \begin{proof}
+(Note 1) Hamiltonian tours are "circular", so if one exists, it's starting node can be any one of the nodes participating in the tour.
+
+(Note 2) Hamiltonian tours are "reversible", so if one exists, you can reverse the order of the nodes in the tour and the tour will still work.
+
+(Base) Suppose we have a hypercube with dimension $n=1$.
+Then, it is trivial to see it has a Hamiltonian tour including the first and second vertices (0, 1).
+
+(Hypothesis) Suppose a hypercube with dimension $n=k$ has a Hamiltonian tour starting at $v_1=00\dots0$ and ending at $v_k=10\dots0$.
+
+(Step) Suppose we have a hypercube with dimension $n=k+1$.
+There are 2 types of vertices: ones that ends with a $0$ and ones that end with a $1$. 
+We put them in the sets $V_0,V_1$ respectively.
+Within both sets, ignoring the edges between the 2 sets, we have a hypercube with dimension $n=k$ (since within each set the last digits are the same, we can pretend it doesn't exist).
+By our hypothesis, both set's hypercube has a Hamiltonian tour. 
+\\For $V_0$: a Hamiltonian tour starts and ends at $v_1=00\dots00$ and $v_k=10\dots00$ respectively.
+\\For $V_1$: a Hamiltonian tour starts and ends at $w_1=10\dots01$ and $w_k=00\dots01$ respectively.
+\\Then, we can splice together a new Hamiltonian tour: $v_1,\dots,v_k,w_1,\dots,w_k$ that goes through every vertex of our $n=k+1$ dimension hypercube.
+We can do this because $v_k,w_k$ are only 1 bit distance away, and so is $w_k,v_1$.
+Thus, a hypercube with dimension $n=k+1$ has a Hamiltonian tour.
+\end{proof}\end{Parts}\end{solution}\newpage
+
+\Question{Edge Colorings}
+
+\notelinks{\href{https://www.eecs70.org/assets/pdf/notes/n5.pdf}{Note 5}}
+An edge coloring of a graph is an assignment of colors to edges in a graph where any two edges incident to the same vertex have different colors. An example is shown on the left.
+
+\begin{center}
+    \begin{tikzpicture}
+        \clip (-1, -1) rectangle (8, 2.1);
+
+        \node[circ] (n1) at (0, 0) {};
+        \node[circ] (n2) at (1, {sqrt(3)}) {};
+        \node[circ] (n3) at (2, 0) {};
+        \draw (n1) -- node[above left] {color 1} (n2)
+        -- node[above right] {color 2} (n3)
+        -- node[below] {color 3} (n1);
+
+        \node[circ] (m1) at (5, 0) {};
+        \node[circ] (m2) at (5, 2) {};
+        \node[circ] (m3) at (7, 2) {};
+        \node[circ] (m4) at (7, 0) {};
+        \draw (m1) -- (m2) -- (m3) -- (m4) -- (m1);
+        \draw (m2) -- (m4);
+        \draw (m1) edge[out=-60, in=-30, looseness=2.5] (m3);
+    \end{tikzpicture}
+\end{center}
+
+\begin{Parts}
+\Part Show that the 4 vertex complete graph above can be 3 edge colored. (Use the numbers $1,2,3$ for colors. A figure is shown on the right.)
+
+\Part Prove that any graph with maximum degree $d \geq 1$ can be edge colored with $2d-1$ colors. 
+
+\Part Show that a tree can be edge colored with $d$ colors where $d$ is the maximum degree of any vertex.
+
+\end{Parts}
+
+\begin{solution}
+\begin{Parts}
+\Part \begin{proof}
+We can successfully edge-color the figure with 3 colors as follows:
+\begin{center}
+\begin{tikzpicture}
+  \node[circ] (m1) at (5, 0) {};
+  \node[circ] (m2) at (5, 2) {};
+  \node[circ] (m3) at (7, 2) {};
+  \node[circ] (m4) at (7, 0) {};
+  \draw (m1) -- (m2) node[midway]{1};
+  \draw (m2) -- (m3) node[midway]{2};
+  \draw (m3) -- (m4) node[midway]{1};
+  \draw (m4) -- (m1) node[midway]{2};
+  \draw (m2) -- (m4) node[midway]{3};
+  \draw (m1) edge[out=-60, in=-30, looseness=2.5] node[midway]{3} (m3);
+\end{tikzpicture}
+\end{center}
+\end{proof}
+
+\Part \begin{proof}
+(Base case) Suppose we have a graph with 2 nodes and maximum degree $d\geq1$.
+Then it must be the graph with 2 nodes and 1 edge between those 2, and the maximum degree is 1.
+Then it can be colored with 1 color since their is only 1 edge.
+Thus it can be colored with $2(1)-1=1$ colors.
+
+(Hypothesis) Suppose any graph with $n=k$ nodes and maximum degree $d\geq1$ can be edge-colored with $2d-1$ colors.
+
+(Step) Suppose we have a graph with $n=k+1$ nodes and maximum degree $d\geq1$.
+Then, if we remove any vertex $v$ and its corresponding edges to vertices $u_1,\dots,u_k$ from the graph, we are left with a graph with $n=k$ nodes and maximum degree $\leq d$.
+This can be edge-colored with $2d-1$ colors, by our hypothesis (+ the obvious fact that a decrease in maximum degree can not increase the number of colors).
+\\Now, let's add $v$ back to the graph along with its corresponding edges.
+Suppose we have $2d-1$ colors available.
+Let's add the edges to $u_1,\dots ,u_k$ in order.
+Then, the 1st added edge is from $v$ to $u_1$.
+Before adding it, $u_1$ can have degree at most $d-1$.
+The edge can be colored by at least $(2d-1)-(d-1)=d$ colors, since we have $2d-1$ colors available and at most $d-1$ colors can be taken by $u_1$'s pre-existing neighbors.
+\\Similarly, when adding the edge from $v$ to $u_i$, it can be colored by at least $d-(i-1)$ colors.
+The $(i-1)$ term is introduced because the new edge's color can't be the same as the previously added colors.
+Then, the number of choices is always $\geq 1$ since the maximum $i$ is $d$ since $d$ is max degree.
+\\Thus, any graph with $n=k+1$ nodes and max degree $d\geq1$ can be edge colored with $2d-1$ colors.
+\end{proof}
+
+\Part \begin{proof}
+(Base case) Suppose we have a tree with 1 node. 
+The only tree that satisfies it is a singular node with no edges.
+Since there is only 1 node, it's max-degree is 0.
+It can be colored with 0 colors since there are no edges.
+Thus, for all trees with 1 node, it can be edge-colored with $d$ colors where $d$ is the max-degree of any vertex.
+
+(Hypothesis) Suppose for all trees with $n=k$ nodes, it can be edge-colored with $d$ colors where $d$ is the tree max-degree.
+
+(Step) Suppose we have a tree with $n=k+1$ nodes and max-degree $d$.
+If we remove any leaf $v$ of the tree, we are left with a tree with $n=k$ nodes and max-degree $\leq d$.
+By our hypothesis, the resulting tree can be edge colored with $d$ colors (+ the obvious fact that a decrease in maximum degree can not increase the number of colors).
+Now, let's add $v$ back to the tree, with its corresponding edge to it's parent $u$.
+Before $v$ is added, $u$ has at most $d-1$ edges connected to it since max-degree is $d$.
+If we have $d$ colors to choose from, and at most $d-1$ can't be used, we have at least 1 color available to use for the edge from $u$ to $v$.
+Thus, all trees with $n=k+1$ nodes and max-degree $d$ can be edge-colored with $d$ colors.
+\end{proof}\end{Parts}\end{solution}\newpage
+
+\Question{Planarity and Graph Complements}
+
+\notelinks{\href{https://www.eecs70.org/assets/pdf/notes/n5.pdf}{Note 5}}
+Let $G = (V, E)$ be an undirected graph.  We define the complement of $G$ as $\overline{G} = (V, \overline{E})$ where $\overline{E} = \{(i,j) \mid i,j \in V, i \neq j\} - E$; that is, $\overline{G}$ has the same set of vertices as $G$, but an edge $e$ exists is $\overline{G}$ if and only if it does not exist in $G$.
+
+\begin{Parts}
+
+\Part Suppose $G$ has $v$ vertices and $e$ edges.  How many edges does $\overline{G}$ have?
+
+\Part Prove that for any graph with at least 13 vertices, $G$ being planar implies that $\overline{G}$ is non-planar.
+
+\Part Now consider the converse of the previous part, i.e., for any graph $G$ with at least 13 vertices, if $\overline{G}$ is non-planar, then $G$ is planar. Construct a counterexample to show that the converse does not hold.
+
+\textit{Hint: Recall that if a graph contains a copy of $K_5$, then it is non-planar. Can this fact be used to construct a counterexample?}
+
+\end{Parts}
+
+\begin{solution} \begin{Parts}
+\Part Since there are $v$ vertices, if every vertex was connected to every other
+we would have a total of $\frac{v(v-1)}{2}$ edges. Subtracting the $e$ edges that are from $G$ gives us the final formula:
+$$|\overline{E}| = \frac{v(v-1)}{2}-e.$$
+
+\Part \begin{proof} Let $G$ be some planar graph with $v,e,f$ vertices, edges, and faces respectively.
+Then, $e\leq 3v-6$ must hold.
+Thus, $e\leq33.$
+\\Now suppose $\overline{G}$ is also a planar graph with $v',e',f'$ vertices, edges, and faces respectively.
+From (a) we know that 
+$$e'=\frac{v(v-1)}{2}-e=78-e.$$
+Thus, $e'\geq45.$
+Since $\overline{G}$ is planar, $e'\leq3v'-6$ must hold.
+However, $3v'-6=33$. Clearly, $e'$ is not less than or equal to 33.
+Thus we have a contradiction, so $\overline{G}$ must be non-planar.
+\end{proof}
+
+\Part Consider the graph $G$ consisting of the $K_5$ graph and 8 isolated vertices. 
+Since $K_5$ has 5 vertices in it, $G$ has 13 vertices.
+In $\overline{G}$, 5 of the isolated vertices will all connect with each other. 
+Thus, $\overline{G}$ contains a $K_5$ graph and is non-planar. 
+However, $G$ has a $K_5$ subgraph and is non-planar.
+Thus, we found a counterexample. 
+\end{Parts}\end{solution}\newpage\end{document}
