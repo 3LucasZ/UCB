@@ -1,0 +1,291 @@
+\documentclass[11pt]{article}
+\usepackage{header}
+\def\title{HW 08}
+
+\begin{document}
+\maketitle
+\fontsize{12}{15}\selectfont
+
+\begin{center}
+    Due: Saturday, 10/26, 4:00 PM \\
+    Grace period until Saturday, 10/26, 6:00 PM \\
+\end{center}
+
+\section*{Sundry}
+Before you start writing your final homework submission, state briefly how you worked on it.  Who else did you work with?  List names and email addresses.  (In case of homework party, you can just describe the group.)
+
+  \begin{solution}
+    I worked with Lawrence Rhee (lawrencejrhee@berkeley.edu). 
+    We discussed our approaches to each problem and asked each other questions.  
+  \end{solution}
+\vspace{15pt}
+
+\Question{Count It!}
+
+\notelinks{\href{https://www.eecs70.org/assets/pdf/notes/n11.pdf}{Note 11}}
+For each of the following collections, determine and briefly explain whether it is finite, countably infinite (like the natural numbers), or uncountably infinite (like the reals):
+
+\begin{Parts}
+
+
+
+
+
+\Part The integers which divide $8$.
+
+
+\Part The integers which $8$ divides.
+
+
+\Part The functions from $\mathbb{N}$ to $\mathbb{N}$.
+
+
+\Part The set of strings over the English alphabet. (Note that the strings may be arbitrarily long, but each string has finite length. Also the strings need not be real English words.)
+
+
+
+
+
+\Part The set of finite-length strings drawn from a countably infinite alphabet, $\mathcal{C}$.
+
+\Part The set of infinite-length strings over the English alphabet.
+
+\end{Parts}
+
+\begin{solution}\begin{Parts}\Part 
+There are 4 numbers that divide 8, namely: 1, 2, 4, 8. Thus, finite collection.
+
+\Part 
+The integers which 8 divides is equal to $$\{\dots,-16,-8,0,8,16,\dots\}$$
+The function $f(x)=x/8$ is clearly a bijection from this collection to $\N$.
+Thus, countably infinite collection.
+
+\Part 
+The set of functions from $\N$ to $\{0,1\}$ is the power set of $\N$. 
+We can do this, because each function f can be represented as the subset of $\N$ for which f(x)=1.
+We know that the powerset of a countably infinite set is uncountably infinite.
+Also, the set of functions from $\N$ to $\N$ is greater than the set of functions from $\N$ to $\{0,1\}$.
+Thus, set of functions from $\N$ to $\N$ is uncountably infinite.
+\Part let f(str) be the function that converts the string to a base 27 number. 
+Ex: a=1, b=2, ..., z=26. Then every string has a unique output in $\N$, f is injective. f is not surjective since 0 has no pre-image.
+Then set of strings has cardinality $\leq$ that of $\N$. Thus set of strings is countably infinite collection.
+\Part The union of 2 countably infinite sets is countably infinite.
+The cartesian product of 2 countably infinite sets is countably infinte.
+Since the set of finite-length strings from a countably infinite alphabet is the same as $(\mathcal{C}\cup(\mathcal{C}\cross\mathcal{C})\cup(\mathcal{C}\cross\mathcal{C}\cross\mathcal{C})\cup\dots)$,
+(and there are a finite number of cartesian products and unions) the collection is countably infinite.
+\Part The set of infinite-length strings over the English alphabet (26 letters to choose from per character) is larger than the set of infinite-length binary strings (2 numbers to choose from per digit), which is an uncountably infinite set.
+Thus, this collection is uncountably infinite.
+\end{Parts}\end{solution}\newpage
+
+
+\Question{Unprogrammable Programs}
+
+\notelinks{\href{https://www.eecs70.org/assets/pdf/notes/n12.pdf}{Note 12}}
+Prove whether the programs described below can exist or not.
+
+\begin{Parts}
+
+\Part A program $P(F,x,y)$ that returns true if the program $F$ outputs $y$ when given $x$ as input (i.e. $F(x)=y$) and false otherwise.
+
+
+\Part A program $P$ that takes two programs $F$ and $G$ as arguments, and returns true if $F$ and $G$ halt on the same set of inputs (or false otherwise).
+
+\textit{Hint:} Use $P$ to solve the halting problem, and consider defining two subroutines to pass in to $P$, where one of the subroutines always loops.
+
+\end{Parts}
+
+\begin{solution}\begin{Parts}
+\Part Suppose such a program $P(F,x,y)$ exists.
+Imagine this program:
+\begin{lstlisting}[language=Python]
+def TestHalt2(testProgram, x):
+  if P(TestHalt, lambda: testProgram(x), True):
+    return True
+  else:
+    return False
+\end{lstlisting}
+Then, P would solve the halting problem! This is a contradiction, thus no such program P exists.
+\Part Suppose such a program $P(F,G)$ exists. Imagine this program:
+\begin{lstlisting}[language=Python]
+def TestHalt(T, x):
+  def T2:
+    T(x)
+  def S:
+    while True:
+      pass
+  return !P(S,T2)
+\end{lstlisting}
+Case 1: T halts on x.
+Since S never halts, $P(S,T2)$ will return true.
+\\Case 2: T infinitely loops on x.
+Since S also infinitely loops, $P(S,T2)$ will return false.
+\\Thus, the existing of such a program $P(F,G)$ would solve the halting problem.
+Thus, by contradiction, the program does not exist.
+\end{Parts}\end{solution}\newpage
+
+\Question{Kolmogorov Complexity}
+
+\notelinks{\href{https://www.eecs70.org/assets/pdf/notes/n12.pdf}{Note 12}}
+Compressing a bit string $x$ of length $n$ can be interpreted as the task of creating a program of fewer than $n$ bits that returns $x$.
+The Kolmogorov complexity of a string $K(x)$ is the length of an optimally-compressed copy of $x$; that is, $K(x)$ is the length of shortest program that returns $x$.
+
+\begin{Parts}
+
+\Part
+Explain why the notion of the "smallest positive integer that cannot be defined in under 280 characters" is paradoxical.
+
+
+\Part
+Prove that for any length $n$, there is at least one string of bits that cannot be compressed to less than $n$ bits, assuming that no two strings can be compressed to the same value.
+
+
+\Part
+Say you have a program $K$ that outputs the Kolmogorov complexity of any input
+string. Under the assumption that you can use such a program $K$ as a
+subroutine, design another program $P$ that takes an integer $n$ as input, and
+outputs the length-$n$ binary string with the highest Kolmogorov complexity. If
+there is more than one string with the highest complexity, output the one that
+comes first lexicographically.
+
+
+\Part
+Let's say you compile the program $P$ you just wrote and get an $m$ bit
+executable, for some $m \in \mathbb N$ (i.e. the program $P$ can be represented
+in $m$ bits). Prove that the program $P$ (and consequently the program $K$)
+cannot exist.
+
+(\textit{Hint}: Consider what happens when $P$ is given a very large input $n$ that is much greater than $m$.)
+
+ 
+
+
+\end{Parts}
+\begin{solution}
+\begin{Parts}
+\Part Suppose such a number $x$ exists. Then only 1 such exists due to its minimality.
+Then the number $x$ can be defined as "smallest positive integer ... under 280 characters".
+That sentence itself is under 280 characters long!
+Thus, this is a contradiction and paradox, the very definition of $x$ is under 280 characters.
+\Part There are $$2^n$$ binary strings length $n$. Let's call this set S1.
+There are $$2^0+2^1+\dots+2^{n-1}=2^n-1$$ binary strings length less than $n$. Let's call this set S2.
+\\Suppose that every string from S1 can be mapped to a distinct string in S2.
+Then $|S1|\leq|S2|$. Contradiction, since $|S1|>|S2|$ as shown earlier.
+Thus, there must exist some string in S1 that can't be mapped to an element in S2.
+\Part 
+Consider the following program:
+\begin{lstlisting}[language=Python]
+def P(n):
+  best = '0'*n
+  for i in range(pow(2,n)):
+    nxt = binary(i, n)
+    if K(nxt) > K(best):
+      best = nxt
+  return best
+def binary(i, n):
+  return the length n string which represents i as binary
+\end{lstlisting}
+This program should theoretically work, given that $K$ works.
+\Part I have no idea how to solve this. However, I am excited to learn when the solutions come out!
+This is a very elegant question.
+\end{Parts}
+\end{solution}
+\newpage
+
+\Question{Probability Warm-Up}
+
+\notelinks*{\href{https://www.eecs70.org/assets/pdf/notes/n13.pdf}{Note 13}}
+\begin{enumerate}[(a)]
+\item Suppose that we have a bucket of 30 green balls and 70 orange balls. If we pick 15 balls uniformly out of the bucket, what is the probability of getting exactly $k$ green balls (assuming $0 \leq k \leq 15$) if the sampling is done \textbf{with} replacement, i.e. after we take a ball out the bucket we return the ball back to the bucket for the next round?
+    
+
+\item Same as part (a), but the sampling is \textbf{without} replacement, i.e. after we take a ball out the bucket we \textbf{do not} return the ball back to the bucket.
+    
+
+\item If we roll a regular, 6-sided die 5 times. What is the probability that at least one value is observed more than once?
+    
+
+\end{enumerate}
+
+\begin{solution}\begin{Parts}
+\Part Every time we pick a ball, there is a $30/100 = 0.3$ probability of picking a green ball and $70/100=0.7$ probability of picking an orange ball.
+$\binom{15}{k}$ ways for a sequence of 15 to ontain $k$ green balls.
+Thus, total probability is $$\binom{15}{k}0.3^k0.7^{15-k}$$
+\Part Sample space size: $\binom{100}{15}$.
+Event space size: $\binom{30}{k}\binom{70}{15-k}$.
+Since each data point is uniform probability, event probability: 
+$$\frac{\binom{30}{k}\binom{70}{15-k}}{\binom{100}{15}}$$ 
+\Part Using complimentary probability, this is equal to 1 - P(all values are distinct).
+The event that all rolls are different can happen in $6*5*4*3*2 = 6!$ ways.
+The number of outcomes of 5 rolls is $6^5$ ways.
+Thus, event probability is: $$1-\frac{6!}{6^5}$$
+\end{Parts}\end{solution}\newpage
+
+
+
+\Question{Five Up}
+
+\notelinks{\href{https://www.eecs70.org/assets/pdf/notes/n13.pdf}{Note 13}}
+Say you toss a coin five times, and record the outcomes. For the three questions
+below, you can assume that order matters in the outcome, and that the
+probability of heads is some $p$ in $0 < p < 1$, but \textit{not} that the coin
+is fair ($p = 0.5$).
+
+\begin{Parts}
+\Part What is the size of the sample space, $|\Omega|$?
+
+\Part How many elements of $\Omega$ have exactly three heads?
+
+\Part How many elements of $\Omega$ have three or more heads?
+\end{Parts}
+
+For the next three questions, you can assume that the coin is fair (i.e. heads comes up with $p=0.5$, and tails otherwise).
+
+\begin{ResumeParts}
+\Part What is the probability that you will observe the sequence HHHTT? What about HHHHT?
+
+\Part What is the probability of observing at least one head?
+
+\Part What is the probability you will observe more heads than tails?
+
+\end{ResumeParts}
+
+For the final three questions, you can instead assume the coin is biased so that it comes up heads with probability $p = \frac{2}{3}$.
+
+\begin{ResumeParts}
+\Part What is the probability of observing the outcome HHHTT? What about HHHHT?
+
+\Part What about the probability of at least one head?
+
+\Part What is the probability you will observe more heads than tails?
+\end{ResumeParts}
+
+\begin{solution}\begin{Parts}
+\Part The number of possible outcomes from flipping a coin 5 times (where order matters) is $2^5=32$.
+\Part This is equal to $\binom{5}{3}=10$.
+\Part Add the instance of 3 heads, 4 heads, and 5 heads together.
+$$\binom{5}{3}+\binom{5}{4}+\binom{5}{5} = 16$$
+\Part For both sequences, the probability of that specific instance is $0.5^5$.
+Another way of thinking it, is since the coin is fair, the probability points are uniformly distributed.
+Thus, $1/2^5 = 1/32$ probability.
+\Part using complementary probability, this is the same as 1 - the probability of observing no heads.
+There is one instance where there are no heads, and that is the sequence TTTTT.
+Thus, $1-0.5^5 = 31/32$. 
+\Part this happens if you see 3, 4, or 5 heads.
+The instance of getting exactly 3 heads appears $\binom{5}{3}$ times in the sample space.
+The probability of getting a single instance is $0.5^5$. 
+Doing the same for 4 and 5 we get a total probability of
+$(\binom{5}{3}+\binom{5}{4}+\binom{5}{5})*(1/32)$.
+This is equal to $16/32=0.5$. Another way to think about this, is there is an equal chance of 
+having more heads than tails as having more tails than heads. 
+Also, in every scenario it is always one of those 2, i.e. you will always have more heads than tails or more heads than tails.
+Then, both probabilities are the same and add up to 1. Thus, both probabilities are 0.5.
+\Part $(2/3)^3(1/3)^2$ and $(2/3)^4(1/3)$ respectively.
+\Part Again, 1 - probability of no heads. 
+$$1-(1/3)^5$$
+\Part 
+Similar to (f), except the chance of T is not the same as H, so we have to do a bit more computation
+$$\binom{5}{3}(2/3)^3(1/3)^2+\binom{5}{4}(2/3)^4(1/3)+\binom{5}{5}(2/3)^5$$
+\end{Parts}\end{solution}
+
+
+\end{document}
