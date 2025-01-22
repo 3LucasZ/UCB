@@ -18,6 +18,18 @@ TRACEROUTE_PORT_NUMBER = 33434  # Cisco traceroute port number.
 # single router before giving up and moving on.
 PROBE_ATTEMPT_COUNT = 3
 
+def cvtip(bs: str):
+    w, len = 8, 32
+    ret = ""
+    while len>0:
+        bs, l = cvt(bs, w)
+        ret += str(l) + ("." if len != w else "")
+        len -= w
+    return bs, ret
+def cvt(bs: str, sz: int):
+    pre = bs[:sz]
+    return bs[sz:], int(pre, 2)
+
 class IPv4:
     # Each member below is a field from the IPv4 packet header.  They are
     # listed below in the order they appear in the packet.  All fields should
@@ -38,7 +50,27 @@ class IPv4:
     dst: str
 
     def __init__(self, buffer: bytes):
-        pass  # TODO
+        print(buffer.hex())
+        print()
+        bitstr = ''.join(format(byte, '08b') for byte in [*buffer])
+        print(bitstr)
+        bitstr, self.version = cvt(bitstr, 4)
+        bitstr, self.header_len = cvt(bitstr, 4)
+        bitstr, self.tos = cvt(bitstr, 8)
+        bitstr, self.length = cvt(bitstr, 16)
+        # self.header_len = self.length
+        bitstr, self.id = cvt(bitstr, 16)
+        bitstr, self.flags = cvt(bitstr, 3)
+        bitstr, self.frag_offset = cvt(bitstr, 13)
+        bitstr, self.ttl = cvt(bitstr, 8)
+        bitstr, self.proto = cvt(bitstr, 8)
+        bitstr, self.cksum = cvt(bitstr, 16)
+        bitstr, self.src = cvtip(bitstr)
+        bitstr, self.dst = cvtip(bitstr)
+    
+    # def bin2str(self, i: int):
+    #     barr = n.to_bytes((n.bit_length() + 7) // 8, 'big')
+    #     s = barr.decode()
 
     def __str__(self) -> str:
         return f"IPv{self.version} (tos 0x{self.tos:x}, ttl {self.ttl}, " + \
@@ -60,7 +92,13 @@ class ICMP:
     cksum: int
 
     def __init__(self, buffer: bytes):
-        pass  # TODO
+        print(buffer.hex())
+        print()
+        bitstr = ''.join(format(byte, '08b') for byte in [*buffer])
+        print(bitstr)
+        bitstr, self.type = cvt(bitstr, 8)
+        bitstr, self.code = cvt(bitstr, 8)
+        bitstr, self.cksum = cvt(bitstr, 16)
 
     def __str__(self) -> str:
         return f"ICMP (type {self.type}, code {self.code}, " + \
@@ -79,7 +117,14 @@ class UDP:
     cksum: int
 
     def __init__(self, buffer: bytes):
-        pass  # TODO
+        print(buffer.hex())
+        print()
+        bitstr = ''.join(format(byte, '08b') for byte in [*buffer])
+        print(bitstr)
+        bitstr, self.src_port = cvt(bitstr, 16)
+        bitstr, self.dst_port = cvt(bitstr, 16)
+        bitstr, self.len = cvt(bitstr, 16)
+        bitstr, self.cksum = cvt(bitstr, 16)
 
     def __str__(self) -> str:
         return f"UDP (src_port {self.src_port}, dst_port {self.dst_port}, " + \
@@ -108,10 +153,15 @@ def traceroute(sendsock: util.Socket, recvsock: util.Socket, ip: str) \
     """
 
     # TODO Add your implementation
-    for ttl in range(1, TRACEROUTE_MAX_TTL+1):
-        util.print_result([], ttl)
-    return []
-
+    # for ttl in range(1, TRACEROUTE_MAX_TTL+1):
+    #     util.print_result([], ttl)
+    # return []
+    sendsock.set_ttl(1)
+    sendsock.sendto("A".encode(), (ip, TRACEROUTE_PORT_NUMBER))
+    if recvsock.recv_select():
+        buf, address = recvsock.recvfrom()
+        print(IPv4(buf))
+    
 
 if __name__ == '__main__':
     args = util.parse_args()
