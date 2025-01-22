@@ -50,10 +50,10 @@ class IPv4:
     dst: str
 
     def __init__(self, buffer: bytes):
-        print(buffer.hex())
-        print()
+        # print(buffer.hex())
+        # print()
         bitstr = ''.join(format(byte, '08b') for byte in [*buffer])
-        print(bitstr)
+        # print(bitstr)
         bitstr, self.version = cvt(bitstr, 4)
         bitstr, self.header_len = cvt(bitstr, 4)
         bitstr, self.tos = cvt(bitstr, 8)
@@ -92,10 +92,10 @@ class ICMP:
     cksum: int
 
     def __init__(self, buffer: bytes):
-        print(buffer.hex())
-        print()
+        # print(buffer.hex())
+        # print()
         bitstr = ''.join(format(byte, '08b') for byte in [*buffer])
-        print(bitstr)
+        # print(bitstr)
         bitstr, self.type = cvt(bitstr, 8)
         bitstr, self.code = cvt(bitstr, 8)
         bitstr, self.cksum = cvt(bitstr, 16)
@@ -117,10 +117,10 @@ class UDP:
     cksum: int
 
     def __init__(self, buffer: bytes):
-        print(buffer.hex())
-        print()
+        # print(buffer.hex())
+        # print()
         bitstr = ''.join(format(byte, '08b') for byte in [*buffer])
-        print(bitstr)
+        # print(bitstr)
         bitstr, self.src_port = cvt(bitstr, 16)
         bitstr, self.dst_port = cvt(bitstr, 16)
         bitstr, self.len = cvt(bitstr, 16)
@@ -153,15 +153,36 @@ def traceroute(sendsock: util.Socket, recvsock: util.Socket, ip: str) \
     """
 
     # TODO Add your implementation
-    # for ttl in range(1, TRACEROUTE_MAX_TTL+1):
-    #     util.print_result([], ttl)
-    # return []
-    sendsock.set_ttl(1)
-    sendsock.sendto("A".encode(), (ip, TRACEROUTE_PORT_NUMBER))
-    if recvsock.recv_select():
-        buf, address = recvsock.recvfrom()
-        print(IPv4(buf))
-    
+    ret = []
+    for ttl in range(1, TRACEROUTE_MAX_TTL+1):
+        s = set()
+        done = False
+        for att in range(PROBE_ATTEMPT_COUNT):
+            sendsock.set_ttl(ttl)
+            sendsock.sendto("A".encode(), (ip, TRACEROUTE_PORT_NUMBER))
+            if recvsock.recv_select():
+                buf, address = recvsock.recvfrom()
+                # print(buf.hex())
+                # print(address)
+                ipv4 = IPv4(buf)
+                buf = buf[20:]
+                icmp = ICMP(buf)
+                buf = buf[8:]
+                ipv4_2 = IPv4(buf)
+                buf = buf[20:]
+                udp = UDP(buf)
+                # print(ipv4)
+                # print(icmp)
+                # print(ipv4_2)
+                # print(udp)
+                s.add(ipv4.src)
+                if (address[0] == ip):
+                    done = True
+        util.print_result(list(s), ttl)
+        ret.append(list(s))
+        if done:
+            break
+    return ret
 
 if __name__ == '__main__':
     args = util.parse_args()
