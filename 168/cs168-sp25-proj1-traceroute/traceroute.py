@@ -166,6 +166,8 @@ def traceroute(sendsock: util.Socket, recvsock: util.Socket, ip: str) \
             if (not (icmp.type == 3 or 
                     (icmp.type == 11 and icmp.code == 0))): 
                 continue
+            if (not (ipv4.proto == 1)):
+                continue
             
             s.add(ipv4.src)
             if (address[0] == ip):
