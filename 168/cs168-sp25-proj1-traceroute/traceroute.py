@@ -162,8 +162,9 @@ def traceroute(sendsock: util.Socket, recvsock: util.Socket, ip: str) \
             buf = buf[20:]
             udp = UDP(buf)
 
-            # check that icmp error is 3 (unreachable) or 11 (TLE)
-            if (icmp.type != 3 and icmp.type != 11): 
+            # check for legit icmp packet
+            if (not (icmp.type == 3 or 
+                    (icmp.type == 11 and icmp.code == 0))): 
                 continue
             
             s.add(ipv4.src)
