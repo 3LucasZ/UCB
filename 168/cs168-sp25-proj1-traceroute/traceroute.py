@@ -181,10 +181,13 @@ def traceroute(sendsock: util.Socket, recvsock: util.Socket, ip: str) \
                 continue
             if (not (udp.len - 8 in secrets)):
                 continue
-            
+            secrets.remove(udp.len - 8)
+        
             s.add(ipv4.src)
             if (address[0] == ip):
                 done = True
+            if (len(secrets) == 0):
+                break
         util.print_result(list(s), ttl)
         ret.append(list(s))
         if done:
