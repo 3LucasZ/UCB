@@ -56,6 +56,7 @@ class IPv4:
         # print(bitstr)
         bitstr, self.version = cvt(bitstr, 4)
         bitstr, self.header_len = cvt(bitstr, 4)
+        self.header_len *= 4
         bitstr, self.tos = cvt(bitstr, 8)
         bitstr, self.length = cvt(bitstr, 16)
         # self.header_len = self.length
