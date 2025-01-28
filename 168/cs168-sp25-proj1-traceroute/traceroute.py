@@ -151,7 +151,7 @@ def traceroute(sendsock: util.Socket, recvsock: util.Socket, ip: str) \
         secrets = []
         for att in range(PROBE_ATTEMPT_COUNT):
             sendsock.set_ttl(ttl)
-            secret = random.randint(100000,500000)
+            secret = random.randint(1,60000)
             secrets.append(secret)
             sendsock.sendto(("A"*secret).encode(), (ip, TRACEROUTE_PORT_NUMBER))
         while recvsock.recv_select():
