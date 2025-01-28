@@ -154,13 +154,17 @@ def traceroute(sendsock: util.Socket, recvsock: util.Socket, ip: str) \
         while recvsock.recv_select():
             buf, address = recvsock.recvfrom()
 
-            ipv4 = IPv4(buf)
-            buf = buf[20:]
-            icmp = ICMP(buf)
-            buf = buf[8:]
-            ipv4_2 = IPv4(buf)
-            buf = buf[20:]
-            udp = UDP(buf)
+            try:
+                ipv4 = IPv4(buf)
+                print(ipv4.header_len, ipv4.length)
+                buf = buf[ipv4.header_len:]
+                icmp = ICMP(buf)
+                buf = buf[8:]
+                ipv4_2 = IPv4(buf)
+                buf = buf[20:]
+                udp = UDP(buf)
+            except:
+                continue
 
             # check for legit icmp packet
             if (not (icmp.type == 3 or 
