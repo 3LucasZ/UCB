@@ -50,16 +50,12 @@ class IPv4:
     dst: str
 
     def __init__(self, buffer: bytes):
-        # print(buffer.hex())
-        # print()
         bitstr = ''.join(format(byte, '08b') for byte in [*buffer])
-        # print(bitstr)
         bitstr, self.version = cvt(bitstr, 4)
         bitstr, self.header_len = cvt(bitstr, 4)
         self.header_len *= 4
         bitstr, self.tos = cvt(bitstr, 8)
         bitstr, self.length = cvt(bitstr, 16)
-        # self.header_len = self.length
         bitstr, self.id = cvt(bitstr, 16)
         bitstr, self.flags = cvt(bitstr, 3)
         bitstr, self.frag_offset = cvt(bitstr, 13)
@@ -93,10 +89,7 @@ class ICMP:
     cksum: int
 
     def __init__(self, buffer: bytes):
-        # print(buffer.hex())
-        # print()
         bitstr = ''.join(format(byte, '08b') for byte in [*buffer])
-        # print(bitstr)
         bitstr, self.type = cvt(bitstr, 8)
         bitstr, self.code = cvt(bitstr, 8)
         bitstr, self.cksum = cvt(bitstr, 16)
@@ -118,10 +111,7 @@ class UDP:
     cksum: int
 
     def __init__(self, buffer: bytes):
-        # print(buffer.hex())
-        # print()
         bitstr = ''.join(format(byte, '08b') for byte in [*buffer])
-        # print(bitstr)
         bitstr, self.src_port = cvt(bitstr, 16)
         bitstr, self.dst_port = cvt(bitstr, 16)
         bitstr, self.len = cvt(bitstr, 16)
@@ -161,24 +151,24 @@ def traceroute(sendsock: util.Socket, recvsock: util.Socket, ip: str) \
         for att in range(PROBE_ATTEMPT_COUNT):
             sendsock.set_ttl(ttl)
             sendsock.sendto("A".encode(), (ip, TRACEROUTE_PORT_NUMBER))
-            if recvsock.recv_select():
-                buf, address = recvsock.recvfrom()
-                # print(buf.hex())
-                # print(address)
-                ipv4 = IPv4(buf)
-                buf = buf[20:]
-                icmp = ICMP(buf)
-                buf = buf[8:]
-                ipv4_2 = IPv4(buf)
-                buf = buf[20:]
-                udp = UDP(buf)
-                # print(ipv4)
-                # print(icmp)
-                # print(ipv4_2)
-                # print(udp)
-                s.add(ipv4.src)
-                if (address[0] == ip):
-                    done = True
+        while recvsock.recv_select():
+            buf, address = recvsock.recvfrom()
+
+            ipv4 = IPv4(buf)
+            buf = buf[20:]
+            icmp = ICMP(buf)
+            buf = buf[8:]
+            ipv4_2 = IPv4(buf)
+            buf = buf[20:]
+            udp = UDP(buf)
+
+            # check that icmp error is 3 (unreachable) or 11 (TLE)
+            if (icmp.type != 3 and icmp.type != 11): 
+                continue
+            
+            s.add(ipv4.src)
+            if (address[0] == ip):
+                done = True
         util.print_result(list(s), ttl)
         ret.append(list(s))
         if done:
