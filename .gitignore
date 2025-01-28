@@ -31,5 +31,8 @@ CS61A/pro_scheme/*
 !CS61A/pro_scheme/scheme_eval_apply.py
 !CS61A/pro_scheme/scheme_classes.py
 !CS61A/pro_scheme/questions.scm
+# 61c testing
+61c_test/*
+!61c_test/*.c
 ##### General
 .DS_Store
