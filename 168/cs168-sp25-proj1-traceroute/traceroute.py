@@ -1,3 +1,4 @@
+import random
 import util
 
 # Your program should send TTLs in the range [1, TRACEROUTE_MAX_TTL] inclusive.
@@ -143,34 +144,42 @@ def traceroute(sendsock: util.Socket, recvsock: util.Socket, ip: str) \
     should be included as the final element in the list.
     """
 
-    # TODO Add your implementation
     ret = []
     for ttl in range(1, TRACEROUTE_MAX_TTL+1):
         s = set()
         done = False
+        secrets = []
         for att in range(PROBE_ATTEMPT_COUNT):
             sendsock.set_ttl(ttl)
-            sendsock.sendto("A".encode(), (ip, TRACEROUTE_PORT_NUMBER))
+            secret = random.randint(100000,500000)
+            secrets.append(secret)
+            sendsock.sendto(("A"*secret).encode(), (ip, TRACEROUTE_PORT_NUMBER))
         while recvsock.recv_select():
             buf, address = recvsock.recvfrom()
-
             try:
                 ipv4 = IPv4(buf)
-                print(ipv4.header_len, ipv4.length)
                 buf = buf[ipv4.header_len:]
                 icmp = ICMP(buf)
                 buf = buf[8:]
                 ipv4_2 = IPv4(buf)
                 buf = buf[20:]
                 udp = UDP(buf)
+                buf = buf[8:]
+                print(ipv4)
+                print(icmp)
+                print(ipv4_2)
+                print(udp)
+                print(buf)
             except:
                 continue
 
-            # check for legit icmp packet
+            # check for legit packets
             if (not (icmp.type == 3 or 
                     (icmp.type == 11 and icmp.code == 0))): 
                 continue
             if (not (ipv4.proto == 1)):
+                continue
+            if (not (udp.len - 8 in secrets)):
                 continue
             
             s.add(ipv4.src)
