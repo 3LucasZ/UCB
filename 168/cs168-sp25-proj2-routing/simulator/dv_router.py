@@ -77,10 +77,10 @@ class DVRouter(DVRouterBase):
         assert port in self.ports.get_all_ports(), "Link should be up, but is not."
 
         ##### Begin Stage 1 #####
-
+        self.table[host] = TableEntry(dst=host, port=port, latency=self.ports.get_latency(port), expire_time=FOREVER)
         ##### End Stage 1 #####
 
-    def handle_data_packet(self, packet, in_port):
+    def handle_data_packet(self, packet: RoutePacket, in_port):
         """
         Called when a data packet arrives at this router.
 
@@ -92,7 +92,11 @@ class DVRouter(DVRouterBase):
         """
         
         ##### Begin Stage 2 #####
-
+        if packet.dst not in self.table: return
+        entry = self.table[packet.dst]
+        if entry.latency >= INFINITY: return
+        out_port = entry.port
+        self.send(packet, port=out_port)
         ##### End Stage 2 #####
 
     def send_routes(self, force=False, single_port=None):
@@ -108,7 +112,16 @@ class DVRouter(DVRouterBase):
         """
         
         ##### Begin Stages 3, 6, 7, 8, 10 #####
-
+        for port in self.ports.get_all_ports():
+            for host, entry in self.table.items():
+                # split horizon: don't advertise a route back to the one who sent you the route
+                if self.SPLIT_HORIZON and entry.port == port: continue
+                # reverse poison: advertise poison back to the route
+                elif self.POISON_REVERSE and entry.port == port:
+                    self.send_route(port, entry.dst, INFINITY)
+                else:
+                    # and remember to limit all entries to infinity!
+                    self.send_route(port, entry.dst, min(INFINITY, entry.latency))
         ##### End Stages 3, 6, 7, 8, 10 #####
 
     def expire_routes(self):
@@ -119,6 +132,20 @@ class DVRouter(DVRouterBase):
         
         ##### Begin Stages 5, 9 #####
 
+        badHosts = []
+        for host, entry in self.table.items():
+            if entry.expire_time < api.current_time():
+                badHosts.append(host)
+   
+        for host in badHosts:
+            # poison expired: replace table entry with poison
+            if self.POISON_EXPIRED:
+                oldEntry = self.table[host]
+                newEntry = TableEntry(dst=oldEntry.dst, port=oldEntry.port, latency=INFINITY, expire_time=api.current_time()+self.ROUTE_TTL)
+                self.table[host] = newEntry
+            # else: delete the table entry
+            else:
+                self.table.pop(host)
         ##### End Stages 5, 9 #####
 
     def handle_route_advertisement(self, route_dst, route_latency, port):
@@ -132,7 +159,13 @@ class DVRouter(DVRouterBase):
         """
         
         ##### Begin Stages 4, 10 #####
-
+        new_latency = route_latency + self.ports.get_latency(port)
+        newEntry = TableEntry(dst=route_dst, port=port, latency=new_latency, expire_time=api.current_time()+self.ROUTE_TTL)
+        if route_dst not in self.table:
+            self.table[route_dst] = newEntry
+        oldEntry = self.table[route_dst] 
+        if newEntry.latency < oldEntry.latency or newEntry.port == oldEntry.port:
+            self.table[route_dst] = newEntry
         ##### End Stages 4, 10 #####
 
     def handle_link_up(self, port, latency):
