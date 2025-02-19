@@ -58,7 +58,7 @@ class DVRouter(DVRouterBase):
         self.table.owner = self
 
         ##### Begin Stage 10A #####
-
+        self.lastAdvertised = dict()
         ##### End Stage 10A #####
 
     def add_static_route(self, host, port):
@@ -112,16 +112,22 @@ class DVRouter(DVRouterBase):
         """
         
         ##### Begin Stages 3, 6, 7, 8, 10 #####
+        toSend = []
         for port in self.ports.get_all_ports():
             for host, entry in self.table.items():
                 # split horizon: don't advertise a route back to the one who sent you the route
                 if self.SPLIT_HORIZON and entry.port == port: continue
                 # reverse poison: advertise poison back to the route
                 elif self.POISON_REVERSE and entry.port == port:
-                    self.send_route(port, entry.dst, INFINITY)
+                    toSend = [port, entry.dst, INFINITY]
                 else:
                     # and remember to limit all entries to infinity!
-                    self.send_route(port, entry.dst, min(INFINITY, entry.latency))
+                    toSend = [port, entry.dst, min(INFINITY, entry.latency)]
+                if port not in self.lastAdvertised:
+                    self.lastAdvertised[port] = dict()
+                if force or entry.dst not in self.lastAdvertised[port] or self.lastAdvertised[port][entry.dst] != toSend[2]:
+                    self.lastAdvertised[port][entry.dst] = toSend[2]
+                    self.send_route(toSend[0], toSend[1], toSend[2])
         ##### End Stages 3, 6, 7, 8, 10 #####
 
     def expire_routes(self):
@@ -163,9 +169,12 @@ class DVRouter(DVRouterBase):
         newEntry = TableEntry(dst=route_dst, port=port, latency=new_latency, expire_time=api.current_time()+self.ROUTE_TTL)
         if route_dst not in self.table:
             self.table[route_dst] = newEntry
-        oldEntry = self.table[route_dst] 
-        if newEntry.latency < oldEntry.latency or newEntry.port == oldEntry.port:
-            self.table[route_dst] = newEntry
+            self.send_routes(force=False)
+        else:
+            oldEntry = self.table[route_dst] 
+            if newEntry.latency < oldEntry.latency or newEntry.port == oldEntry.port:
+                self.table[route_dst] = newEntry
+                self.send_routes(force=False)
         ##### End Stages 4, 10 #####
 
     def handle_link_up(self, port, latency):
@@ -179,7 +188,7 @@ class DVRouter(DVRouterBase):
         self.ports.add_port(port, latency)
 
         ##### Begin Stage 10B #####
-
+        self.send_routes(force=True, single_port=port)
         ##### End Stage 10B #####
 
     def handle_link_down(self, port):
