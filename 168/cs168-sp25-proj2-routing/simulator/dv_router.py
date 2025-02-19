@@ -204,14 +204,17 @@ class DVRouter(DVRouterBase):
         self.ports.remove_port(port)
 
         ##### Begin Stage 10B #####
+        badHosts = []
         for host, entry in self.table.items():
             if (entry.port == port):
-                if self.POISON_ON_LINK_DOWN:
-                    x = self.table[host]
-                    self.table[host] = TableEntry(x.dst, x.port, INFINITY, x.expire_time)
-                    self.send_routes(force=False)
-                else:
-                    self.table.pop(host)
+                badHosts.append(host)
+        for host in badHosts:
+            if self.POISON_ON_LINK_DOWN:
+                x = self.table[host]
+                self.table[host] = TableEntry(x.dst, x.port, INFINITY, x.expire_time)
+                self.send_routes(force=False)
+            else:
+                self.table.pop(host)
         ##### End Stage 10B #####
 
     # Feel free to add any helper methods!
