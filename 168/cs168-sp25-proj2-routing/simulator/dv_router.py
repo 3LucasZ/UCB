@@ -114,6 +114,8 @@ class DVRouter(DVRouterBase):
         ##### Begin Stages 3, 6, 7, 8, 10 #####
         toSend = []
         for port in self.ports.get_all_ports():
+            if single_port is not None and single_port != port:
+                continue
             for host, entry in self.table.items():
                 # split horizon: don't advertise a route back to the one who sent you the route
                 if self.SPLIT_HORIZON and entry.port == port: continue
@@ -188,7 +190,8 @@ class DVRouter(DVRouterBase):
         self.ports.add_port(port, latency)
 
         ##### Begin Stage 10B #####
-        self.send_routes(force=True, single_port=port)
+        if self.SEND_ON_LINK_UP:
+            self.send_routes(force=True, single_port=port)
         ##### End Stage 10B #####
 
     def handle_link_down(self, port):
@@ -201,7 +204,14 @@ class DVRouter(DVRouterBase):
         self.ports.remove_port(port)
 
         ##### Begin Stage 10B #####
-
+        for host, entry in self.table.items():
+            if (entry.port == port):
+                if self.POISON_ON_LINK_DOWN:
+                    x = self.table[host]
+                    self.table[host] = TableEntry(x.dst, x.port, INFINITY, x.expire_time)
+                    self.send_routes(force=False)
+                else:
+                    self.table.pop(host)
         ##### End Stage 10B #####
 
     # Feel free to add any helper methods!
