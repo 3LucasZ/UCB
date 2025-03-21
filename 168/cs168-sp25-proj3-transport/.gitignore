@@ -1,0 +1,12 @@
+ext/gui
+ext/poxdesk
+ext/tcpip
+ext/get_Qooxdoo.sh
+ext/README
+ext/skeleton.py
+ext/cs168p2/*
+!ext/cs168p2/student_socket.py
+pox/*
+tests/*
+tools/*
+pox.py
