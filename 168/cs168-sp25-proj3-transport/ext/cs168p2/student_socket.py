@@ -780,12 +780,12 @@ class StudentUSocket(StudentUSocketBase):
     # fifth, check ACK field
     if self.state in (ESTABLISHED, FIN_WAIT_1, FIN_WAIT_2, CLOSE_WAIT, CLOSING):
       ## Start of Stage 4.1 ##
-      if snd.una <= seg.ack < snd.nxt:
+      if snd.una |LE| seg.ack |LT| snd.nxt:
         self.handle_accepted_ack(seg=seg)
-      elif seg.ack < snd.una:
+      elif seg.ack |LT| snd.una:
         continue_after_ack = False
-      else:
-        return False
+      # TODO: 4.1.3 If the ack number represents a byte you haven’t sent yet, drop the packet.
+      # Don’t allow the rest of check_ack to execute, and don’t allow the rest of handle_accepted_seg to execute.
       ## End of Stage 4.1 ##
 
       if snd.una |LE| seg.ack and seg.ack |LE| snd.nxt:
