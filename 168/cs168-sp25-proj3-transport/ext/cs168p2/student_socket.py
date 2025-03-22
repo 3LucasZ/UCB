@@ -713,7 +713,7 @@ class StudentUSocket(StudentUSocketBase):
     """
 
     ## Start of Stage 5.1 ##
-    # self.snd.wnd = self.TX_DATA_MAX # remove when implemented
+    # self.snd.wnd = self.TX_DATA_MAX # remove when implemented 
     self.snd.wnd = seg.win
     self.snd.wl1 = seg.seq
     self.snd.wl2 = seg.ack
@@ -728,6 +728,7 @@ class StudentUSocket(StudentUSocketBase):
     acceptable_seg()
     """
     ## Start of Stage 4.2 ##
+    print("accepted an ack!")
     self.snd.una = seg.ack
     ## End of Stage 4.2 ##
 
@@ -781,10 +782,15 @@ class StudentUSocket(StudentUSocketBase):
     # fifth, check ACK field
     if self.state in (ESTABLISHED, FIN_WAIT_1, FIN_WAIT_2, CLOSE_WAIT, CLOSING):
       ## Start of Stage 4.1 ##
-      if snd.una |LE| seg.ack |LT| snd.nxt:
+      print("checking ack...")
+      print("una, ack, nxt", snd.una, seg.ack, snd.nxt)
+      if snd.una |LE| seg.ack and seg.ack |LE| snd.nxt:
+        print("in range!")
         self.handle_accepted_ack(seg=seg)
-      elif seg.ack |LT| snd.una:
-        continue_after_ack = False
+      print("NOT in range!")
+      # TODO: 4.1.2
+      # elif seg.ack |LT| snd.una:
+      #   continue_after_ack = False
       # TODO: 4.1.3 If the ack number represents a byte you haven’t sent yet, drop the packet.
       # Don’t allow the rest of check_ack to execute, and don’t allow the rest of handle_accepted_seg to execute.
       ## End of Stage 4.1 ##
@@ -855,11 +861,20 @@ class StudentUSocket(StudentUSocketBase):
     bytes_sent = 0
 
     ## Start of Stage 4.3 ##
-    remaining = snd.una |PLUS| snd.wnd |MINUS| snd.nxt
-    while remaining > 0:
-      if not self.tx_data:
+    remaining = (snd.una + snd.wnd) - snd.nxt
+    while True:
+      print("NEW LOOP")
+      print("len(tx_data)",len(self.tx_data))
+      print("mss", self.mss)
+      print("una", snd.una, "nxt", snd.nxt, "wnd", snd.wnd)
+      remaining = (snd.una + snd.wnd) - snd.nxt
+      print("remaining",remaining)
+      print("num_pkts", num_pkts)
+      print("bytes_sent", bytes_sent)
+      if not self.tx_data or remaining <= 0:
         break
       cut = min(remaining, min(self.mss, len(self.tx_data)))
+      print("cut",cut)
       payload = self.tx_data[:cut]
       self.tx_data = self.tx_data[cut:]
       packet = self.new_packet(ack=True, data=payload, syn=False)
@@ -867,7 +882,6 @@ class StudentUSocket(StudentUSocketBase):
 
       num_pkts += 1
       bytes_sent += len(payload)
-      remaining -= len(payload)
 
     self.log.debug("sent {0} packets with {1} bytes total".format(num_pkts, bytes_sent))
     ## End of Stage 4.3 ##
