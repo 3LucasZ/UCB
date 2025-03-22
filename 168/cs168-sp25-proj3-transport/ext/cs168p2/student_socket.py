@@ -855,7 +855,7 @@ class StudentUSocket(StudentUSocketBase):
     bytes_sent = 0
 
     ## Start of Stage 4.3 ##
-    remaining = snd.una + snd.wnd - snd.nxt
+    remaining = snd.una |PLUS| snd.wnd |MINUS| snd.nxt
     while remaining > 0:
       if not self.tx_data:
         break
