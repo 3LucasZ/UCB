@@ -600,15 +600,15 @@ class StudentUSocket(StudentUSocketBase):
                         CLOSE_WAIT, CLOSING, LAST_ACK, TIME_WAIT):
       if self.acceptable_seg(seg, payload):
         ## Start of Stage 2.1 ##
-        if seg.seq == self.rcv.nxt:
-          self.handle_accepted_seg(seg=seg, payload=payload)
-        else:
-          self.set_pending_ack()
+        # if seg.seq == self.rcv.nxt:
+        #   self.handle_accepted_seg(seg=seg, payload=payload)
+        # else:
+        #   self.set_pending_ack()
         ## End of Stage 2.1 ##
-        pass
+        
         ## Start of Stage 3.1 ##
         # you may need to remove Stage 2's code.
-
+        self.rx_queue.push(p)
         ## End of Stage 3.1 ##
       else:
         self.set_pending_ack()
@@ -617,7 +617,19 @@ class StudentUSocket(StudentUSocketBase):
     ## Start of Stage 3.2 ##
     # checking recv queue
     # Hint: data = packet.app[self.rcv.nxt |MINUS| packet.tcp.seq:]
-
+    while 1:
+      if self.rx_queue.empty():
+        self.set_pending_ack()
+        break
+      next_seq, next_packet = self.rx_queue.peek()
+      if next_seq |NE| self.rcv.nxt:
+        self.set_pending_ack()
+        break
+      self.rx_queue.pop()
+      next_seg = next_packet.tcp
+      next_payload = next_packet.app
+      next_payload = next_payload[self.rcv.nxt |MINUS| next_seg.seq:]
+      self.handle_accepted_seg(seg=next_seg, payload=next_payload)
     ## End of Stage 3.2 ##
 
     self.maybe_send()
@@ -689,8 +701,8 @@ class StudentUSocket(StudentUSocketBase):
       payload = payload[:rcv.wnd] # Chop to size!
 
     ## Start of Stage 2.3 ##
-    rcv.nxt += len(payload)
-    rcv.wnd -= len(payload)
+    rcv.nxt = rcv.nxt |PLUS| len(payload)
+    rcv.wnd = rcv.wnd |MINUS| len(payload)
     self.rx_data += payload
     self.set_pending_ack()
     ## End of Stage 2.3 ##
