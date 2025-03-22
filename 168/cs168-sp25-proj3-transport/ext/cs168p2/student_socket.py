@@ -564,12 +564,8 @@ class StudentUSocket(StudentUSocketBase):
 
     if (p.tcp.SYN or p.tcp.FIN or p.tcp.payload) and not retxed:
       ## Start of Stage 4.4 ##
-      if p.tcp.payload:
-        # self.snd.nxt = 
-        # self.snd.nxt = self.snd.nxt |PLUS| len(p.tcp.payload)
-        pass
+      self.snd.nxt = self.snd.nxt |PLUS| len(p.tcp.payload)
       ## End of Stage 4.4 ##
-
     ## End of Stage 8.1 ##
     
     self.log.debug("tx seqno={0}".format(p.tcp.seq))
