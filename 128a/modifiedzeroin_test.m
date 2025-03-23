@@ -13,7 +13,7 @@ Int = [1 3];
 
 f = @(x) x.^3 - 7*x.^2 + 14*x - 6;
 Int = [0 1];
-fplot(f, Int);
+% fplot(f, Int);
 [root, info] = modifiedzeroin3040268988(f, Int, params);
 % 0.585786437626905
 
