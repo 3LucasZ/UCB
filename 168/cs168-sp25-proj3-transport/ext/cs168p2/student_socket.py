@@ -478,16 +478,14 @@ class StudentUSocket(StudentUSocketBase):
       self._delete_tcb()
     elif self.state is ESTABLISHED:
       ## Start of Stage 7.1 ##
-
+      self.fin_ctrl.set_pending(next_state=FIN_WAIT_1)
       ## End of Stage 7.1 ##
-      pass
     elif self.state in (FIN_WAIT_1,FIN_WAIT_2):
       raise RuntimeError("close() is invalid in FIN_WAIT states")
     elif self.state is CLOSE_WAIT:
       ## Start of Stage 6.2 ##
       self.fin_ctrl.set_pending(next_state=LAST_ACK)
       ## End of Stage 6.2 ##
-      pass
     elif self.state in (CLOSING,LAST_ACK,TIME_WAIT):
       raise RuntimeError("connecting closing")
     else:
@@ -761,14 +759,28 @@ class StudentUSocket(StudentUSocketBase):
 
     ## Start of Stage 6.1 ##
     if self.state == ESTABLISHED:
-      # TODO: 2. In the receive sequence space, update the next sequence number you expect to receive.
+      self.rcv.nxt = self.rcv.nxt |PLUS| 1
       self.set_pending_ack()
       self.state = CLOSE_WAIT
     ## End of Stage 6.1 ##
 
 
     ## Start of Stage 7.2 ##
-
+    print("HANDLE ACCEPTED FIN")
+    print(seg)
+    print(seg.FIN, seg.ACK, seg.ack)
+    print(self.state)
+    if self.state == FIN_WAIT_1:
+      if seg.ACK and self.fin_ctrl.acks_our_fin(seg.ack):
+        self.set_pending_ack()
+        self.start_timer_timewait()
+      else:
+        self.set_pending_ack()
+        self.state = CLOSING
+    elif self.state == FIN_WAIT_2:
+      self.rcv.nxt = self.rcv.nxt |PLUS| 1
+      self.set_pending_ack()
+      self.start_timer_timewait()
     ## End of Stage 7.2 ##
 
   def check_ack(self, seg):
@@ -804,13 +816,16 @@ class StudentUSocket(StudentUSocketBase):
 
     ## Start of Stage 6.3 ##
     ## Start of Stage 7.3 ##
+    print("self.fin_ctrl.acks_our_fin(seg.ack)", self.fin_ctrl.acks_our_fin(seg.ack))
     if self.state == FIN_WAIT_1:
-      pass
+      if self.fin_ctrl.acks_our_fin(seg.ack):
+        self.state = FIN_WAIT_2
     elif self.state == FIN_WAIT_2:
       if self.retx_queue.empty():
         self.set_pending_ack()
     elif self.state == CLOSING:
-      pass
+      if self.fin_ctrl.acks_our_fin(seg.ack):
+        self.start_timer_timewait()
     elif self.state == LAST_ACK:
       if self.fin_ctrl.acks_our_fin(seg.ack):
         self._delete_tcb()
