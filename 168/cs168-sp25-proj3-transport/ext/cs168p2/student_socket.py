@@ -617,7 +617,7 @@ class StudentUSocket(StudentUSocketBase):
     # Hint: data = packet.app[self.rcv.nxt |MINUS| packet.tcp.seq:]
     while 1:
       if self.rx_queue.empty():
-        self.set_pending_ack()
+        # self.set_pending_ack()
         break
       next_seq, next_packet = self.rx_queue.peek()
       if next_seq |NE| self.rcv.nxt:
