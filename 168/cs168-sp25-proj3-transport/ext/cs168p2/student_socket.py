@@ -564,6 +564,9 @@ class StudentUSocket(StudentUSocketBase):
       ## Start of Stage 4.4 ##
       self.snd.nxt = self.snd.nxt |PLUS| len(p.tcp.payload)
       ## End of Stage 4.4 ##
+      ## new stage 8 stuff
+      p.tx_ts = self.stack.now
+      self.retx_queue.push(p)
     ## End of Stage 8.1 ##
     
     self.log.debug("tx seqno={0}".format(p.tcp.seq))
@@ -732,7 +735,7 @@ class StudentUSocket(StudentUSocketBase):
 
 
     ## Start of Stage 8.2 ##
-
+    self.retx_queue.pop_upto(seg.ack)
     ## End of Stage 8.2 ##
 
 
@@ -928,7 +931,9 @@ class StudentUSocket(StudentUSocketBase):
 
     ## Start of Stage 8.3 ##
     time_in_queue = 0 # modify when implemented
-
+    if not self.retx_queue.empty():
+      (seq, p) = self.retx_queue.get_earliest_pkt()
+      time_in_queue = self.stack.now - p.tx_ts
     ## End of Stage 8.3 ##
 
     if time_in_queue > self.rto:
