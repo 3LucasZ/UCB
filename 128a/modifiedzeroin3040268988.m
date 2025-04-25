@@ -2,8 +2,9 @@ function [root,info] = modifiedzeroin3040268988(f, Int, params)
 
 
 % unpack input fields
-[a, b] = deal(Int(1), Int(2));
-[root_tol, func_tol] = deal(params(1), params(2));
+[a, b] = deal(Int.a, Int.b);
+[root_tol, func_tol] = deal(params.root_tol, params.func_tol);
+vrb = false;
 % [left bound, right bound, current best guess]
 [x0, x1, x2] = deal(a, b, (a+b)/2);
 [f0, f1, f2] = deal(f(x0), f(x1), f(x2));
@@ -12,7 +13,7 @@ calls = 3;
 E = [];
 % run algorithm
 while 1
-    fprintf('%-15d %-15d %-15d %-15d \n', [x0 x1 x2 f2]);
+    if vrb, fprintf('%-15d %-15d %-15d %-15d \n', [x0 x1 x2 f2]); end
     % IQI to estimate zero
     L0 = f1*f2*x0 / ((f0 - f1)*(f0 - f2));
     L1 = f0*f2*x1 / ((f1 - f0)*(f1 - f2));
@@ -49,14 +50,17 @@ while 1
     end
     % emergency termination
     if (calls >= 30) 
-        disp("Program Terminated");
+        if vrb, disp("Program Terminated"); end
         root = -1;
         info = 0;
         return;
     end
 end
-fprintf('Function calls: %d \n', calls);
-fprintf('Root: %.15f \n', root);
-fprintf('Error: %.5e \n', f2);
+if vrb
+    fprintf('Function calls: %d \n', calls);
+    fprintf('Root: %.15f \n', root);
+    fprintf('Error: %.5e \n', f2);
+end
+
 
 end
