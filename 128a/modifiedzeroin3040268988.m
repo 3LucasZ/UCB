@@ -5,12 +5,13 @@ function [root, info] = modifiedzeroin3040268988(f, Int, params)
 % unpack input fields
 [a, b] = deal(Int.a, Int.b);
 [root_tol, func_tol] = deal(params.root_tol, params.func_tol);
-vrb = true;
+vrb = false;
 maxCalls = 1000;
+window = 4;
 % [left bound, right bound, current best guess]
 [x0, x1, x2] = deal(a, b, (a+b)/2);
 [f0, f1, f2] = deal(f(x0), f(x1), f(x2));
-% keep track of function calls and past errors
+% keep track of function calls and past IQI errors
 calls = 3;
 E = [];
 % run algorithm
@@ -37,8 +38,9 @@ while 1
         fail = true;
     else
         f3 = f(x3);
+        E = [f3 E];
         calls = calls + 1;
-        if (length(E) >= 3 && abs(f3) > abs(E(3))/2)
+        if (length(E) >= window && abs(min(E(1:window))) > abs(max(E(1:window)))/2)
             fail = true;
         end
     end
@@ -49,12 +51,12 @@ while 1
             x2 = (x0+x1)/2;
             f2 = f(x2);
             calls = calls+1;
+            % E = [];
     else
         % IQI success
         x2 = x3;
         f2 = f3;
     end
-    E = [f2 E];
     % terminate on convergence
     if ((x1 - x0) <= root_tol || abs(f2) <= func_tol)
         root = x2;
