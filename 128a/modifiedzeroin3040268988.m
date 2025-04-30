@@ -6,8 +6,8 @@ function [root, info] = modifiedzeroin3040268988(f, Int, params)
 [a, b] = deal(Int.a, Int.b);
 [root_tol, func_tol] = deal(params.root_tol, params.func_tol);
 vrb = false;
-maxCalls = 1000;
-window = 20;
+maxCalls = 100;
+window = 4;
 % [left bound, right bound, current best guess]
 [x0, x1, x2] = deal(a, b, (a+b)/2);
 [f0, f1, f2] = deal(f(x0), f(x1), f(x2));
@@ -51,7 +51,7 @@ while 1
             x2 = (x0+x1)/2;
             f2 = f(x2);
             calls = calls+1;
-            % E = [];
+            E = [];
     else
         % IQI success
         x2 = x3;
