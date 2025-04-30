@@ -7,7 +7,7 @@ function [root, info] = modifiedzeroin3040268988(f, Int, params)
 [root_tol, func_tol] = deal(params.root_tol, params.func_tol);
 vrb = false;
 maxCalls = 1000;
-window = 5;
+window = 20;
 % [left bound, right bound, current best guess]
 [x0, x1, x2] = deal(a, b, (a+b)/2);
 [f0, f1, f2] = deal(f(x0), f(x1), f(x2));
