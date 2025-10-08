@@ -6,187 +6,139 @@ dir = os.path.dirname(os.path.abspath(__file__))
 
 
 class ModifiedHuffmanEncoder:
-    """
-    Implements the T.4 Modified Huffman (MH) encoding for a binary image.
-    Assumes the input bitmap uses 1 for White and 0 for Black.
-    """
-
     def __init__(self, terminating_codes_path, makeup_codes_path):
-        """
-        Initializes the encoder by loading the Huffman code tables.
-
-        Args:
-            terminating_codes_path (str): Path to the CSV with terminating codes.
-            makeup_codes_path (str): Path to the CSV with makeup codes.
-        """
-        self.codes = self._load_codes(
+        self.codes = self.get_codes(
             terminating_codes_path, makeup_codes_path)
 
-    def _load_codes(self, term_path, makeup_path):
-        """
-        Loads Huffman codes from CSV files into a nested dictionary for quick lookup.
-        It's crucial to read the 'CodeWord' column as a string to preserve leading zeros.
-        """
+    def get_codes(self, term_path, makeup_path):
+        # build table[color][length] = code
         try:
             df_term = pd.read_csv(term_path, dtype={'CodeWord': str})
             df_makeup = pd.read_csv(makeup_path, dtype={'CodeWord': str})
         except FileNotFoundError as e:
             print(f"Error loading code tables: {e}")
-            print(
-                "Please ensure 'terminating codes' and 'makeup codes' are in the same directory.")
             raise
-        codes = {}
-        # TODO Implement this function
-        for (l1, l2), group in df_term.groupby(['RunLength', 'Color']):
-            l1 = int(l1)
-            if l1 not in codes:
-                codes[l1] = {}
-            codes[l1][l2] = group['CodeWord'].iloc[0]
-
-        for (l1, l2), group in df_makeup.groupby(['RunLength', 'Color']):
-            l1 = int(l1)
-            if l1 not in codes:
-                codes[l1] = {}
-            codes[l1][l2] = group['CodeWord'].iloc[0]
+        df = pd.concat([df_term, df_makeup])
+        codes = {0: {}, 1: {}}
+        for (l1, l2), group in df.groupby(['RunLength', 'Color']):
+            length = int(l1)
+            color = 0 if l2 == "Black" else 1
+            code = group['CodeWord'].iloc[0]
+            codes[color][length] = code
         return codes
 
-    def _get_runs_for_bitmap(self, image_bitmap: np.ndarray):
-        """
-        Computes runs per row of the bitmap.
-        The first expected color is White; if the first pixel is Black, emit a 0-length White run.
-        """
-        # pairs of <r, c>
+    def get_runs_for_bitmap(self, image_bitmap: np.ndarray):
+        # pairs of {color, length}
+        # force EOL
         runs = [[-1, -1]]
-        # TODO Implement this function
+        # iterate over rows
         for row in image_bitmap:
-            runs.append([0, 1])
-            match = 1
-            for pixel in row:
-                pixel = int(pixel)
-                if pixel == match:
-                    runs[-1][0] += 1
+            runs.append([1, 0])
+            target_color = 1
+            # iterate over pixels
+            for color in row:
+                color = int(color)
+                if color == target_color:
+                    # update run length
+                    runs[-1][1] += 1
                 else:
-                    match = 1-match
-                    runs.append([1, match])
+                    # create new run
+                    target_color = 1-target_color
+                    runs.append([target_color, 1])
+            # force EOL
             runs.append([-1, -1])
         return runs
 
-    def _encode_run(self, color, length):
-        """
-        Encode a single run using (optionally) a makeup codes then a terminating code.
-        """
-        if length > 1728 + 63:
-            raise ValueError(
-                f"Run length {length} exceeds maximum of 1728 + 63.")
-        bitstream = ""
-        # TODO Implement this function
-        # print(length, color)
+    def encode_run(self, color, length):
         EOL = "000000000001"
+        # handle EOL
         if length == -1:
             return EOL
-        if color == 0:
-            color = "Black"
-        else:
-            color = "White"
+        # handle bad inputs
+        if color not in [0, 1]:
+            raise ValueError(
+                f"Color {color} is not 0 or 1")
+        if length > 1728 + 63 or length < 0:
+            raise ValueError(
+                f"Run length {length} exceeds maximum of 1728 + 63")
+        # handle make + term
+        term = length % 64
         if length < 64:
-            bitstream = self.codes[length][color]
+            return self.codes[color][term]
         else:
-            resid = length % 64
-            length -= resid
-            bitstream = self.codes[length][color] + self.codes[resid][color]
-        return bitstream
+            make = length - term
+            return self.codes[color][make] + self.codes[color][term]
 
     def encode_image(self, image_bitmap):
-        """
-        Encodes the full bitmap as a single continuous bitstream.
-        """
         full_bitstream = ""
-        # TODO Implement this function
-        runs = self._get_runs_for_bitmap(image_bitmap)
+        runs = self.get_runs_for_bitmap(image_bitmap)
         print("len runs", len(runs))
-        for run in runs:
-            full_bitstream += self._encode_run(run[1], run[0])
+        for color, length in runs:
+            full_bitstream += self.encode_run(color, length)
         return full_bitstream
 
 
 class ModifiedHuffmanDecoder:
-    """
-    Decodes a T.4 Modified Huffman (MH) bitstream.
-    """
-
     def __init__(self, terminating_codes_path, makeup_codes_path):
-        self.codes = self._build_reverse_lookup(
+        self.codes = self.get_codes(
             terminating_codes_path, makeup_codes_path)
 
-    def _build_reverse_lookup(self, term_path, makeup_path):
-        """Builds inverted dictionaries for mapping CodeWord -> (Type, Length)."""
-        df_term = pd.read_csv(term_path, dtype={'CodeWord': str})
-        df_makeup = pd.read_csv(makeup_path, dtype={'CodeWord': str})
-        codes = {}
-        # TODO Implement this function
-        for (l1, l2), group in df_term.groupby(['RunLength', 'Color']):
+    def get_codes(self, term_path, makeup_path):
+        # build table[color][code] = length
+        try:
+            df_term = pd.read_csv(term_path, dtype={'CodeWord': str})
+            df_makeup = pd.read_csv(makeup_path, dtype={'CodeWord': str})
+        except FileNotFoundError as e:
+            print(f"Error loading code tables: {e}")
+            raise
+        df = pd.concat([df_term, df_makeup])
+        codes = {0: {}, 1: {}}
+        for (l1, l2), group in df.groupby(['RunLength', 'Color']):
+            length = int(l1)
+            color = 0 if l2 == "Black" else 1
             code = group['CodeWord'].iloc[0]
-            codes[code] = (int(l1), l2)
-        for (l1, l2), group in df_makeup.groupby(['RunLength', 'Color']):
-            code = group['CodeWord'].iloc[0]
-            codes[code] = (int(l1), l2)
-        # print(codes)
+            codes[color][code] = length
         return codes
 
     def decode_image(self, bitstream):
         """
-        Decodes a bitstream with EOL markers into a bitmap image.
+        Decodes a bitstream into a bitmap image.
 
         Args:
-            bitstream (str): The compressed bitstream with EOL markers.
+            bitstream (str): compressed bitstream.
 
         Returns:
-            np.array: The decoded image as a 2D NumPy array.
+            np.array: decoded image as a 2D NumPy array.
         """
         EOL = "000000000001"
-        runs = 0
         rows = []
-        # TODO Implement this function
         code = ""
         row = []
-        target_c = 1
+        target_color = 1
+        # iterate over each bit
         for bit in bitstream:
             code += bit
+            # handle EOL
             if code == EOL:
-                # print(len(row))
                 rows.append(row)
                 code = ""
                 row = []
-                target_c = 1
+                target_color = 1
                 continue
-            if code in self.codes:
-                r, c = self.codes[code]
-                if c == "White":
-                    c = 1
-                else:
-                    c = 0
-                if c == target_c:
-                    for _ in range(r):
-                        row.append(c)
-                    code = ""
-                    if r <= 63:
-                        target_c = 1-target_c
-                        runs += 1
-        print("runs", runs)
-        return np.array(rows[1:], dtype=np.uint8)
-
-############################################################
-# --- Utility Functions for Image and Bitstring Handling ---
-############################################################
+            # handle code
+            if code in self.codes[target_color]:
+                length = self.codes[target_color][code]
+                row.extend([target_color]*length)
+                code = ""
+                # terminating code
+                if length <= 63:
+                    target_color = 1-target_color
+        # remove first line which is always empty
+        rows = rows[1:]
+        return np.array(rows, dtype=np.uint8)
 
 
-def bit_array_to_png(bit_array: np.ndarray, output_path: str):
-    """
-    Converts a NumPy bit array back into a black and white PNG image.
-    Args:
-        bit_array: A 2D NumPy array (dtype=uint8) where 0 is black, 1 is white.
-        output_path: The path to save the output PNG file.
-    """
+def save_bit_array_to_png(bit_array: np.ndarray, output_path: str) -> None:
     arr = np.asarray(bit_array, dtype=np.uint8)
     if arr.ndim != 2:
         raise ValueError("bit_array must be a 2-D array")
@@ -195,17 +147,7 @@ def bit_array_to_png(bit_array: np.ndarray, output_path: str):
     img.save(output_path)
 
 
-def png_to_bit_array(image_path: str) -> np.ndarray:
-    """
-    Opens a PNG image and converts it into a NumPy bit array.
-
-    Args:
-        image_path: The file path to the PNG image.
-
-    Returns:
-        A 2D NumPy array with dtype=uint8, where 0 represents
-        black and 1 represents white.
-    """
+def load_png_to_bit_array(image_path: str) -> np.ndarray:
     img = Image.open(image_path)
     bw_img = img.convert('1')
     bool_array = np.array(bw_img)
@@ -213,16 +155,15 @@ def png_to_bit_array(image_path: str) -> np.ndarray:
     return bit_array
 
 
-def save_bitstring_as_txt(bitstring: str, file_path: str) -> int:
+def save_bitstring_to_txt(bitstring: str, txt_path: str) -> None:
     if any(c not in ('0', '1') for c in bitstring):
         raise ValueError("bitstring must contain only '0' and '1'.")
-    with open(file_path, 'w', encoding='utf-8') as f:
+    with open(txt_path, 'w', encoding='utf-8') as f:
         f.write(bitstring)
-    return len(bitstring)
 
 
-def load_bitstring_from_txt(file_path: str) -> str:
-    with open(file_path, 'r', encoding='utf-8-sig') as f:
+def load_txt_to_bitstring(txt_path: str) -> str:
+    with open(txt_path, 'r', encoding='utf-8-sig') as f:
         data = f.read()
     bitstring = ''.join(data.split())
     if any(c not in ('0', '1') for c in bitstring):
@@ -238,37 +179,37 @@ if __name__ == '__main__':
     decoder = ModifiedHuffmanDecoder(TERMINATING_CODES_PATH, MAKEUP_CODES_PATH)
 
     # Decode fax
-    if False:
+    if True:
         FAX_PATH = os.path.join(dir, "fax1.txt")
-        bitstring = load_bitstring_from_txt(FAX_PATH)
+        bitstring = load_txt_to_bitstring(FAX_PATH)
         print("bitstring length:", len(bitstring))
         bit_array = decoder.decode_image(bitstring)
-        bit_array_to_png(bit_array, os.path.join(dir, "fax1.png"))
+        save_bit_array_to_png(bit_array, os.path.join(dir, "fax1.png"))
 
     # Encode images
     if False:
         IMAGE_FILES = ["img1.png", "img2.png", "img3.png"]
         for file in IMAGE_FILES:
             img_path = os.path.join(dir, file)
-            bit_array = png_to_bit_array(img_path)
+            bit_array = load_png_to_bit_array(img_path)
             txt = encoder.encode_image(bit_array)
-            save_bitstring_as_txt(txt, os.path.join(dir, file+".txt"))
+            save_bitstring_to_txt(txt, os.path.join(dir, file+".txt"))
             print(file, ":", len(txt))
 
-    # Testing...
-    if True:
+    # Testing
+    if False:
         IN_PATH = os.path.join(dir, "img1.png")
         TMP_PATH = os.path.join(dir, "tmp.txt")
         OUT_PATH = os.path.join(dir, "img1_ed.png")
 
-        bit_array = png_to_bit_array(IN_PATH)
+        bit_array = load_png_to_bit_array(IN_PATH)
         print("bit array shape", bit_array.shape)
         bitstream = encoder.encode_image(bit_array)
         print("len bitstream", len(bitstream))
-        save_bitstring_as_txt(bitstream, TMP_PATH)
+        save_bitstring_to_txt(bitstream, TMP_PATH)
 
-        bitstring = load_bitstring_from_txt(TMP_PATH)
+        bitstring = load_txt_to_bitstring(TMP_PATH)
         print("len bitstring", len(bitstring))
         bit_array_ed = decoder.decode_image(bitstring)
         print("bit array ed shape", bit_array_ed.shape)
-        bit_array_to_png(bit_array_ed, OUT_PATH)
+        save_bit_array_to_png(bit_array_ed, OUT_PATH)
