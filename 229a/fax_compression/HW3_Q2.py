@@ -198,7 +198,7 @@ if __name__ == '__main__':
             print(file, "|", len(txt), "|", os.path.getsize(img_path))
 
     # Testing
-    if False:
+    if True:
         IN_PATH = os.path.join(dir, "img1.png")
         TMP_PATH = os.path.join(dir, "tmp.txt")
         OUT_PATH = os.path.join(dir, "img1_ed.png")
