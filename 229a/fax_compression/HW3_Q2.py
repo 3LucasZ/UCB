@@ -38,11 +38,13 @@ class ModifiedHuffmanEncoder:
         codes = {}
         # TODO Implement this function
         for (l1, l2), group in df_term.groupby(['RunLength', 'Color']):
+            l1 = int(l1)
             if l1 not in codes:
                 codes[l1] = {}
             codes[l1][l2] = group['CodeWord'].iloc[0]
 
         for (l1, l2), group in df_makeup.groupby(['RunLength', 'Color']):
+            l1 = int(l1)
             if l1 not in codes:
                 codes[l1] = {}
             codes[l1][l2] = group['CodeWord'].iloc[0]
@@ -53,15 +55,20 @@ class ModifiedHuffmanEncoder:
         Computes runs per row of the bitmap.
         The first expected color is White; if the first pixel is Black, emit a 0-length White run.
         """
-        runs = [0]
+        # pairs of <r, c>
+        runs = [[-1, -1]]
         # TODO Implement this function
-        match = 1
-        for pixel in image_bitmap:
-            if pixel == match:
-                runs[-1] += 1
-            else:
-                match = 1-match
-                runs.append(1)
+        for row in image_bitmap:
+            runs.append([0, 1])
+            match = 1
+            for pixel in row:
+                pixel = int(pixel)
+                if pixel == match:
+                    runs[-1][0] += 1
+                else:
+                    match = 1-match
+                    runs.append([1, match])
+            runs.append([-1, -1])
         return runs
 
     def _encode_run(self, color, length):
@@ -73,7 +80,20 @@ class ModifiedHuffmanEncoder:
                 f"Run length {length} exceeds maximum of 1728 + 63.")
         bitstream = ""
         # TODO Implement this function
-        bitstream = self.codes[length][color]
+        # print(length, color)
+        EOL = "000000000001"
+        if length == -1:
+            return EOL
+        if color == 0:
+            color = "Black"
+        else:
+            color = "White"
+        if length < 64:
+            bitstream = self.codes[length][color]
+        else:
+            resid = length % 64
+            length -= resid
+            bitstream = self.codes[length][color] + self.codes[resid][color]
         return bitstream
 
     def encode_image(self, image_bitmap):
@@ -83,8 +103,9 @@ class ModifiedHuffmanEncoder:
         full_bitstream = ""
         # TODO Implement this function
         runs = self._get_runs_for_bitmap(image_bitmap)
+        print("len runs", len(runs))
         for run in runs:
-            full_bitstream += self._encode_run(run)
+            full_bitstream += self._encode_run(run[1], run[0])
         return full_bitstream
 
 
@@ -123,6 +144,7 @@ class ModifiedHuffmanDecoder:
             np.array: The decoded image as a 2D NumPy array.
         """
         EOL = "000000000001"
+        runs = 0
         rows = []
         # TODO Implement this function
         code = ""
@@ -149,6 +171,8 @@ class ModifiedHuffmanDecoder:
                     code = ""
                     if r <= 63:
                         target_c = 1-target_c
+                        runs += 1
+        print("runs", runs)
         return np.array(rows[1:], dtype=np.uint8)
 
 ############################################################
@@ -213,11 +237,38 @@ if __name__ == '__main__':
     encoder = ModifiedHuffmanEncoder(TERMINATING_CODES_PATH, MAKEUP_CODES_PATH)
     decoder = ModifiedHuffmanDecoder(TERMINATING_CODES_PATH, MAKEUP_CODES_PATH)
 
-    FAX_PATH = os.path.join(dir, "fax1.txt")
-    bitstring = load_bitstring_from_txt(FAX_PATH)
-    print("bitstring length:", len(bitstring))
-    bit_array = decoder.decode_image(bitstring)
-    bit_array_to_png(bit_array, os.path.join(dir, "fax1.png"))
+    # Decode fax
+    if False:
+        FAX_PATH = os.path.join(dir, "fax1.txt")
+        bitstring = load_bitstring_from_txt(FAX_PATH)
+        print("bitstring length:", len(bitstring))
+        bit_array = decoder.decode_image(bitstring)
+        bit_array_to_png(bit_array, os.path.join(dir, "fax1.png"))
 
-    IMAGE_PATHS = [os.path.join(dir, file)
-                   for file in ["img1.png", "img2.png", "img3.png"]]
+    # Encode images
+    if False:
+        IMAGE_FILES = ["img1.png", "img2.png", "img3.png"]
+        for file in IMAGE_FILES:
+            img_path = os.path.join(dir, file)
+            bit_array = png_to_bit_array(img_path)
+            txt = encoder.encode_image(bit_array)
+            save_bitstring_as_txt(txt, os.path.join(dir, file+".txt"))
+            print(file, ":", len(txt))
+
+    # Testing...
+    if True:
+        IN_PATH = os.path.join(dir, "img1.png")
+        TMP_PATH = os.path.join(dir, "tmp.txt")
+        OUT_PATH = os.path.join(dir, "img1_ed.png")
+
+        bit_array = png_to_bit_array(IN_PATH)
+        print("bit array shape", bit_array.shape)
+        bitstream = encoder.encode_image(bit_array)
+        print("len bitstream", len(bitstream))
+        save_bitstring_as_txt(bitstream, TMP_PATH)
+
+        bitstring = load_bitstring_from_txt(TMP_PATH)
+        print("len bitstring", len(bitstring))
+        bit_array_ed = decoder.decode_image(bitstring)
+        print("bit array ed shape", bit_array_ed.shape)
+        bit_array_to_png(bit_array_ed, OUT_PATH)
