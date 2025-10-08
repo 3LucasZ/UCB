@@ -72,7 +72,7 @@ class ModifiedHuffmanEncoder:
     def encode_image(self, image_bitmap):
         full_bitstream = ""
         runs = self.get_runs_for_bitmap(image_bitmap)
-        print("len runs", len(runs))
+        # print("len runs", len(runs))
         for color, length in runs:
             full_bitstream += self.encode_run(color, length)
         return full_bitstream
@@ -187,14 +187,15 @@ if __name__ == '__main__':
         save_bit_array_to_png(bit_array, os.path.join(dir, "fax1.png"))
 
     # Encode images
-    if False:
-        IMAGE_FILES = ["img1.png", "img2.png", "img3.png"]
+    if True:
+        IMAGE_FILES = ["img1.png", "img2.png", "img3.png", "fax1.png"]
+        print("image", "|", "compressed", "|", "png")
         for file in IMAGE_FILES:
             img_path = os.path.join(dir, file)
             bit_array = load_png_to_bit_array(img_path)
             txt = encoder.encode_image(bit_array)
             save_bitstring_to_txt(txt, os.path.join(dir, file+".txt"))
-            print(file, ":", len(txt))
+            print(file, "|", len(txt), "|", os.path.getsize(img_path))
 
     # Testing
     if False:
