@@ -41,7 +41,7 @@ def solve(filename):
         Vtk = Vt[:k, :]
         Ak = Uk@Sk@Vtk
         ax.imshow(Ak, cmap='gray')
-        error = np.linalg.norm(A-Ak)/np.linalg.norm(A)
+        error = pow(np.linalg.norm(A-Ak)/np.linalg.norm(A), 2)
         perc = k/len(s)
         ax.set_xlabel(f"Error: {round(error, 4)}")
         ax.set_title(f"% singular values used: {round(perc, 4)}")
