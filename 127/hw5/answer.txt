@@ -1,0 +1,10 @@
+Minimum distance: 12.0000
+by (i) we have that minimum distance > 0 IFF S1 and S2 do not intersect.
+since minimum distance is indeed > 0, this implies that S1 and S2 do not intersect.
+x*: [1. 1. 1.]
+y*: [3. 3. 3.]
+By (ii) we have that a separating hyperplane H can be found that contains the midpoint of x* and y* and has normal vector (y* - x*).
+Separating hyperplane: H = {aTx=b | x}
+a: [2. 2. 2.]
+b: 12.0000
+2.00*x1 + 2.00*x2 + 2.00*x3 = 12.00
