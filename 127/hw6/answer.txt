@@ -1,0 +1,5 @@
+Empirically discovered vertices of the feasible set:
+[0. 0.] occurs with 0.230 empirical probability
+[0. 1.] occurs with 0.260 empirical probability
+[0.8 0.8] occurs with 0.215 empirical probability
+[1. 0.] occurs with 0.295 empirical probability
